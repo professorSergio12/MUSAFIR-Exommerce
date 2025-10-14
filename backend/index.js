@@ -21,14 +21,19 @@ const PORT = process.env.PORT || 4000;
 app.use(cookieParser());
 app.use(express.json());
 
+//test route
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
 //routers
 app.use("/api/auth", authRoutes);
 app.use("/api/packages", packageRoutes);
 app.use("/api/bookings", bookingRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
@@ -40,3 +45,5 @@ app.use((err, req, res, next) => {
     stack: err.stack,
   });
 });
+
+export default app;
