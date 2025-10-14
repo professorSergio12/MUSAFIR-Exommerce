@@ -1,0 +1,180 @@
+import packageModel from "../models/package.model.js";
+import { errorHandler } from "../utils/errorHandler.js";
+import redisClient from "../config/redis.js";
+
+export const getRecommendedPackages = async (req, res, next) => {
+  try {
+    const cachedPackages = await redisClient.get(req.locals.redisKey);
+    if (cachedPackages) {
+      return res.status(200).json(JSON.parse(cachedPackages));
+    }
+    const packages = await packageModel.find({ isRecommended: true });
+    await redisClient.set(req.locals.redisKey, JSON.stringify(packages));
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllPackages = async (req, res, next) => {
+  try {
+    const page = Math.max(parseInt(req.query.page) || 1, 1);
+    const limit = Math.max(parseInt(req.query.limit) || 10, 1);
+    const skip = (page - 1) * limit;
+
+    const [packages, total] = await Promise.all([
+      packageModel
+        .find()
+        .select("name slug basePrice images")
+        .skip(skip)
+        .limit(limit),
+      packageModel.countDocuments(),
+    ]);
+
+    // Shape minimal listing payload
+    const minimalPackages = packages.map((pkg) => ({
+      _id: pkg._id,
+      name: pkg.name,
+      slug: pkg.slug,
+      basePrice: pkg.basePrice,
+      image: pkg.images || null,
+    }));
+
+    res.status(200).json({
+      data: minimalPackages,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit) || 0,
+        hasNextPage: skip + packages.length < total,
+        hasPrevPage: page > 1,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getPackageBySlug = async (req, res, next) => {
+  const { slug } = req.params;
+  try {
+    const packageData = await packageModel
+      .findOne({ slug })
+      .populate("itinerary")
+      .populate("availableHotels")
+      .populate("availableFoodOptions");
+    if (!packageData) {
+      return next(errorHandler(404, "Package not found"));
+    }
+    res.status(200).json(packageData);
+  } catch (error) {
+    next(error);
+  }
+};
+
+//Admin Routes
+export const createPackage = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(errorHandler(401, "Unauthorized"));
+  }
+  console.log(req.body);
+  const {
+    name,
+    description,
+    basePrice,
+    durationDays,
+    isRecommended,
+    bestSeason,
+    images,
+    country,
+    itinerary,
+    availableHotels,
+    availableFoodOptions,
+  } = req.body;
+
+  // Validate required fields
+  if (!name || !basePrice || !durationDays) {
+    return next(
+      errorHandler(400, "Name, basePrice, and durationDays are required")
+    );
+  }
+
+  try {
+    const newPackage = new packageModel({
+      name,
+      description,
+      basePrice,
+      durationDays,
+      isRecommended,
+      bestSeason,
+      images,
+      country,
+      itinerary,
+      availableHotels,
+      availableFoodOptions,
+    });
+    await newPackage.save();
+
+    res.status(201).json({ status: "success", data: newPackage });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+export const updatePackage = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(errorHandler(401, "Unauthorized"));
+  }
+
+  const updateFields = {
+    name: req.body.name,
+    description: req.body.description,
+    basePrice: req.body.basePrice,
+    durationDays: req.body.durationDays,
+    isRecommended: req.body.isRecommended,
+    bestSeason: req.body.bestSeason,
+    images: req.body.images,
+    country: req.body.country,
+    itinerary: req.body.itinerary,
+    availableHotels: req.body.availableHotels,
+    availableFoodOptions: req.body.availableFoodOptions,
+  };
+
+  const updateObject = Object.fromEntries(
+    Object.entries(updateFields).filter(([_, v]) => v !== undefined)
+  );
+
+  try {
+    const updatedPackage = await packageModel.findByIdAndUpdate(
+      req.params.id,
+      updateObject,
+      { new: true, runValidators: true } // new: true returns the updated document
+    );
+
+    if (!updatedPackage) {
+      return next(errorHandler(404, "Package not found"));
+    }
+
+    res.status(200).json({ status: "success", data: updatedPackage });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deletePackage = async (req, res, next) => {
+  if (!req.user.isAdmin) {
+    return next(errorHandler(401, "Unauthorized"));
+  }
+  try {
+    const deletedPackage = await packageModel.findByIdAndDelete(req.params.id);
+
+    if (!deletedPackage) {
+      return next(errorHandler(404, "Package not found"));
+    }
+
+    res.status(204).json(null);
+  } catch (error) {
+    next(error);
+  }
+};
