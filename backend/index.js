@@ -6,7 +6,6 @@ import { connectRedis } from "./config/redis.js";
 import { connectQueue } from "./config/queueConnection.js";
 import authRoutes from "./routers/auth.routes.js";
 import packageRoutes from "./routers/package.routes.js";
-import "./workers/email.worker.js";
 import bookingRoutes from "./routers/bookings.routes.js";
 
 // Configure dotenv
