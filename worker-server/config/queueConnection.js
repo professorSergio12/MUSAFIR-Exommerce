@@ -9,8 +9,4 @@ const queueConnection = new IORedis(process.env.REDIS_URL, {
 
 queueConnection.on("error", (err) => console.log("Redis Client Error", err));
 
-export const connectQueue = async () => {
-  return queueConnection;
-};
-
 export default queueConnection;

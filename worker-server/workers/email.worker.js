@@ -20,13 +20,16 @@ export const emailWorker = new Worker(
       from: process.env.EMAIL_USER,
       to: email,
       subject: "Welcome to MUSAFIR",
-      html: html || `<p>Hello <strong>${name}</strong>! Successfully signup ✅</p>`,
+      html:
+        html || `<p>Hello <strong>${name}</strong>! Successfully signup ✅</p>`,
     });
   },
   { connection: queueConnection }
 );
 
-export const emailQueueEvents = new QueueEvents("email-queue", { connection: queueConnection });
+export const emailQueueEvents = new QueueEvents("email-queue", {
+  connection: queueConnection,
+});
 
 emailWorker.on("completed", (job) => {
   console.log(`Email job completed: ${job.id}`);
@@ -39,5 +42,3 @@ emailWorker.on("failed", (job, err) => {
 emailQueueEvents.on("failed", ({ jobId, failedReason }) => {
   console.error(`Email job event failed: ${jobId} reason: ${failedReason}`);
 });
-
-

@@ -27,7 +27,9 @@ export const otpWorker = new Worker(
 );
 
 // Queue event listeners
-const queueEvents = new QueueEvents("otp-queue", { connection: queueConnection });
+const queueEvents = new QueueEvents("otp-queue", {
+  connection: queueConnection,
+});
 
 queueEvents.on("completed", ({ jobId }) => {
   console.log(`Job ${jobId} completed`);
