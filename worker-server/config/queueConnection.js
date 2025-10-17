@@ -8,10 +8,10 @@ const queueConnection = new IORedis(process.env.REDIS_URL, {
 });
 
 queueConnection.on("connect", () => {
-  console.log("✅ Connected to Redis from Worker");
+  console.log("Connected to Redis from Worker");
 });
 
 queueConnection.on("error", (err) => {
-  console.error("❌ Redis Connection Error:", err);
+  console.error("Redis Connection Error:", err);
 });
 export default queueConnection;

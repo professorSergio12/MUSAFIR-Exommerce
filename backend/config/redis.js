@@ -12,7 +12,6 @@ redisClient.on("error", (err) => console.log("Redis Client Error", err));
 redisClient.on("connect", () => console.log("Redis connected successfully."));
 
 export const connectRedis = async () => {
-  // ioredis connects automatically, no need for manual connect
   return redisClient;
 };
 

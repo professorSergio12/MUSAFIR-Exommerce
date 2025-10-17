@@ -2,14 +2,15 @@ export function welcomeEmailHtml(name) {
   return `
   <!-- Main Container -->
   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; background: #f8f9fa;">
-    <div style="text-align: center; margin-bottom: 30px;">
-      <img src="https://res.cloudinary.com/dpu6rveug/image/upload/v1759556628/Screenshot_2025-10-04_110008_k8xzcm.png"
-           alt="Travel Destination"
-           style="width: 100%; max-width: 600px; height: 350px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
-    </div>
+   
     <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 20px;">
       <h1 style="margin: 0; font-size: 28px; font-weight: bold;">Welcome to Musafir Tour & Travel! 🌍</h1>
       <p style="margin: 10px 0 0 0; font-size: 16px; opacity: 0.9;">Your journey of a thousand miles begins with a single step</p>
+    </div>
+     <div style="text-align: center; margin-bottom: 30px;">
+      <img src="https://res.cloudinary.com/dpu6rveug/image/upload/v1759556628/Screenshot_2025-10-04_110008_k8xzcm.png"
+           alt="Travel Destination"
+           style="width: 100%; max-width: 600px; height: 350px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);" />
     </div>
     <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
       <p style="font-size: 18px; color: #333; margin-bottom: 20px; text-align: center;">
@@ -34,6 +35,3 @@ export function welcomeEmailHtml(name) {
     </div>
   </div>`;
 }
-
-
-

@@ -8,11 +8,32 @@ import User from "../models/auth.model.js";
 import { errorHandler } from "../utils/errorHandler.js";
 import jwt from "jsonwebtoken";
 import redisClient from "../config/redis.js";
+import { z } from "zod";
+
+const signupSchema = z.object({
+  username: z
+    .string()
+    .min(3)
+    .max(20, "Username must be between 3 and 20 characters"),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters long"),
+  country: z
+    .string()
+    .min(3)
+    .max(20, "Country must be between 3 and 20 characters"),
+  phone: z.string().min(10).max(10, "Phone number must be 10 digits"),
+});
+
+const signinSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8),
+});
 
 export const signup = async (req, res, next) => {
   const { username, email, password, country, phone } = req.body;
-  if (!username || !email || !password || !country || !phone) {
-    return next(errorHandler(400, "All fields are required"));
+  const { error } = signupSchema.safeParse(req.body);
+  if (error) {
+    return next(errorHandler(400, error.message));
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
@@ -35,9 +56,11 @@ export const signup = async (req, res, next) => {
 
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    return next(errorHandler(400, "All fields are required"));
+  const { error } = signinSchema.safeParse(req.body);
+  if (error) {
+    return next(errorHandler(400, error.message));
   }
+
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -54,8 +77,7 @@ export const signin = async (req, res, next) => {
         expiresIn: "1d",
       }
     );
-    const rest = { ...user._doc };
-    delete rest.password;
+    const { password: pwd, ...rest } = user._doc;
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)

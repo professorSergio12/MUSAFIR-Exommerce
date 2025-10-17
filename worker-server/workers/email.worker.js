@@ -21,7 +21,7 @@ export const emailWorker = new Worker(
       to: email,
       subject: "Welcome to MUSAFIR",
       html:
-        html || `<p>Hello <strong>${name}</strong>! Successfully signup ✅</p>`,
+        html || `<p>Hello <strong>${name}</strong>! Successfully signup</p>`,
     });
   },
   { connection: queueConnection }
