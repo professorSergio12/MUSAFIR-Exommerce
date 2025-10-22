@@ -7,7 +7,7 @@ import { connectQueue } from "./config/queueConnection.js";
 import authRoutes from "./routers/auth.routes.js";
 import packageRoutes from "./routers/package.routes.js";
 import bookingRoutes from "./routers/bookings.routes.js";
-
+import cors from "cors";
 // Configure dotenv
 dotenv.config({ path: "./.env" });
 
@@ -22,7 +22,10 @@ const PORT = process.env.PORT || 4000;
 
 app.use(cookieParser());
 app.use(express.json());
-
+app.use(cors({
+  origin: ["http://localhost:5173"],
+  credentials: true,
+}));
 //test route
 app.get("/", (req, res) => {
   res.send("Hello World");

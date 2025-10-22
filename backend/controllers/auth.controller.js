@@ -87,6 +87,37 @@ export const signin = async (req, res, next) => {
   }
 };
 
+export const googleAuth = async (req, res, next) => {
+  const { email, name, picture } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return next(errorHandler(404, "User not found"));
+    }
+    const newUser = new User({
+      username: name,
+      email,
+      profilePicture: picture,
+    });
+
+    await newUser.save();
+    const { password: pwd, ...rest } = newUser._doc;
+    const token = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
+    res
+      .cookie("access_token", token, { httpOnly: true })
+      .status(200)
+      .json(rest);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const forgotPassword = async (req, res, next) => {
   const { email } = req.body;
   if (!email) {

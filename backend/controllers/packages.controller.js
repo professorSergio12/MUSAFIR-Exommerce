@@ -10,6 +10,7 @@ export const getRecommendedPackages = async (req, res, next) => {
     }
     const packages = await packageModel.find({ isRecommended: true });
     await redisClient.set(req.locals.redisKey, JSON.stringify(packages));
+    res.status(200).json(packages);
   } catch (error) {
     next(error);
   }
