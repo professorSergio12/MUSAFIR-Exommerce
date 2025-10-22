@@ -4,15 +4,16 @@ export const cachePublicList = (keyPrefix) => async (req, res, next) => {
   try {
     const key = `${keyPrefix}:${JSON.stringify(req.query)}`;
 
-    const cachehedData = await redisClient.get(key);
-    console.log(`Cache HIT for key: ${key}`);
-    if (cachehedData) {
-      return res.status(200).json(JSON.parse(cachehedData));
+    const cachedData = await redisClient.get(key);
+    if (cachedData) {
+      console.log(`✅ Cache HIT for key: ${key}`);
+      return res.status(200).json(JSON.parse(cachedData));
     }
+
     res.locals.redisKey = key;
     next();
   } catch (error) {
-    console.error("Redis caching error:", error);
+    console.error("❌ Redis caching error:", error);
     next();
   }
 };

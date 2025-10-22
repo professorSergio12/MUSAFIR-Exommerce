@@ -4,13 +4,21 @@ import redisClient from "../config/redis.js";
 
 export const getRecommendedPackages = async (req, res, next) => {
   try {
-    const cachedPackages = await redisClient.get(req.locals.redisKey);
+    const cacheKey = res.locals.redisKey;
+    const cachedPackages = await redisClient.get(cacheKey);
+
     if (cachedPackages) {
+      console.log("✅ Cache HIT — returning cached packages");
       return res.status(200).json(JSON.parse(cachedPackages));
     }
+
+    console.log("🧠 Cache MISS — fetching from DB...");
     const packages = await packageModel.find({ isRecommended: true });
-    await redisClient.set(req.locals.redisKey, JSON.stringify(packages));
-    res.status(200).json(packages);
+
+    await redisClient.set(cacheKey, JSON.stringify(packages), "EX", 3600);
+    console.log(`💾 Cached packages under key: ${cacheKey}`);
+
+    return res.status(200).json(packages);
   } catch (error) {
     next(error);
   }
