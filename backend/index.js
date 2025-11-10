@@ -7,6 +7,8 @@ import { connectQueue } from "./config/queueConnection.js";
 import authRoutes from "./routers/auth.routes.js";
 import packageRoutes from "./routers/package.routes.js";
 import bookingRoutes from "./routers/bookings.routes.js";
+import reviewRoutes from "./routers/reviews.routes.js";
+import paymentRoutes from "./routers/payment.routes.js";
 import cors from "cors";
 // Configure dotenv
 dotenv.config({ path: "./.env" });
@@ -23,7 +25,7 @@ const PORT = process.env.PORT || 4000;
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
-  origin: ["http://localhost:5173"],
+  origin: "http://localhost:5173",
   credentials: true,
 }));
 //test route
@@ -35,6 +37,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/packages", packageRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/payment", paymentRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

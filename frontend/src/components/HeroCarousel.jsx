@@ -5,11 +5,11 @@ const HeroCarousel = () => {
   const videoRefs = useRef([]);
 
   const videos = [
-    "/assets/vid-1.mp4",
-    "/assets/vid-2.mp4",
-    "/assets/vid-3.mp4",
-    "/assets/vid-4.mp4",
-    "/assets/vid-5.mp4",
+    "https://res.cloudinary.com/dpu6rveug/video/upload/v1759597912/vid-1_brcvva.mp4",
+    "https://res.cloudinary.com/dpu6rveug/video/upload/v1759597912/vid-2_toi6sm.mp4",
+    "https://res.cloudinary.com/dpu6rveug/video/upload/v1759597921/vid-3_ufopzd.mp4",
+    "https://res.cloudinary.com/dpu6rveug/video/upload/v1759597929/vid-4_pns6kz.mp4",
+    "https://res.cloudinary.com/dpu6rveug/video/upload/v1759597906/vid-5_mlvqi7.mp4",
   ];
 
   // Go to next or previous video

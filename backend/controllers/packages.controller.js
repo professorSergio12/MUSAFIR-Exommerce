@@ -1,6 +1,9 @@
 import packageModel from "../models/package.model.js";
 import { errorHandler } from "../utils/errorHandler.js";
 import redisClient from "../config/redis.js";
+import "../models/location.model.js";
+import "../models/hotel.model.js";
+import "../models/foodOption.model.js";
 
 export const getRecommendedPackages = async (req, res, next) => {
   try {
@@ -8,15 +11,15 @@ export const getRecommendedPackages = async (req, res, next) => {
     const cachedPackages = await redisClient.get(cacheKey);
 
     if (cachedPackages) {
-      console.log("✅ Cache HIT — returning cached packages");
+      console.log("Cache HIT — returning cached packages");
       return res.status(200).json(JSON.parse(cachedPackages));
     }
 
-    console.log("🧠 Cache MISS — fetching from DB...");
+    console.log("Cache MISS — fetching from DB...");
     const packages = await packageModel.find({ isRecommended: true });
 
-    await redisClient.set(cacheKey, JSON.stringify(packages), "EX", 3600);
-    console.log(`💾 Cached packages under key: ${cacheKey}`);
+    await redisClient.set(cacheKey, JSON.stringify(packages), "EX", 10);
+    console.log(`Cached packages under key: ${cacheKey}`);
 
     return res.status(200).json(packages);
   } catch (error) {
@@ -33,7 +36,7 @@ export const getAllPackages = async (req, res, next) => {
     const [packages, total] = await Promise.all([
       packageModel
         .find()
-        .select("name slug basePrice images")
+        .select("name slug basePrice images description durationDays country isRecommended bestSeason")
         .skip(skip)
         .limit(limit),
       packageModel.countDocuments(),
@@ -46,6 +49,11 @@ export const getAllPackages = async (req, res, next) => {
       slug: pkg.slug,
       basePrice: pkg.basePrice,
       image: pkg.images || null,
+      description: pkg.description,
+      durationDays: pkg.durationDays,
+      country: pkg.country,
+      isRecommended: pkg.isRecommended,
+      bestSeason: pkg.bestSeason,
     }));
 
     res.status(200).json({
@@ -67,16 +75,34 @@ export const getAllPackages = async (req, res, next) => {
 export const getPackageBySlug = async (req, res, next) => {
   const { slug } = req.params;
   try {
+    if (!slug) {
+      return next(errorHandler(400, "Slug is required"));
+    }
+
     const packageData = await packageModel
       .findOne({ slug })
-      .populate("itinerary")
-      .populate("availableHotels")
-      .populate("availableFoodOptions");
+      .populate({
+        path: "itinerary",
+        select: "-__v",
+        strictPopulate: false,
+      })
+      .populate({
+        path: "availableHotels",
+        select: "-__v",
+        strictPopulate: false,
+      })
+      .populate({
+        path: "availableFoodOptions",
+        select: "-__v",
+        strictPopulate: false,
+      });
+
     if (!packageData) {
       return next(errorHandler(404, "Package not found"));
     }
     res.status(200).json(packageData);
   } catch (error) {
+    console.error("Error fetching package by slug:", error);
     next(error);
   }
 };
@@ -124,6 +150,12 @@ export const createPackage = async (req, res, next) => {
     });
     await newPackage.save();
 
+    // Clear recommended packages cache if this package is recommended
+    if (isRecommended) {
+      await redisClient.del("recommended_packages");
+      console.log("🗑️ Cleared recommended packages cache");
+    }
+
     res.status(201).json({ status: "success", data: newPackage });
   } catch (error) {
     console.log(error);
@@ -163,6 +195,12 @@ export const updatePackage = async (req, res, next) => {
 
     if (!updatedPackage) {
       return next(errorHandler(404, "Package not found"));
+    }
+
+    // Clear recommended packages cache if isRecommended field was updated
+    if (req.body.isRecommended !== undefined) {
+      await redisClient.del("recommended_packages");
+      console.log("🗑️ Cleared recommended packages cache");
     }
 
     res.status(200).json({ status: "success", data: updatedPackage });
