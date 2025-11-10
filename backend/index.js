@@ -25,7 +25,8 @@ const PORT = process.env.PORT || 4000;
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: ["http://localhost:5173",
+  "https://musafir-exommerce-uj95.vercel.app/"],
   credentials: true,
 }));
 //test route
