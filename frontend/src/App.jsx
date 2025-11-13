@@ -7,7 +7,7 @@ import PackageDetails from "./pages/PackageDetails";
 import Services from "./components/Services";
 import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./features/Footer";
-import SignUp from "./pages/signup";
+import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import ForgotPassword from "./components/ForgetPassword";
 import VerifyOTP from "./components/VerifyOtp";
