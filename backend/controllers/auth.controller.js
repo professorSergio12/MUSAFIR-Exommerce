@@ -169,3 +169,10 @@ export const resetPassword = async (req, res, next) => {
     next(error);
   }
 };
+
+export const logout = async (req, res, next) => {
+  res
+    .clearCookie("access_token")
+    .status(200)
+    .json({ message: "Logged out successfully" });
+};

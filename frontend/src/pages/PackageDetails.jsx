@@ -16,6 +16,7 @@ const PackageDetails = () => {
   const { mutate: createOrder, isPending: isCreatingOrder } = useCreateOrder();
   const { mutate: verifyPayment, isPending: isVerifyingPayment } =
     useVerifyPayment();
+
   // Calculate total price based on selections
   useEffect(() => {
     if (packageData) {
@@ -107,7 +108,6 @@ const PackageDetails = () => {
     }
 
     try {
-      // 1️⃣ Create an order from your backend
       const orderResponse = await new Promise((resolve, reject) => {
         createOrder(
           { amount: calculatedPrice },
@@ -118,14 +118,13 @@ const PackageDetails = () => {
         );
       });
 
-      if (!orderResponse || !orderResponse.orderId) {
+      if (!orderResponse?.orderId) {
         alert("Failed to create order. Please try again.");
         return;
       }
 
       const { orderId, amount, currency } = orderResponse;
 
-      // 2️⃣ Configure Razorpay checkout
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: amount.toString(),
@@ -172,7 +171,6 @@ const PackageDetails = () => {
         },
       };
 
-      // Open Razorpay modal
       const razorpay = new window.Razorpay(options);
       razorpay.open();
 
@@ -631,13 +629,24 @@ const PackageDetails = () => {
               )}
 
               <div className="border-t pt-4">
-                <button
-                  onClick={handleBookNow}
-                  disabled={isCreatingOrder}
-                  className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-300"
-                >
-                  {isCreatingOrder ? "Processing..." : `Book This Package - ₹${calculatedPrice.toLocaleString()}`}
-                </button>
+                {user == null ? (
+                  <button
+                    onClick={() => navigate("/signin")}
+                    className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors duration-300"
+                  >
+                    Sign In to Book
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleBookNow}
+                    disabled={isCreatingOrder}
+                    className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-300"
+                  >
+                    {isCreatingOrder
+                      ? "Processing..."
+                      : `Book This Package - ₹${calculatedPrice.toLocaleString()}`}
+                  </button>
+                )}
                 <button
                   onClick={() => navigate("/all-packages")}
                   className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors duration-300"
