@@ -29,6 +29,11 @@ const signinSchema = z.object({
   password: z.string().min(8),
 });
 
+const resetPasswordSchema = z.object({
+  password: z.string().min(8),
+  confirmPassword: z.string().min(8),
+});
+
 export const signup = async (req, res, next) => {
   const { username, email, password, country, phone } = req.body;
   const { error } = signupSchema.safeParse(req.body);
@@ -129,6 +134,7 @@ export const forgotPassword = async (req, res, next) => {
       return next(errorHandler(404, "User not found"));
     }
     const otp = Math.floor(100000 + Math.random() * 900000);
+    // console.log(otp);
     await enqueueResetPasswordEmail(email, user.username, otp);
 
     redisClient.set(`otp${email}`, otp, "EX", 60 * 5);
@@ -152,8 +158,9 @@ export const verifyOTP = async (req, res, next) => {
 
 export const resetPassword = async (req, res, next) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    return next(errorHandler(400, "All fields are required"));
+  const { error } = resetPasswordSchema.safeParse(req.body);
+  if (error) {
+    return next(errorHandler(400, error.message));
   }
   try {
     const user = await User.findOne({ email });

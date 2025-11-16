@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import instance from "../config/payment.config.js";
-import Booking from "../models/booking.model.js"; 
+import Booking from "../models/booking.model.js";
 import { errorHandler } from "../utils/errorHandler.js";
 
 export const createOrder = async (req, res, next) => {
@@ -11,8 +11,8 @@ export const createOrder = async (req, res, next) => {
     }
 
     const order = await instance.orders.create({
-      amount: amount * 100, 
-      currency: "INR", 
+      amount: amount * 100,
+      currency: "INR",
       receipt: `receipt_${Date.now()}`,
     });
 
@@ -30,7 +30,13 @@ export const createOrder = async (req, res, next) => {
 
 export const verifyPayment = async (req, res, next) => {
   try {
-    const { razorpay_payment_id, razorpay_order_id, razorpay_signature, amount, packageId } = req.body;
+    const {
+      razorpay_payment_id,
+      razorpay_order_id,
+      razorpay_signature,
+      amount,
+      packageId,
+    } = req.body;
 
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
       return next(errorHandler(400, "Missing payment details"));
@@ -44,23 +50,21 @@ export const verifyPayment = async (req, res, next) => {
       return next(errorHandler(400, "Invalid amount"));
     }
 
-    // 1️⃣ Create HMAC SHA256 signature
+    // Create HMAC SHA256 signature
     const sign = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSign = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
       .update(sign)
       .digest("hex");
 
-    // 2️⃣ Verify
     if (razorpay_signature !== expectedSign) {
       return next(errorHandler(400, "Invalid payment signature"));
     }
 
-    // 3️⃣ Save booking record
     const booking = await Booking.create({
       packageId,
       amount,
-      user: req.user?._id || null, // if you have auth middleware
+      user: req.user?._id || null,
       paymentId: razorpay_payment_id,
       orderId: razorpay_order_id,
       status: "Confirmed",

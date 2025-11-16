@@ -45,14 +45,14 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 p-4">
-      <div className="w-full max-w-7xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[600px]">
+    <div className="flex items-center justify-center py-20 md:py-24 px-4 min-h-[calc(100vh-200px)]">
+      <div className="w-full max-w-7xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         {/* Left Side */}
         <div
-          className="md:w-1/2 relative bg-cover bg-center min-h-[600px]"
+          className="md:w-1/2 relative bg-cover bg-center min-h-[250px] md:min-h-[600px]"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80')",
+              "url('https://res.cloudinary.com/dpu6rveug/image/upload/v1763202115/forgetpass-img_tvrozk.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-blue-900/80 to-blue-900/60 flex flex-col justify-center items-center p-8 text-center">
@@ -69,7 +69,7 @@ export default function ForgotPassword() {
         </div>
 
         {/* Right Side */}
-        <div className="md:w-1/2 p-8 md:p-12 bg-white flex items-center min-h-[600px]">
+        <div className="md:w-1/2 p-6 md:p-8 lg:p-10 bg-white flex items-center min-h-[250px] md:min-h-[600px]">
           <div className="max-w-md mx-auto w-full">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-black mb-2 tracking-wide">

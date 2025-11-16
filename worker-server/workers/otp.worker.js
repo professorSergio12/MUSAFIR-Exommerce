@@ -16,6 +16,7 @@ export const otpWorker = new Worker(
   "otp-queue",
   async (job) => {
     const { email, name, otp } = job.data;
+    console.log(email, name, otp);
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: email,

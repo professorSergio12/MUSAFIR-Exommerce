@@ -11,6 +11,8 @@
   "devDependencies": {},
   "type":"module",
   "scripts": {
+    "start": "node --watch workers/email.worker.js",
+    "dev": "node --watch workers/otp.worker.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

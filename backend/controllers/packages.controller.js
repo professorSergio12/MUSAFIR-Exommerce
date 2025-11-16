@@ -190,17 +190,16 @@ export const updatePackage = async (req, res, next) => {
     const updatedPackage = await packageModel.findByIdAndUpdate(
       req.params.id,
       updateObject,
-      { new: true, runValidators: true } // new: true returns the updated document
+      { new: true, runValidators: true } 
     );
 
     if (!updatedPackage) {
       return next(errorHandler(404, "Package not found"));
     }
 
-    // Clear recommended packages cache if isRecommended field was updated
     if (req.body.isRecommended !== undefined) {
       await redisClient.del("recommended_packages");
-      console.log("🗑️ Cleared recommended packages cache");
+      console.log("Cleared recommended packages cache");
     }
 
     res.status(200).json({ status: "success", data: updatedPackage });

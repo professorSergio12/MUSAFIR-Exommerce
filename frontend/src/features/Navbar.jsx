@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useLogout } from "../hooks/useAuth";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { mutate: logout } = useLogout();
+  const { currentUser } = useSelector((state) => state.user);
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Packages", href: "/all-packages" },
@@ -39,12 +42,23 @@ const Navbar = () => {
             ))}
 
             {/* Sign In Button */}
-            <Link
-              to="/signin"
-              className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300 hover:scale-105 transform"
-            >
-              Sign In
-            </Link>
+            {
+              currentUser ? (
+                <Link
+                  to="/signin"
+                  className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300 hover:scale-105 transform"
+                >
+                  Sign In
+                </Link>
+              ) : (
+                <button
+                  onClick={handleLogout}
+                  className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300 hover:scale-105 transform"
+                >
+                  Log Out
+                </button>
+              )
+            }
           </div>
 
           {/* Mobile menu button */}

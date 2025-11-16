@@ -1,7 +1,6 @@
 import PackageReviews from "../models/packageReviews.model.js";
 import { errorHandler } from "../utils/errorHandler.js";
 
-// Create a new review
 export const createReview = async (req, res, next) => {
   try {
     const {
@@ -10,13 +9,12 @@ export const createReview = async (req, res, next) => {
       rating,
       title,
       review,
-      images
+      images,
     } = req.body;
 
-    // Check if user already reviewed this package
     const existingReview = await PackageReviews.findOne({
       user: req.user.id,
-      package: packageId
+      package: packageId,
     });
 
     if (existingReview) {
@@ -30,21 +28,20 @@ export const createReview = async (req, res, next) => {
       rating,
       title,
       review,
-      images
+      images,
     });
 
     await newReview.save();
 
-    // Populate the review with user and package details
     await newReview.populate([
-      { path: 'user', select: 'name email avatar' },
-      { path: 'package', select: 'name images' }
+      { path: "user", select: "name email avatar" },
+      { path: "package", select: "name images" },
     ]);
 
     res.status(201).json({
       success: true,
       message: "Review submitted successfully",
-      data: newReview
+      data: newReview,
     });
   } catch (error) {
     next(error);
@@ -55,33 +52,35 @@ export const createReview = async (req, res, next) => {
 export const getPackageReviews = async (req, res, next) => {
   try {
     const { packageId } = req.params;
-    const { page = 1, limit = 10, rating, sortBy = 'createdAt', sortOrder = 'desc' } = req.query;
+    const {
+      page = 1,
+      limit = 10,
+      rating,
+      sortBy = "createdAt",
+      sortOrder = "desc",
+    } = req.query;
 
     const skip = (Number.parseInt(page) - 1) * Number.parseInt(limit);
-    
-    // Build filter object
-    const filter = { 
-      package: packageId
+
+    const filter = {
+      package: packageId,
     };
-    
+
     if (rating) {
       filter.rating = Number.parseInt(rating);
     }
 
-    // Build sort object
     const sort = {};
-    sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+    sort[sortBy] = sortOrder === "desc" ? -1 : 1;
 
     const reviews = await PackageReviews.find(filter)
-      .populate('user', 'name avatar')
-      .populate('package', 'name')
+      .populate("user", "name avatar")
+      .populate("package", "name")
       .sort(sort)
       .skip(skip)
       .limit(Number.parseInt(limit));
 
     const totalReviews = await PackageReviews.countDocuments(filter);
-
-    // Get average rating
     const averageRating = await PackageReviews.getAverageRating(packageId);
 
     res.status(200).json({
@@ -93,10 +92,10 @@ export const getPackageReviews = async (req, res, next) => {
           totalPages: Math.ceil(totalReviews / Number.parseInt(limit)),
           totalReviews,
           hasNextPage: skip + reviews.length < totalReviews,
-          hasPrevPage: Number.parseInt(page) > 1
+          hasPrevPage: Number.parseInt(page) > 1,
         },
-        averageRating
-      }
+        averageRating,
+      },
     });
   } catch (error) {
     next(error);
@@ -110,12 +109,14 @@ export const getUserReviews = async (req, res, next) => {
     const skip = (Number.parseInt(page) - 1) * Number.parseInt(limit);
 
     const reviews = await PackageReviews.find({ user: req.user.id })
-      .populate('package', 'name images')
+      .populate("package", "name images")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(Number.parseInt(limit));
 
-    const totalReviews = await PackageReviews.countDocuments({ user: req.user.id });
+    const totalReviews = await PackageReviews.countDocuments({
+      user: req.user.id,
+    });
 
     res.status(200).json({
       success: true,
@@ -126,9 +127,9 @@ export const getUserReviews = async (req, res, next) => {
           totalPages: Math.ceil(totalReviews / Number.parseInt(limit)),
           totalReviews,
           hasNextPage: skip + reviews.length < totalReviews,
-          hasPrevPage: Number.parseInt(page) > 1
-        }
-      }
+          hasPrevPage: Number.parseInt(page) > 1,
+        },
+      },
     });
   } catch (error) {
     next(error);
@@ -139,22 +140,16 @@ export const getUserReviews = async (req, res, next) => {
 export const updateReview = async (req, res, next) => {
   try {
     const { reviewId } = req.params;
-    const {
-      rating,
-      title,
-      review,
-      images
-    } = req.body;
+    const { rating, title, review, images } = req.body;
 
     const existingReview = await PackageReviews.findOne({
       _id: reviewId,
-      user: req.user.id
+      user: req.user.id,
     });
 
     if (!existingReview) {
       return next(errorHandler(404, "Review not found"));
     }
-
 
     const updatedReview = await PackageReviews.findByIdAndUpdate(
       reviewId,
@@ -163,18 +158,18 @@ export const updateReview = async (req, res, next) => {
         title,
         review,
         images,
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       { new: true, runValidators: true }
     ).populate([
-      { path: 'user', select: 'name email avatar' },
-      { path: 'package', select: 'name images' }
+      { path: "user", select: "name email avatar" },
+      { path: "package", select: "name images" },
     ]);
 
     res.status(200).json({
       success: true,
       message: "Review updated successfully",
-      data: updatedReview
+      data: updatedReview,
     });
   } catch (error) {
     next(error);
@@ -188,7 +183,7 @@ export const deleteReview = async (req, res, next) => {
 
     const existingReview = await PackageReviews.findOne({
       _id: reviewId,
-      user: req.user.id
+      user: req.user.id,
     });
 
     if (!existingReview) {
@@ -199,7 +194,7 @@ export const deleteReview = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: "Review deleted successfully"
+      message: "Review deleted successfully",
     });
   } catch (error) {
     next(error);
@@ -227,7 +222,9 @@ export const voteHelpful = async (req, res, next) => {
     } else if (!isHelpful && hasVoted) {
       // Remove helpful vote
       review.helpfulVotes = Math.max(0, review.helpfulVotes - 1);
-      review.votedBy = review.votedBy.filter(id => id.toString() !== userId.toString());
+      review.votedBy = review.votedBy.filter(
+        (id) => id.toString() !== userId.toString()
+      );
     }
 
     await review.save();
@@ -237,8 +234,8 @@ export const voteHelpful = async (req, res, next) => {
       message: "Vote updated successfully",
       data: {
         helpfulVotes: review.helpfulVotes,
-        hasVoted: review.votedBy.includes(userId)
-      }
+        hasVoted: review.votedBy.includes(userId),
+      },
     });
   } catch (error) {
     next(error);
@@ -257,19 +254,19 @@ export const getReviewStats = async (req, res, next) => {
         $group: {
           _id: null,
           totalReviews: { $sum: 1 },
-          averageRating: { $avg: '$rating' }
-        }
-      }
+          averageRating: { $avg: "$rating" },
+        },
+      },
     ]);
 
     const ratingDistribution = await PackageReviews.aggregate([
       {
         $group: {
-          _id: '$rating',
-          count: { $sum: 1 }
-        }
+          _id: "$rating",
+          count: { $sum: 1 },
+        },
       },
-      { $sort: { _id: 1 } }
+      { $sort: { _id: 1 } },
     ]);
 
     res.status(200).json({
@@ -277,10 +274,10 @@ export const getReviewStats = async (req, res, next) => {
       data: {
         stats: stats[0] || {
           totalReviews: 0,
-          averageRating: 0
+          averageRating: 0,
         },
-        ratingDistribution
-      }
+        ratingDistribution,
+      },
     });
   } catch (error) {
     next(error);
