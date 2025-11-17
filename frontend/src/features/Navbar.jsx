@@ -15,7 +15,10 @@ const Navbar = () => {
     { name: "Contact Us", href: "/contact" },
     { name: "About Us", href: "/about" },
   ];
-
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
   return (
     <nav className="bg-white/98 backdrop-blur-md shadow-2xl sticky top-0 z-50 border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -42,23 +45,21 @@ const Navbar = () => {
             ))}
 
             {/* Sign In Button */}
-            {
-              currentUser ? (
-                <Link
-                  to="/signin"
-                  className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300 hover:scale-105 transform"
-                >
-                  Sign In
-                </Link>
-              ) : (
-                <button
-                  onClick={handleLogout}
-                  className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300 hover:scale-105 transform"
-                >
-                  Log Out
-                </button>
-              )
-            }
+            {!currentUser ? (
+              <Link
+                to="/signin"
+                className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300 hover:scale-105 transform"
+              >
+                Sign In
+              </Link>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-2 rounded-lg transition-colors duration-300 hover:scale-105 transform"
+              >
+                Log Out
+              </button>
+            )}
           </div>
 
           {/* Mobile menu button */}
