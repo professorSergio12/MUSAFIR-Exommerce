@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSignin } from "../hooks/useAuth";
 import { useNavigate, Link } from "react-router-dom";
-
+import OAuth from "../components/OAuth";
 const SignIn = () => {
   const navigate = useNavigate();
   const { mutate: signin, isPending, error } = useSignin();
@@ -50,172 +50,169 @@ const SignIn = () => {
       <div className="w-full max-w-7xl flex flex-col lg:flex-row overflow-hidden rounded-2xl shadow-2xl min-h-[calc(100vh-200px)]">
         {/* Left Side */}
         <div className="w-full lg:w-1/2 relative bg-cover bg-center overflow-hidden min-h-[300px] lg:min-h-[calc(100vh-200px)] rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://res.cloudinary.com/dpu6rveug/image/upload/v1763201820/singin-img_x3ddcp.jpg')",
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/40 to-blue-900/60"></div>
-        </div>
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "url('https://res.cloudinary.com/dpu6rveug/image/upload/v1763201820/singin-img_x3ddcp.jpg')",
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-900/40 to-blue-900/60"></div>
+          </div>
 
-        <div className="relative z-10 flex flex-col justify-center p-6 md:p-8 lg:p-12 text-white h-full">
-          <div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-center" style={{ fontFamily: 'cursive' }}>
-              MUSAFIR
-            </h1>
-            <p className="text-base md:text-lg lg:text-xl text-white/90 max-w-md leading-relaxed text-center">
-              Travel is the only purchase that enriches you in ways beyond material wealth.
-            </p>
+          <div className="relative z-10 flex flex-col justify-center p-6 md:p-8 lg:p-12 text-white h-full">
+            <div>
+              <h1
+                className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-center"
+                style={{ fontFamily: "cursive" }}
+              >
+                MUSAFIR
+              </h1>
+              <p className="text-base md:text-lg lg:text-xl text-white/90 max-w-md leading-relaxed text-center">
+                Travel is the only purchase that enriches you in ways beyond
+                material wealth.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
         {/* Right Side */}
         <div className="w-full lg:w-1/2 bg-white flex items-center justify-center p-6 md:p-8 lg:p-12 relative min-h-[calc(100vh-200px)] rounded-b-2xl lg:rounded-r-2xl lg:rounded-bl-none">
-
-        <div className="absolute top-4 right-4 md:top-8 md:right-8 hidden lg:block">
-          <svg
-            className="w-8 h-8 md:w-12 md:h-12 text-blue-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-            />
-          </svg>
-        </div>
-
-        <div className="w-full max-w-md">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600 mb-2">Welcome</h2>
-          <p className="text-gray-500 mb-6 md:mb-8 text-sm md:text-base">Login with Email</p>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-
-            {/* Email */}
-            <div>
-              <label className="block text-gray-700 text-sm font-medium mb-2">
-                Email id
-              </label>
-              <div className="relative">
-                <svg
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="thisuix@mail.com"
-                  className="w-full pl-10 pr-4 py-3 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 transition"
-                />
-              </div>
-            </div>
-
-            {/* Password */}
-            <div>
-              <label className="block text-gray-700 text-sm font-medium mb-2">
-                Password
-              </label>
-              <div className="relative">
-                <svg
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                  />
-                </svg>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Enter your password"
-                  className="w-full pl-10 pr-4 py-3 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 transition"
-                />
-              </div>
-            </div>
-
-            {/* Forgot Password */}
-            <div className="flex justify-end">
-              <Link
-                to="/forgot-password"
-                className="text-sm text-gray-600 hover:text-blue-600 transition"
-              >
-                Forgot your password?
-              </Link>
-            </div>
-
-            {/* Login Button */}
-            <button
-              type="submit"
-              disabled={isPending}
-              className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition duration-200 ${
-                isPending
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-700"
-              }`}
+          <div className="absolute top-4 right-4 md:top-8 md:right-8 hidden lg:block">
+            <svg
+              className="w-8 h-8 md:w-12 md:h-12 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              {isPending ? "Logging in..." : "LOGIN"}
-            </button>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+              />
+            </svg>
+          </div>
 
-            {error && (
-              <p className="text-red-500 text-center text-sm">
-                {error?.response?.data?.message || "Something went wrong!"}
-              </p>
-            )}
-
-            {/* OR */}
-            <div className="flex items-center my-6">
-              <div className="flex-1 border-t border-gray-300"></div>
-              <span className="px-4 text-gray-500 text-sm">OR</span>
-              <div className="flex-1 border-t border-gray-300"></div>
-            </div>
-
-            {/* Social */}
-            <div className="flex gap-4 justify-center">
-              <button className="w-12 h-12 border-2 border-gray-300 rounded-lg flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition">
-                <span className="text-xl font-bold text-gray-700">G</span>
-              </button>
-              <button className="w-12 h-12 border-2 border-gray-300 rounded-lg flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition">
-                <span className="text-xl font-bold text-gray-700">f</span>
-              </button>
-              <button className="w-12 h-12 border-2 border-gray-300 rounded-lg flex items-center justify-center hover:border-blue-500 hover:bg-blue-50 transition">
-                <svg className="w-6 h-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.05 20.28c-.98.95-2.05.88-3.08.33-1.09-.58-2.06-.91-3.32-.91-1.26 0-2.23.33-3.32.91-1.03.55-2.1.62-3.08.33-1.71-1.71-1.79-4.7-.14-6.78L12 2l6.19 11.5c1.65 2.08 1.57 5.07-.14 6.78zm-1.5-1.5c.5-.5.5-1.31 0-1.81s-1.31-.5-1.81 0-.5 1.31 0 1.81 1.31.5 1.81 0z" />
-                </svg>
-              </button>
-            </div>
-
-            <p className="text-center text-gray-600 text-sm mt-6">
-              Don't have an account?{" "}
-              <Link to="/signup" className="text-blue-600 font-semibold hover:underline">
-                Register Now
-              </Link>
+          <div className="w-full max-w-md">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600 mb-2">
+              Welcome
+            </h2>
+            <p className="text-gray-500 mb-6 md:mb-8 text-sm md:text-base">
+              Login with Email
             </p>
-          </form>
-        </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Email */}
+              <div>
+                <label className="block text-gray-700 text-sm font-medium mb-2">
+                  Email id
+                </label>
+                <div className="relative">
+                  <svg
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="thisuix@mail.com"
+                    className="w-full pl-10 pr-4 py-3 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 transition"
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label className="block text-gray-700 text-sm font-medium mb-2">
+                  Password
+                </label>
+                <div className="relative">
+                  <svg
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                  <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Enter your password"
+                    className="w-full pl-10 pr-4 py-3 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 transition"
+                  />
+                </div>
+              </div>
+
+              {/* Forgot Password */}
+              <div className="flex justify-end">
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-gray-600 hover:text-blue-600 transition"
+                >
+                  Forgot your password?
+                </Link>
+              </div>
+
+              {/* Login Button */}
+              <button
+                type="submit"
+                disabled={isPending}
+                className={`w-full py-3 px-4 rounded-lg font-semibold text-white transition duration-200 cursor-pointer ${
+                  isPending
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700"
+                }`}
+              >
+                {isPending ? "Logging in..." : "LOGIN"}
+              </button>
+
+              {error && (
+                <p className="text-red-500 text-center text-sm">
+                  {error?.response?.data?.message || "Something went wrong!"}
+                </p>
+              )}
+
+              {/* OR */}
+              <div className="flex items-center my-6">
+                <div className="flex-1 border-t border-gray-300"></div>
+                <span className="px-4 text-gray-500 text-sm">OR</span>
+                <div className="flex-1 border-t border-gray-300"></div>
+              </div>
+
+              {/* Google Login Button */}
+              <OAuth />
+
+              <p className="text-center text-gray-600 text-sm mt-6">
+                Don't have an account?{" "}
+                <Link
+                  to="/signup"
+                  className="text-blue-600 font-semibold hover:underline"
+                >
+                  Register Now
+                </Link>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -17,11 +17,6 @@ const signupSchema = z.object({
     .max(20, "Username must be between 3 and 20 characters"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(8, "Password must be at least 8 characters long"),
-  country: z
-    .string()
-    .min(3)
-    .max(20, "Country must be between 3 and 20 characters"),
-  phone: z.string().min(10).max(10, "Phone number must be 10 digits"),
 });
 
 const signinSchema = z.object({
@@ -35,7 +30,7 @@ const resetPasswordSchema = z.object({
 });
 
 export const signup = async (req, res, next) => {
-  const { username, email, password, country, phone } = req.body;
+  const { username, email, password } = req.body;
   const { error } = signupSchema.safeParse(req.body);
   if (error) {
     return next(errorHandler(400, error.message));
@@ -47,8 +42,6 @@ export const signup = async (req, res, next) => {
       username,
       email,
       password: hashPassword,
-      country,
-      phone,
     });
     await newUser.save();
 
