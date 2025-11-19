@@ -9,6 +9,8 @@ import { errorHandler } from "../utils/errorHandler.js";
 import jwt from "jsonwebtoken";
 import redisClient from "../config/redis.js";
 import { z } from "zod";
+import dataURI from "../middlewares/dataURI.middleware.js";
+import cloudinary from "../config/cloudinary.config.js";
 
 const signupSchema = z.object({
   username: z
@@ -86,27 +88,40 @@ export const signin = async (req, res, next) => {
 };
 
 export const googleAuth = async (req, res, next) => {
-  const { email, name, picture } = req.body;
   try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return next(errorHandler(404, "User not found"));
-    }
-    const newUser = new User({
-      username: name,
-      email,
-      profilePicture: picture,
-    });
+    const { email, name } = req.body;
+    let profilePicture = "";
 
-    await newUser.save();
-    const { password: pwd, ...rest } = newUser._doc;
+    // If a file is uploaded, handle Cloudinary upload
+    if (req.file) {
+      const dataURI = getDataURI(req.file);
+      const uploadRes = await cloudinary.uploader.upload(dataURI.content);
+      profilePicture = uploadRes.secure_url;
+    }
+
+    // Check if user exists
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // Create new user
+      user = new User({
+        username: name,
+        email,
+        profilePicture,
+      });
+
+      await user.save();
+    }
+
+    // Generate JWT
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
-      {
-        expiresIn: "1d",
-      }
+      { expiresIn: "1d" }
     );
+
+    const { password, ...rest } = user._doc;
+
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)

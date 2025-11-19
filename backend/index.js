@@ -9,6 +9,7 @@ import packageRoutes from "./routers/package.routes.js";
 import bookingRoutes from "./routers/bookings.routes.js";
 import reviewRoutes from "./routers/reviews.routes.js";
 import paymentRoutes from "./routers/payment.routes.js";
+import galleryImgUploadRoutes from "./routers/galleryImgUpload.routes.js";
 import cors from "cors";
 // Configure dotenv
 dotenv.config({ path: "./.env" });
@@ -40,6 +41,7 @@ app.use("/api/packages", packageRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/gallery", galleryImgUploadRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

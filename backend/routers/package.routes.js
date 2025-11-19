@@ -7,8 +7,8 @@ import {
   updatePackage,
   deletePackage,
 } from "../controllers/packages.controller.js";
-import { verifyToken } from "../utils/verify.js";
-import { cachePublicList } from "../utils/cache.js";
+import { verifyToken } from "../middlewares/verify.js";
+import { cachePublicList } from "../middlewares/cache.js";
 
 const router = express.Router();
 
