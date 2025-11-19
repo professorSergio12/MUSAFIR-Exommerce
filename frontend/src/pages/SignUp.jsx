@@ -39,7 +39,6 @@ const Signup = () => {
       },
       onError: (error) => {
         console.error("Signup error:", error);
-        alert(error?.response?.data?.message || "Signup failed! Try again.");
       },
     });
   };
@@ -219,7 +218,7 @@ const Signup = () => {
 
               {error && (
                 <p className="text-red-500 text-center text-sm">
-                  {error?.response?.data?.message || "Something went wrong!"}
+                  {error.response.data.message || "Something went wrong!"}
                 </p>
               )}
 

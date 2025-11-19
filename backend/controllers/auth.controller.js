@@ -23,7 +23,7 @@ const signupSchema = z.object({
 
 const signinSchema = z.object({
   email: z.string().email("Invalid email address"),
-  password: z.string().min(8),
+  password: z.string().min(8, "Required password is 8 characters long"),
 });
 
 const resetPasswordSchema = z.object({
@@ -33,9 +33,15 @@ const resetPasswordSchema = z.object({
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
+  if (!username || !email || !password) {
+    return next(errorHandler(400, "All fields are required"));
+  }
+
   const { error } = signupSchema.safeParse(req.body);
   if (error) {
-    return next(errorHandler(400, error.message));
+    const err = JSON.parse(error.message);
+    console.log(err);
+    return next(errorHandler(400, err[0].message));
   }
 
   const hashPassword = await bcrypt.hash(password, 10);
@@ -56,9 +62,13 @@ export const signup = async (req, res, next) => {
 
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
+  if (!email || !password) {
+    return next(errorHandler(400, "All fields are required"));
+  }
   const { error } = signinSchema.safeParse(req.body);
   if (error) {
-    return next(errorHandler(400, error.message));
+    const err = JSON.parse(error.message);
+    return next(errorHandler(400, err[0].message));
   }
 
   try {
@@ -99,11 +109,9 @@ export const googleAuth = async (req, res, next) => {
       profilePicture = uploadRes.secure_url;
     }
 
-    // Check if user exists
     let user = await User.findOne({ email });
 
     if (!user) {
-      // Create new user
       user = new User({
         username: name,
         email,
@@ -113,9 +121,8 @@ export const googleAuth = async (req, res, next) => {
       await user.save();
     }
 
-    // Generate JWT
     const token = jwt.sign(
-      { id: user._id, isAdmin: user.isAdmin },
+      { id: user._id },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
