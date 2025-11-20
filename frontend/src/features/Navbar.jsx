@@ -64,17 +64,18 @@ const Navbar = () => {
                 {/* Avatar Button */}
                 <button
                   onClick={() => navigate("/profile")}
-                  className="flex items-center justify-center w-10 h-10 rounded-full overflow-hidden border-2 border-orange-500"
+                  className="flex items-center justify-center w-10 h-10 rounded-full overflow-hidden border-2 border-orange-500 cursor-pointer"
                 >
                   {currentUser.profilePicture ? (
                     <img
                       src={currentUser.profilePicture}
                       alt="Profile"
-                      className="w-full h-full object-cover cursor-pointer"
+                      className="w-full h-full object-cover"
                     />
                   ) : (
                     <span className="text-orange-500 font-bold">
-                      {currentUser.username?.charAt(0).toUpperCase() || currentUser.name?.charAt(0).toUpperCase()}
+                      {currentUser.username?.charAt(0).toUpperCase() ||
+                        currentUser.name?.charAt(0).toUpperCase()}
                     </span>
                   )}
                 </button>
@@ -82,7 +83,7 @@ const Navbar = () => {
                 {/* Logout Button */}
                 <button
                   onClick={handleLogout}
-                  className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2 rounded-lg transition-colors duration-300 hover:scale-105 transform"
+                  className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2 rounded-lg transition-colors duration-300 hover:scale-105 transform cursor-pointer"
                 >
                   Log Out
                 </button>
@@ -169,7 +170,8 @@ const Navbar = () => {
                   ) : (
                     <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center">
                       <span className="text-white font-bold text-sm">
-                        {currentUser.username?.charAt(0).toUpperCase() || currentUser.name?.charAt(0).toUpperCase()}
+                        {currentUser.username?.charAt(0).toUpperCase() ||
+                          currentUser.name?.charAt(0).toUpperCase()}
                       </span>
                     </div>
                   )}
