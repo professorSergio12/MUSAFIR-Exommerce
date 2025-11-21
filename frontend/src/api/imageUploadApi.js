@@ -13,3 +13,8 @@ export const getUserGalleryImages = async () => {
   const response = await axiosInstance.get("/gallery/my");
   return response.data;
 };
+
+export const deleteUserGalleryImage = async (id) => {
+  const response = await axiosInstance.delete(`/gallery/${id}`);
+  return response.data;
+}

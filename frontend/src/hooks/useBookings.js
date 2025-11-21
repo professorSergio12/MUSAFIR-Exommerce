@@ -19,4 +19,3 @@ export const useBookingById = (id) => {
     gcTime: 0,
   });
 };
-

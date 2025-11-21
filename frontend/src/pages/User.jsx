@@ -3,7 +3,8 @@ import { useLocation } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import UserProfile from "./UserProfile";
 import SideBar from "../components/SideBar";
-
+import UserPost from "../components/UserPost";
+import UserPersonalGallery from "../components/UserPersonalGallery";
 const User = () => {
   const location = useLocation();
   const [tab, setTab] = useState("");
@@ -26,6 +27,8 @@ const User = () => {
       <div className="flex-1 bg-white">
         {tab === "profile" && <UserProfile />}
         {tab === "dashboard" && <Dashboard />}
+        {tab === "post" && <UserPost />}
+        {tab === "gallery" && <UserPersonalGallery />}
       </div>
     </div>
   );

@@ -58,3 +58,37 @@ export const GalleryImageController = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteUserGalleryImage = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    // Find the image first to check ownership
+    const galleryImage = await GalleryImage.findById(id);
+    
+    if (!galleryImage) {
+      return res.status(404).json({
+        success: false,
+        message: "Image not found",
+      });
+    }
+
+    // Verify that the image belongs to the current user
+    if (galleryImage.userId.toString() !== req.user.id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "You don't have permission to delete this image",
+      });
+    }
+
+    // Delete the image
+    await GalleryImage.findByIdAndDelete(id);
+    
+    res.status(200).json({
+      success: true,
+      message: "Image deleted successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
