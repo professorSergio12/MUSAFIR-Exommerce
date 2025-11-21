@@ -1,4 +1,19 @@
 import mongoose from "mongoose";
+
+const foodoptionType = new mongoose.Schema({
+  name: {
+    type: String,
+    enum: ["Breakfast", "Lunch", "Dinner"],
+    default: "Breakfast",
+    required: true,
+  },
+  surcharge: {
+    // Extra cost relative to the hotel's base room price
+    type: Number,
+    default: 0,
+  },
+});
+
 const foodOptionSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -10,17 +25,9 @@ const foodOptionSchema = new mongoose.Schema({
     required: [true, "A food option must have a daily surcharge amount."],
     default: 0,
   },
-  includesBreakfast: {
-    type: Boolean,
-    default: false,
-  },
-  includesLunch: {
-    type: Boolean,
-    default: false,
-  },
-  includesDinner: {
-    type: Boolean,
-    default: false,
+  foodOptions: {
+    type: [foodoptionType],
+    required: true,
   },
   description: {
     type: String,

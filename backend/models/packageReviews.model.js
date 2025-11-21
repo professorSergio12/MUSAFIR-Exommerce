@@ -18,6 +18,11 @@ const packageReviewsSchema = new mongoose.Schema(
       index: true,
     },
 
+    comment: {
+      type: String,
+      trim: true,
+    },
+
     // Booking reference (optional - to link review to specific booking)
     booking: {
       type: mongoose.Schema.ObjectId,
