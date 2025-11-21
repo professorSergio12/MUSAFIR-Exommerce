@@ -2,6 +2,20 @@ import GalleryImage from "../models/gallery.model.js";
 import getDataURI from "../middlewares/dataURI.middleware.js";
 import cloudinary from "../config/cloudinary.config.js";
 
+export const getUserGalleryImages = async (req, res, next) => {
+  try {
+    const galleryImages = await GalleryImage.find({ userId: req.user.id })
+      .sort({ uploadedAt: -1 });
+    
+    res.status(200).json({
+      success: true,
+      data: galleryImages,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const GalleryImageController = async (req, res, next) => {
   try {
     const { caption, location, tags } = req.body;
@@ -40,28 +54,6 @@ export const GalleryImageController = async (req, res, next) => {
       message: "Image uploaded successfully",
       data: newImage,
     });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const profilePictureUpload = async (req, res, next) => {
-  try {
-    const file = req.file;
-    if (!file) {
-      return res
-        .status(400)
-        .json({ success: false, message: "No file received" });
-    }
-    const fileUri = getDataURI(file);
-    if (!fileUri) {
-      const cloudinaryResponse = await cloudinary.uploader.upload({
-        file: fileUri.content,
-        folder: "profile-pictures",
-      });
-
-      return cloudinaryResponse.secure_url;
-    }
   } catch (error) {
     next(error);
   }

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useSignin } from "../hooks/useAuth";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import OAuth from "../components/OAuth";
 const SignIn = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { mutate: signin, isPending, error } = useSignin();
   const [formData, setFormData] = useState({
     username: "",
@@ -30,6 +31,7 @@ const SignIn = () => {
     signin(formData, {
       onSuccess: () => {
         alert("You have logged in successfully! Welcome to Travel Blogger.");
+
         setFormData({
           username: "",
           email: "",
@@ -37,6 +39,9 @@ const SignIn = () => {
           country: "",
           phone: "",
         });
+
+        const redirectTo = location.state?.from || "/";
+        navigate(redirectTo, { replace: true });
       },
       onError: (error) => {
         console.error("Signup error:", error);

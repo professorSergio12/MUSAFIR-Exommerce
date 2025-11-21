@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema(
       default:
         "https://res.cloudinary.com/dpu6rveug/image/upload/v1763527341/profile-img_iq5gto.webp",
     },
+    profilePictureId: {
+      type: String,
+      default: null,
+    },
     isAdmin: {
       type: Boolean,
       default: false,

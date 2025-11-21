@@ -10,6 +10,7 @@ import bookingRoutes from "./routers/bookings.routes.js";
 import reviewRoutes from "./routers/reviews.routes.js";
 import paymentRoutes from "./routers/payment.routes.js";
 import galleryImgUploadRoutes from "./routers/galleryImgUpload.routes.js";
+import userRoutes from "./routers/user.routes.js";
 import cors from "cors";
 // Configure dotenv
 dotenv.config({ path: "./.env" });
@@ -25,11 +26,15 @@ const PORT = process.env.PORT || 4000;
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({
-  origin: ["http://localhost:5173",
-  "https://musafir-exommerce-uj95.vercel.app/"],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://musafir-exommerce-uj95.vercel.app/",
+    ],
+    credentials: true,
+  })
+);
 //test route
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -37,6 +42,7 @@ app.get("/", (req, res) => {
 
 //routers
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/packages", packageRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/reviews", reviewRoutes);

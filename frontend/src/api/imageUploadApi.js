@@ -9,11 +9,7 @@ export const uploadGalleryImage = async (data) => {
   return response.data;
 };
 
-export const uploadProfilePicture = async (data) => {
-  const response = await axiosInstance.post("/gallery/profile-picture", data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+export const getUserGalleryImages = async () => {
+  const response = await axiosInstance.get("/gallery/my");
   return response.data;
 };

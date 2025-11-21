@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogout } from "../hooks/useAuth";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { Button } from "flowbite-react";
+import { toggleTheme } from "../redux/theme/themeSlice.js";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { mutate: logout } = useLogout();
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Packages", href: "/all-packages" },
@@ -49,6 +54,19 @@ const Navbar = () => {
                 <span className="absolute bottom-0 left-0 w-0 h-1 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
             ))}
+            <Button
+              onClick={() => dispatch(toggleTheme())}
+              color="gray"
+              pill
+              size="md"
+              className="sm:flex hidden items-center justify-center !w-12 !h-10"
+            >
+              {theme === "light" ? (
+                <FaSun className="text-xl text-yellow-500" />
+              ) : (
+                <FaMoon className="text-xl text-blue-500" />
+              )}
+            </Button>
 
             {!currentUser && (
               <Link
@@ -63,7 +81,7 @@ const Navbar = () => {
               <div className="flex items-center space-x-4">
                 {/* Avatar Button */}
                 <button
-                  onClick={() => navigate("/profile")}
+                  onClick={() => navigate("/profile?tab=profile")}
                   className="flex items-center justify-center w-10 h-10 rounded-full overflow-hidden border-2 border-orange-500 cursor-pointer"
                 >
                   {currentUser.profilePicture ? (
@@ -156,7 +174,7 @@ const Navbar = () => {
               <>
                 <button
                   onClick={() => {
-                    navigate("/profile");
+                    navigate("/profile?tab=profile");
                     setIsOpen(false);
                   }}
                   className="flex items-center space-x-3 px-4 py-3 text-lg text-gray-900"

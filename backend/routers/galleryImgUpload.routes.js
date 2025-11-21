@@ -1,10 +1,18 @@
 import express from "express";
 const router = express.Router();
 
-import { GalleryImageController, profilePictureUpload } from "../controllers/imageUpload.controller.js";
+import {
+  GalleryImageController,
+  getUserGalleryImages,
+} from "../controllers/galleryImg.controller.js";
 import multerUpload from "../middlewares/multer.middleware.js";
 import { verifyToken } from "../middlewares/verify.js";
 
-router.post("/upload", verifyToken, multerUpload.single("image"), GalleryImageController);
-router.post("/profile-picture", verifyToken, multerUpload.single("profilePicture"), profilePictureUpload);
+router.get("/my", verifyToken, getUserGalleryImages);
+router.post(
+  "/upload",
+  verifyToken,
+  multerUpload.single("image"),
+  GalleryImageController
+);
 export default router;

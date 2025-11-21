@@ -1,14 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
-  uploadProfilePicture,
   uploadGalleryImage,
+  getUserGalleryImages,
 } from "../api/imageUploadApi";
 
-export const useUploadProfilePicture = () => {
+export const useUploadGalleryImage = () => {
   return useMutation({
-    mutationFn: (data) => uploadProfilePicture(data),
+    mutationFn: (data) => uploadGalleryImage(data),
     onSuccess: (data) => {
-      console.log("Profile Uploaded", data);
+      console.log("Gallery Image Uploaded", data);
     },
     onError: (error) => {
       console.log(error);
@@ -16,14 +16,11 @@ export const useUploadProfilePicture = () => {
   });
 };
 
-export const useUploadGalleryImage = () => {
-  return useMutation({
-    mutationFn: (data) => uploadGalleryImage(data), 
-    onSuccess: (data) => {
-      console.log("Gallery Image Uploaded", data);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
+export const useUserGalleryImages = () => {
+  return useQuery({
+    queryKey: ["user-gallery-images"],
+    queryFn: getUserGalleryImages,
+    staleTime: 0,
+    gcTime: 0,
   });
 };

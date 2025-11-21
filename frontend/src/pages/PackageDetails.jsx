@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { usePackageBySlug } from "../hooks/usePackages";
 import { useCreateOrder, useVerifyPayment } from "../hooks/usePayment";
@@ -7,6 +7,7 @@ import { useCreateOrder, useVerifyPayment } from "../hooks/usePayment";
 const PackageDetails = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const user = useSelector((state) => state.user.currentUser);
   const { data: packageData, isLoading, error } = usePackageBySlug(slug);
   const [selectedHotel, setSelectedHotel] = useState(null);
@@ -631,7 +632,7 @@ const PackageDetails = () => {
               <div className="border-t pt-4">
                 {user == null ? (
                   <button
-                    onClick={() => navigate("/signin")}
+                    onClick={() => navigate("/signin", { state: { from: location.pathname } })}
                     className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors duration-300"
                   >
                     Sign In to Book

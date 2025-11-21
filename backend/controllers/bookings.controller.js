@@ -1,41 +1,4 @@
 import bookingModel from "../models/booking.model.js";
-import { errorHandler } from "../utils/errorHandler.js";
-
-export const createBooking = async (req, res, next) => {
-  const {
-    packageId,
-    userId,
-    travelDate,
-    travelersCount,
-    selectedHotel,
-    selectedRoomType,
-    selectedFoodOption,
-    totalAmount,
-    bookingType,
-    paymentStatus,
-    bookingStatus,
-  } = req.body;
-  try {
-    const newBooking = new bookingModel({
-      packageId,
-      userId,
-      travelDate,
-      travelersCount,
-      selectedHotel,
-      selectedRoomType,
-      selectedFoodOption,
-      totalAmount,
-      bookingType,
-      paymentStatus,
-      bookingStatus,
-    });
-    await newBooking.save();
-    res.status(201).json({ status: "success", data: newBooking });
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
-};
 
 export const getBookingById = async (req, res, next) => {
   try {
@@ -46,14 +9,18 @@ export const getBookingById = async (req, res, next) => {
   }
 };
 
-//Admin Routes
-export const getAllBookings = async (req, res, next) => {
-    if(!req.user.isAdmin) {
-        return next(errorHandler(401, "Unauthorized"));
-    }
+// Get current user's bookings
+export const getUserBookings = async (req, res, next) => {
   try {
-    const bookings = await bookingModel.find();
-    res.status(200).json(bookings);
+    const bookings = await bookingModel
+      .find({ user: req.user._id })
+      .populate("packageId", "name images basePrice durationDays country slug")
+      .sort({ createdAt: -1 });
+    
+    res.status(200).json({
+      success: true,
+      data: bookings,
+    });
   } catch (error) {
     next(error);
   }

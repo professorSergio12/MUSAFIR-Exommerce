@@ -12,8 +12,8 @@ import SignIn from "./pages/SignIn";
 import ForgotPassword from "./components/ForgetPassword";
 import VerifyOTP from "./components/VerifyOtp";
 import Gallery from "./pages/Gallery";
-import Profile from "./pages/UserProfile";
 import About from "./pages/About";
+import User from "./pages/User";
 function App() {
   return (
     <Router>
@@ -30,7 +30,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<User />} />
         <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
