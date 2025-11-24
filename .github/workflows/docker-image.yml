@@ -2,7 +2,7 @@ name: Deploy Musafir App to EC2
 
 on:
   push:
-    branches: ["aws-server"]
+    branches: ["aws-server"] # Only trigger for this branch
 
 jobs:
   deploy:
@@ -24,22 +24,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      # 3. Build & Push Frontend
-      - name: Build & Push Frontend
+      # 3. Build & Push All Images via Docker Compose
+      - name: Build & Push Docker Images
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/musafir-frontend:latest ./frontend
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/musafir-frontend:latest
+          docker compose build
+          docker compose push
 
-      # 4. Build & Push Backend
-      - name: Build & Push Backend
-        run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/musafir-backend:latest ./backend
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/musafir-backend:latest
-
-      # 5. Build & Push Worker
-      - name: Build & Push Worker
-        run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/musafir-worker:latest ./worker-server
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/musafir-worker:latest
-
+      # 4. Deploy to EC2
      
