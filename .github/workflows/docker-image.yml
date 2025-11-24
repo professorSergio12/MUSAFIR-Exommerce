@@ -16,35 +16,35 @@ jobs:
       - name: Check current directory
         run: |
           echo "Current directory: $(pwd)"
-
+  
       # 2. Login to Docker Hub
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      # - name: Login to Docker Hub
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      # 3. Build & Push All Images via Docker Compose
-      - name: Build & Push Docker Images
-        run: |
-          docker compose build
-          docker compose push
+      # # 3. Build & Push All Images via Docker Compose
+      # - name: Build & Push Docker Images
+      #   run: |
+      #     docker compose build
+      #     docker compose push
 
-      # 4. Deploy to EC2
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
-          script: |
-            cd ~/Musafir
+      # # 4. Deploy to EC2
+      # - name: Deploy to EC2
+      #   uses: appleboy/ssh-action@v1.0.0
+      #   with:
+      #     host: ${{ secrets.EC2_HOST }}
+      #     username: ubuntu
+      #     key: ${{ secrets.EC2_KEY }}
+      #     script: |
+      #       cd ~/Musafir
 
-            echo "Pulling latest images..."
-            docker compose pull
+      #       echo "Pulling latest images..."
+      #       docker compose pull
 
-            echo "Restarting containers..."
-            docker compose down
-            docker compose up -d
+      #       echo "Restarting containers..."
+      #       docker compose down
+      #       docker compose up -d
 
-            echo "Deployment Complete 🎉"
+      #       echo "Deployment Complete 🎉"
