@@ -1,29 +1,36 @@
-version: '3'
+version: "3.9"
 
 services:
   frontend:
-    build: ./frontend
-    image: frontend-image
-    container_name: frontend-container
-    ports:
-      - "5173:5173"
+    build:
+      context: ./frontend
+    image: myapp-frontend:latest
+    container_name: myapp-frontend
     env_file:
       - ./frontend/.env
+    ports:
+      - "80:80"
+    restart: always
 
   backend:
-    build: ./backend
-    image: backend-image
-    container_name: backend-container
+    build:
+      context: ./backend
+    image: myapp-backend:latest
+    container_name: myapp-backend
     ports:
       - "4000:4000"
     env_file:
       - ./backend/.env
     restart: unless-stopped
-
   worker-server:
-    build: ./worker-server
-    image: worker-server-image
-    container_name: worker-server-container
+    build:
+      context: ./worker-server
+    image: myapp-worker:latest
+    container_name: myapp-worker
     env_file:
       - ./worker-server/.env
     restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge
