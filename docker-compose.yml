@@ -1,7 +1,5 @@
 services:
   frontend:
-    build:
-      context: ./frontend
     image: myapp-frontend:latest
     container_name: myapp-frontend
     env_file:
@@ -11,24 +9,17 @@ services:
     restart: always
 
   backend:
-    build:
-      context: ./backend
     image: myapp-backend:latest
     container_name: myapp-backend
-    ports:
-      - "4000:4000"
     env_file:
       - ./backend/.env
+    ports:
+      - "4000:4000"
     restart: unless-stopped
+
   worker-server:
-    build:
-      context: ./worker-server
     image: myapp-worker:latest
     container_name: myapp-worker
     env_file:
       - ./worker-server/.env
     restart: unless-stopped
-
-networks:
-  default:
-    driver: bridge

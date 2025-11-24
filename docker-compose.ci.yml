@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp-frontend:latest
+
+  backend:
+    build:
+      context: ./backend
+    image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp-backend:latest
+
+  worker-server:
+    build:
+      context: ./worker-server
+    image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp-worker:latest
