@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      -name: Check current directory
+      - name: Check current directory
         run: |
           echo "Current directory: $(pwd)"
 
