@@ -2,7 +2,7 @@ name: Deploy Musafir App to EC2
 
 on:
   push:
-    branches: ["aws-server"] # Only trigger for this branch
+    branches: ["aws-server"]
 
 jobs:
   deploy:
@@ -11,40 +11,35 @@ jobs:
     steps:
       # 1. Checkout Code
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Check current directory
         run: |
           echo "Current directory: $(pwd)"
-  
+
       # 2. Login to Docker Hub
-      # - name: Login to Docker Hub
-      #   uses: docker/login-action@v3
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      # # 3. Build & Push All Images via Docker Compose
-      # - name: Build & Push Docker Images
-      #   run: |
-      #     docker compose build
-      #     docker compose push
+      # 3. Build & Push Frontend
+      - name: Build & Push Frontend
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/musafir-frontend:latest ./frontend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/musafir-frontend:latest
 
-      # # 4. Deploy to EC2
-      # - name: Deploy to EC2
-      #   uses: appleboy/ssh-action@v1.0.0
-      #   with:
-      #     host: ${{ secrets.EC2_HOST }}
-      #     username: ubuntu
-      #     key: ${{ secrets.EC2_KEY }}
-      #     script: |
-      #       cd ~/Musafir
+      # 4. Build & Push Backend
+      - name: Build & Push Backend
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/musafir-backend:latest ./backend
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/musafir-backend:latest
 
-      #       echo "Pulling latest images..."
-      #       docker compose pull
+      # 5. Build & Push Worker
+      - name: Build & Push Worker
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/musafir-worker:latest ./worker-server
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/musafir-worker:latest
 
-      #       echo "Restarting containers..."
-      #       docker compose down
-      #       docker compose up -d
-
-      #       echo "Deployment Complete 🎉"
+     
