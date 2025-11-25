@@ -3,6 +3,7 @@ name: Deploy Musafir App to EC2
 on:
   push:
     branches: ["aws-server"] # Trigger only on this branch
+  workflow_dispatch:
 
 jobs:
   deploy:
