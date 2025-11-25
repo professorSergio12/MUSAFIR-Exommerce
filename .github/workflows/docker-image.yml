@@ -40,10 +40,10 @@ jobs:
             cd ~/Musafir
 
             echo "Pulling latest images..."
-            docker compose pull
+            docker compose pull -f docker-compose.yml
 
             echo "Restarting containers..."
-            docker compose down
+            docker compose down -f docker-compose.yml
             docker compose up -d
 
             echo "Deployment Complete 🎉"
