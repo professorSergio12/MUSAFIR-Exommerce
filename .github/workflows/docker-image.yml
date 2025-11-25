@@ -2,7 +2,7 @@ name: Deploy Musafir App to EC2
 
 on:
   push:
-    branches: ["aws-server"]  # Trigger only on this branch
+    branches: ["aws-server"] # Trigger only on this branch
 
 jobs:
   deploy:
@@ -28,3 +28,20 @@ jobs:
 
       # 4. (Optional) Deploy to EC2 via SSH
       # Add later when you're ready
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            cd ~/Musafir
+
+            echo "Pulling latest images..."
+            docker compose pull
+
+            echo "Restarting containers..."
+            docker compose down
+            docker compose up -d
+
+            echo "Deployment Complete 🎉"
