@@ -1,25 +1,25 @@
-# services:
-#   frontend:
-#     image: myapp-frontend:latest
-#     container_name: myapp-frontend
-#     env_file:
-#       - ./frontend/.env
-#     ports:
-#       - "80:80"
-#     restart: always
+services:
+  frontend:
+    image: professorsergio12/myapp-frontend:latest
+    container_name: myapp-frontend
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "80:80"
+    restart: always
 
-#   backend:
-#     image: myapp-backend:latest
-#     container_name: myapp-backend
-#     env_file:
-#       - ./backend/.env
-#     ports:
-#       - "4000:4000"
-#     restart: unless-stopped
+  backend:
+    image: professorsergio12/myapp-backend:latest
+    container_name: myapp-backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "4000:4000"
+    restart: unless-stopped
 
-#   worker-server:
-#     image: myapp-worker:latest
-#     container_name: myapp-worker
-#     env_file:
-#       - ./worker-server/.env
-#     restart: unless-stopped
+  worker-server:
+    image: professorsergio12/myapp-worker:latest
+    container_name: myapp-worker
+    env_file:
+      - ./worker-server/.env
+    restart: unless-stopped
