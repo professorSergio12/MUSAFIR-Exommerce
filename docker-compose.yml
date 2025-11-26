@@ -35,7 +35,7 @@ jobs:
 
             if [ ! -d "MUSAFIR-excommerce" ]; then
               echo "Cloning repository..."
-              git clone https://github.com/YOUR_USERNAME/MUSAFIR-excommerce.git
+              git clone https://github.com/professorSergio12/MUSAFIR-Exommerce.git
             else
               echo "Updating repository..."
               cd MUSAFIR-excommerce
