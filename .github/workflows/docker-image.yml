@@ -34,18 +34,15 @@ jobs:
             cd ~
 
             if [ ! -d "MUSAFIR-Exommerce" ]; then
-              echo "Cloning repository..."
-              git clone https://github.com/professorSergio12/MUSAFIR-Exommerce.git
+              echo "Cloning repository (aws-server branch)..."
+              git clone -b aws-server https://github.com/professorSergio12/MUSAFIR-Exommerce.git
             else
               echo "Updating repository..."
               cd MUSAFIR-Exommerce
-              git checkout aws-server
               git pull origin aws-server
               cd ..
             fi
 
-            git checkout aws-server
-            git pull origin aws-server
             cd MUSAFIR-Exommerce
 
             echo "Pulling backend & worker images..."
