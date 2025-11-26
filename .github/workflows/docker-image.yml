@@ -39,7 +39,7 @@ jobs:
             else
               echo "Updating repository..."
               cd MUSAFIR-Exommerce
-              git pull
+              git pull origin aws-server
               cd ..
             fi
 
