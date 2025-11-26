@@ -7,4 +7,4 @@ services:
   worker-server:
     build:
       context: ./worker-server
-    image: professorsergio12/myapp-worker:latest
+    image: professorsergio12/myapp-worker-server:latest

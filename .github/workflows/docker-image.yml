@@ -10,24 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout Code
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      # 2. Login to Docker Hub
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      # 3. Build & Push Images for backend + worker
-      - name: Build & Push Docker Images
+      - name: Build & Push Images (CI)
         run: |
           docker compose -f docker-compose.ci.yml build
           docker compose -f docker-compose.ci.yml push
 
-      # 4. Deploy to EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -37,26 +33,26 @@ jobs:
           script: |
             cd ~
 
-            if [ ! -d "Musafir" ]; then
-              echo "Repository not found. Cloning..."
+            if [ ! -d "MUSAFIR-Exommerce" ]; then
+              echo "Cloning repository..."
               git clone https://github.com/professorSergio12/MUSAFIR-Exommerce.git
             else
-              echo "Repository found. Pulling latest changes..."
-              cd Musafir
+              echo "Updating repository..."
+              cd MUSAFIR-Exommerce
               git pull
               cd ..
             fi
 
-            cd Musafir
+            cd MUSAFIR-Exommerce
 
-            echo "Pulling backend and worker images..."
-            docker compose -f docker-compose.yml pull backend worker-server
+            echo "Pulling backend & worker images..."
+            docker compose pull myapp-backend myapp-worker-server
 
-            echo "Building frontend with EC2 environment..."
-            docker compose -f docker-compose.yml build --no-cache frontend
+            echo "Building frontend with EC2 .env..."
+            docker compose build --no-cache frontend
 
             echo "Restarting containers..."
-            docker compose -f docker-compose.yml down
-            docker compose -f docker-compose.yml up -d
+            docker compose down
+            docker compose up -d
 
-            echo "Deployment Complete 🎉"
+            echo "Deployment Complete ✅"
