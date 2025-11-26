@@ -39,10 +39,13 @@ jobs:
             else
               echo "Updating repository..."
               cd MUSAFIR-Exommerce
+              git checkout aws-server
               git pull origin aws-server
               cd ..
             fi
 
+            git checkout aws-server
+            git pull origin aws-server
             cd MUSAFIR-Exommerce
 
             echo "Pulling backend & worker images..."
