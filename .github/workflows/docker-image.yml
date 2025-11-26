@@ -2,7 +2,7 @@ name: Deploy Musafir App to EC2
 
 on:
   push:
-    branches: ["aws-server"] # Trigger only on this branch
+    branches: ["aws-server"]
   workflow_dispatch:
 
 jobs:
@@ -21,14 +21,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      # 3. Build & Push Images using docker-compose.ci.yml
+      # 3. Build & Push Images for backend + worker
       - name: Build & Push Docker Images
         run: |
           docker compose -f docker-compose.ci.yml build
           docker compose -f docker-compose.ci.yml push
 
-      # 4. (Optional) Deploy to EC2 via SSH
-      # Add later when you're ready
+      # 4. Deploy to EC2
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -36,14 +35,28 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            mkdir -p ~/Musafir
-            cd ~/Musafir
+            cd ~
 
-            echo "Pulling latest images..."
-            docker compose -f docker-compose.yml pull
+            if [ ! -d "Musafir" ]; then
+              echo "Repository not found. Cloning..."
+              git clone https://github.com/professorSergio12/MUSAFIR-Exommerce.git
+            else
+              echo "Repository found. Pulling latest changes..."
+              cd Musafir
+              git pull
+              cd ..
+            fi
+
+            cd Musafir
+
+            echo "Pulling backend and worker images..."
+            docker compose -f docker-compose.yml pull backend worker-server
+
+            echo "Building frontend with EC2 environment..."
+            docker compose -f docker-compose.yml build --no-cache frontend
 
             echo "Restarting containers..."
-            docker compose  -f docker-compose.yml down
-            docker compose  -f docker-compose.yml up -d
+            docker compose -f docker-compose.yml down
+            docker compose -f docker-compose.yml up -d
 
             echo "Deployment Complete 🎉"

@@ -1,9 +1,4 @@
 services:
-  frontend:
-    build:
-      context: ./frontend
-    image: professorsergio12/myapp-frontend:latest
-
   backend:
     build:
       context: ./backend
