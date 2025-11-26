@@ -33,17 +33,17 @@ jobs:
           script: |
             cd ~
 
-            if [ ! -d "MUSAFIR-excommerce" ]; then
+            if [ ! -d "MUSAFIR-Exommerce" ]; then
               echo "Cloning repository..."
               git clone https://github.com/professorSergio12/MUSAFIR-Exommerce.git
             else
               echo "Updating repository..."
-              cd MUSAFIR-excommerce
+              cd MUSAFIR-Exommerce
               git pull
               cd ..
             fi
 
-            cd MUSAFIR-excommerce
+            cd MUSAFIR-Exommerce
 
             echo "Pulling backend & worker images..."
             docker compose pull backend worker-server
