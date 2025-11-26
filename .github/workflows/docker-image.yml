@@ -46,13 +46,13 @@ jobs:
             cd MUSAFIR-Exommerce
 
             echo "Pulling backend & worker images..."
-            docker compose pull myapp-backend myapp-worker-server
+            docker compose -f docker-compose.yml pull backend worker-server
 
             echo "Building frontend with EC2 .env..."
-            docker compose build --no-cache frontend
+            docker compose -f docker-compose.yml build --no-cache frontend
 
             echo "Restarting containers..."
-            docker compose down
-            docker compose up -d
+            docker compose -f docker-compose.yml down
+            docker compose -f docker-compose.yml up -d
 
             echo "Deployment Complete ✅"
