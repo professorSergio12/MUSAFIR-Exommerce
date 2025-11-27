@@ -55,4 +55,4 @@ jobs:
             docker compose -f docker-compose.yml down
             docker compose -f docker-compose.yml up -d
 
-            echo "Deployment Complete ✅"
+            echo "Deployment Complete"
