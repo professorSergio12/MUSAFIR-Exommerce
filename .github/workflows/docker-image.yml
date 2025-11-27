@@ -33,7 +33,7 @@ jobs:
           script: |
             cd ~
 
-            echo "===== Disk usage BEFORE deployment ====="
+            echo "==== Disk usage BEFORE deployment ===="
             df -h
 
             if [ ! -d "MUSAFIR-Exommerce" ]; then
