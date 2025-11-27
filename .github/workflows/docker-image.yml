@@ -33,6 +33,9 @@ jobs:
           script: |
             cd ~
 
+            echo "===== Disk usage BEFORE deployment ====="
+            df -h
+
             if [ ! -d "MUSAFIR-Exommerce" ]; then
               echo "Cloning repository (aws-server branch)..."
               git clone -b aws-server https://github.com/professorSergio12/MUSAFIR-Exommerce.git
@@ -51,8 +54,16 @@ jobs:
             echo "Building frontend with EC2 .env..."
             docker compose -f docker-compose.yml build --no-cache frontend
 
-            echo "Restarting containers..."
+            echo "Stopping containers..."
             docker compose -f docker-compose.yml down
+
+            echo "Pruning Docker to free disk space..."
+            docker system prune -af --volumes
+
+            echo "Starting containers..."
             docker compose -f docker-compose.yml up -d
+
+            echo "===== Disk usage AFTER deployment ====="
+            df -h
 
             echo "Deployment Complete"
