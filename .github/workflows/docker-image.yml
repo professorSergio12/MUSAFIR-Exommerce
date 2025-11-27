@@ -63,7 +63,7 @@ jobs:
             echo "Starting containers..."
             docker compose -f docker-compose.yml up -d
 
-            echo "===== Disk usage AFTER deployment ====="
+            echo "==== Disk usage AFTER deployment ===="
             df -h
 
             echo "Deployment Complete"
