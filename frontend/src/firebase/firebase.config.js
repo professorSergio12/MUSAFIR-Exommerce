@@ -1,6 +1,7 @@
 
 import { initializeApp } from "firebase/app";
-
+import dotenv from "dotenv";
+dotenv.config();
 console.log(import.meta.env.VITE_FIREBASE_API_KEY);
 
 const firebaseConfig = {
