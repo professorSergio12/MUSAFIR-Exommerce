@@ -48,7 +48,7 @@ jobs:
 
             cd MUSAFIR-Exommerce
 
-            echo "Pulling backend & worker images..."
+            echo "Pulling backend & worker images.........."
             docker compose -f docker-compose.yml pull backend worker-server
 
             echo "Building frontend with EC2 .env..."
