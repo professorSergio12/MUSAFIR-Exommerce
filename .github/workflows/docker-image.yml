@@ -47,6 +47,8 @@ jobs:
             fi
 
             cd MUSAFIR-Exommerce
+            echo "Pruning Docker to free disk space..."
+            docker system prune -af --volumes
 
             echo "Pulling backend & worker images.........."
             docker compose -f docker-compose.yml pull backend worker-server
@@ -56,9 +58,6 @@ jobs:
 
             echo "Stopping containers..."
             docker compose -f docker-compose.yml down
-
-            echo "Pruning Docker to free disk space..."
-            docker system prune -af --volumes
 
             echo "Starting containers..."
             docker compose -f docker-compose.yml up -d
