@@ -108,7 +108,7 @@ export const googleAuth = async (req, res, next) => {
       );
       const { password, ...rest } = user._doc;
 
-      await sendLoginMail(email, name);
+      await enqueueSignupEmail(email, name, welcomeEmailHtml(name));
 
       return res
         .status(200)
