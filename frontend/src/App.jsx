@@ -14,6 +14,7 @@ import VerifyOTP from "./components/VerifyOtp";
 import Gallery from "./pages/Gallery";
 import About from "./pages/About";
 import User from "./pages/User";
+import ContactUs from "./components/ContactUs";
 function App() {
   return (
     <Router>
@@ -31,6 +32,7 @@ function App() {
         <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/profile" element={<User />} />
+        <Route path="/contact" element={<ContactUs />} />
         <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
