@@ -54,7 +54,19 @@ const packageReviewsSchema = new mongoose.Schema(
       maxlength: 1000,
       trim: true,
     },
-    
+
+    images: [
+      {
+        type: String,
+        validate: {
+          validator: function (v) {
+            return v.startsWith("https://res.cloudinary.com/");
+          },
+          message: "Images must be valid Cloudinary URLs",
+        },
+      },
+    ],
+
     helpfulVotes: {
       type: Number,
       default: 0,

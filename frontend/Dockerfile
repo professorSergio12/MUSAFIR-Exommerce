@@ -11,7 +11,7 @@ ARG VITE_FIREBASE_STORAGE_BUCKET
 ARG VITE_FIREBASE_MESSAGING_SENDER_ID
 ARG VITE_FIREBASE_APP_ID
 
-# Expose them to Vite at build time
+# Pass them to Vite at build time
 ENV VITE_RAZORPAY_KEY_ID=$VITE_RAZORPAY_KEY_ID
 ENV VITE_FIREBASE_API_KEY=$VITE_FIREBASE_API_KEY
 ENV VITE_FIREBASE_AUTH_DOMAIN=$VITE_FIREBASE_AUTH_DOMAIN
@@ -26,10 +26,15 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# ---------- Nginx Stage ----------
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist /usr/share/nginx/html
+# ---------- Final Stage ----------
+# This stage ONLY outputs build files.
+# It does NOT run nginx. NGINX will be a separate container.
+FROM alpine:3.18
+WORKDIR /app
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Copy only the built files to the root for nginx
+COPY --from=build /app/dist ./
+
+# No CMD
+# This container DOES NOT run anything.
+# NGINX container will mount these files.

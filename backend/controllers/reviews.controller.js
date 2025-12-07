@@ -3,14 +3,27 @@ import { errorHandler } from "../utils/errorHandler.js";
 
 export const createReview = async (req, res, next) => {
   try {
-    const {
-      package: packageId,
-      booking,
-      rating,
-      title,
-      review,
-      images,
-    } = req.body;
+    const { package: packageId, booking, rating, title, review, images } = req.body;
+
+    // Validation
+    if (!packageId) {
+      return next(errorHandler(400, "Package ID is required"));
+    }
+    if (!rating || rating < 1 || rating > 5) {
+      return next(errorHandler(400, "Rating must be between 1 and 5"));
+    }
+    if (!title || title.trim().length < 3) {
+      return next(errorHandler(400, "Title must be at least 3 characters"));
+    }
+    if (title && title.length > 100) {
+      return next(errorHandler(400, "Title must be less than 100 characters"));
+    }
+    if (!review || review.trim().length < 10) {
+      return next(errorHandler(400, "Review must be at least 10 characters"));
+    }
+    if (review && review.length > 1000) {
+      return next(errorHandler(400, "Review must be less than 1000 characters"));
+    }
 
     const existingReview = await PackageReviews.findOne({
       user: req.user.id,
@@ -28,7 +41,7 @@ export const createReview = async (req, res, next) => {
       rating,
       title,
       review,
-      images,
+      images: images || [],
     });
 
     await newReview.save();
@@ -213,7 +226,9 @@ export const voteHelpful = async (req, res, next) => {
     }
 
     const userId = req.user.id;
-    const hasVoted = review.votedBy.includes(userId);
+    const hasVoted = review.votedBy.some(
+      (id) => id.toString() === userId.toString()
+    );
 
     if (isHelpful && !hasVoted) {
       // Add helpful vote
@@ -229,12 +244,16 @@ export const voteHelpful = async (req, res, next) => {
 
     await review.save();
 
+    const hasVotedAfter = review.votedBy.some(
+      (id) => id.toString() === userId.toString()
+    );
+
     res.status(200).json({
       success: true,
       message: "Vote updated successfully",
       data: {
         helpfulVotes: review.helpfulVotes,
-        hasVoted: review.votedBy.includes(userId),
+        hasVoted: hasVotedAfter,
       },
     });
   } catch (error) {

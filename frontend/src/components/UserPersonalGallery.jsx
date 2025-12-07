@@ -4,9 +4,11 @@ import {
   useDeleteUserGalleryImage,
 } from "../hooks/useImgUpload";
 import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 const UserPersonalGallery = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { data: galleryData, isLoading, isError } = useUserGalleryImages();
   const { mutate: deleteImage, isPending: isDeleting } =useDeleteUserGalleryImage();
 
@@ -170,18 +172,58 @@ const UserPersonalGallery = () => {
             })}
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-lg p-12 text-center">
-            <div className="text-6xl mb-4">📸</div>
-            <h3 className="text-2xl font-bold mb-2">No Photos Yet</h3>
-            <p className="text-gray-600 mb-6">
-              Upload your first travel photo!
-            </p>
-            <a
-              href="/profile?tab=post"
-              className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-lg"
-            >
-              Upload Photo
-            </a>
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="bg-white rounded-2xl shadow-xl p-12 md:p-16 text-center max-w-2xl mx-auto">
+              {/* Icon/Illustration */}
+              <div className="mb-6">
+                <div className="inline-flex items-center justify-center w-32 h-32 bg-gradient-to-br from-blue-50 to-purple-50 rounded-full mb-4">
+                  <svg
+                    className="w-16 h-16 text-blue-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Heading */}
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                No Photos Yet
+              </h2>
+
+              {/* Description */}
+              <p className="text-lg text-gray-600 mb-8 max-w-md mx-auto">
+                Abhi tak aapne koi photo upload nahi kiya hai. Apni travel memories share karein aur apni gallery ko beautiful banaein!
+              </p>
+
+              {/* CTA Button */}
+              <button
+                onClick={() => navigate("/profile?tab=post")}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                Add Photo
+              </button>
+            </div>
           </div>
         )}
       </div>

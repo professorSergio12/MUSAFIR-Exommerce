@@ -1,12 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import { useUserBookings } from "../hooks/useBookings";
 import { useNavigate } from "react-router-dom";
+import { getPackageBySlug } from "../api/packagesApi";
+import ReviewForm from "../components/ReviewForm";
+import { useQuery } from "@tanstack/react-query";
 
 function Dashboard() {
   const { data: bookingsData, isLoading, isError } = useUserBookings();
   const navigate = useNavigate();
+  const [expandedBookingId, setExpandedBookingId] = useState(null);
+  const [fullPackageDetails, setFullPackageDetails] = useState({});
+  const [loadingFullDetails, setLoadingFullDetails] = useState({});
+  const [showReviewForm, setShowReviewForm] = useState(null); // { packageId, bookingId, packageName }
 
   const bookings = bookingsData?.data || [];
+
+  const handleViewMore = async (booking) => {
+    const slug = booking.packageId.slug;
+    const bookingId = booking._id;
+
+    // If already expanded, close it
+    if (expandedBookingId === bookingId) {
+      setExpandedBookingId(null);
+      return;
+    }
+
+    // If already loaded, just expand
+    if (fullPackageDetails[bookingId]) {
+      setExpandedBookingId(bookingId);
+      return;
+    }
+
+    // Fetch full package details
+    setLoadingFullDetails((prev) => ({ ...prev, [bookingId]: true }));
+    try {
+      const fullPackage = await getPackageBySlug(slug);
+      setFullPackageDetails((prev) => ({
+        ...prev,
+        [bookingId]: fullPackage,
+      }));
+      setExpandedBookingId(bookingId);
+    } catch (error) {
+      console.error("Error fetching full package:", error);
+      alert("Failed to load package details. Please try again.");
+    } finally {
+      setLoadingFullDetails((prev) => ({ ...prev, [bookingId]: false }));
+    }
+  };
+
+  const handleAddReview = (booking) => {
+    // Handle both populated and non-populated packageId
+    const packageId = booking.packageId?._id 
+      ? booking.packageId._id.toString() 
+      : booking.packageId?.toString() || booking.packageId;
+    
+    setShowReviewForm({
+      packageId: packageId,
+      bookingId: booking._id,
+      packageName: booking.packageId?.name || booking.packageId?.name || "Package",
+    });
+  };
 
   if (isLoading) {
     return (
@@ -61,6 +114,10 @@ function Dashboard() {
                 month: "long",
                 day: "numeric",
               });
+
+              const isExpanded = expandedBookingId === booking._id;
+              const fullPackage = fullPackageDetails[booking._id];
+              const isLoadingDetails = loadingFullDetails[booking._id];
 
               return (
                 <div
@@ -182,41 +239,169 @@ function Dashboard() {
                       </span>
                     </div>
 
-                    {/* View Package Button */}
-                    {packageData?.slug && (
-                      <button
-                        onClick={() =>
-                          navigate(`/packages/${packageData.slug}`)
-                        }
-                        className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
-                      >
-                        View Package Details
-                      </button>
+                    {/* Expanded Section - Full Package Details */}
+                    {isExpanded && (
+                      <div className="mt-4 pt-4 border-t border-gray-200 space-y-4">
+                        {isLoadingDetails ? (
+                          <div className="text-center py-4">
+                            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-red-600 mx-auto mb-2"></div>
+                            <p className="text-sm text-gray-600">Loading details...</p>
+                          </div>
+                        ) : fullPackage ? (
+                          <>
+                            {/* Full Description */}
+                            {fullPackage.description && (
+                              <div>
+                                <h4 className="font-bold text-gray-900 mb-2">Description</h4>
+                                <p className="text-sm text-gray-600 leading-relaxed">
+                                  {fullPackage.description}
+                                </p>
+                              </div>
+                            )}
+
+                            {/* Itinerary */}
+                            {fullPackage.itinerary && fullPackage.itinerary.length > 0 && (
+                              <div>
+                                <h4 className="font-bold text-gray-900 mb-2">Itinerary</h4>
+                                <div className="space-y-2">
+                                  {fullPackage.itinerary.map((item, idx) => (
+                                    <div key={idx} className="text-sm text-gray-600 flex items-start gap-2">
+                                      <span className="text-red-600 font-bold">{idx + 1}.</span>
+                                      <span>{item.name || item}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Hotels */}
+                            {fullPackage.availableHotels && fullPackage.availableHotels.length > 0 && (
+                              <div>
+                                <h4 className="font-bold text-gray-900 mb-2">Available Hotels</h4>
+                                <div className="space-y-2">
+                                  {fullPackage.availableHotels.map((hotel, idx) => (
+                                    <div key={idx} className="text-sm text-gray-600">
+                                      {hotel.name || hotel}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Food Options */}
+                            {fullPackage.availableFoodOptions && fullPackage.availableFoodOptions.length > 0 && (
+                              <div>
+                                <h4 className="font-bold text-gray-900 mb-2">Food Options</h4>
+                                <div className="space-y-2">
+                                  {fullPackage.availableFoodOptions.map((food, idx) => (
+                                    <div key={idx} className="text-sm text-gray-600">
+                                      {food.name || food}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </>
+                        ) : null}
+                      </div>
                     )}
+
+                    {/* Action Buttons */}
+                    <div className="space-y-2 mt-4">
+                      <button
+                        onClick={() => handleViewMore(booking)}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                      >
+                        {isExpanded ? "View Less" : "View More"}
+                      </button>
+
+                      <button
+                        onClick={() => handleAddReview(booking)}
+                        className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                      >
+                        Add Review
+                      </button>
+
+                      {packageData?.slug && (
+                        <button
+                          onClick={() => navigate(`/packages/${packageData.slug}`)}
+                          className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                        >
+                          View Package Page
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-lg p-12 text-center">
-            <div className="text-6xl mb-4">📦</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              No Bookings Yet
-            </h3>
-            <p className="text-gray-600 mb-6">
-              You haven't made any bookings yet. Start exploring our amazing
-              packages!
-            </p>
-            <button
-              onClick={() => navigate("/all-packages")}
-              className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-300"
-            >
-              Explore Packages
-            </button>
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="bg-white rounded-2xl shadow-xl p-12 md:p-16 text-center max-w-2xl mx-auto">
+              {/* Icon/Illustration */}
+              <div className="mb-6">
+                <div className="inline-flex items-center justify-center w-32 h-32 bg-gradient-to-br from-red-50 to-orange-50 rounded-full mb-4">
+                  <svg
+                    className="w-16 h-16 text-red-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Heading */}
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                No Bookings Yet
+              </h2>
+
+              {/* Description */}
+              <p className="text-lg text-gray-600 mb-8 max-w-md mx-auto">
+                Abhi tak aapne koi package book nahi kiya hai. Hamare amazing travel packages explore karein aur apna perfect trip dhoondhein!
+              </p>
+
+              {/* CTA Button */}
+              <button
+                onClick={() => navigate("/all-packages")}
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                Explore All Packages
+              </button>
+            </div>
           </div>
         )}
       </div>
+
+      {/* Review Form Modal */}
+      {showReviewForm && (
+        <ReviewForm
+          packageId={showReviewForm.packageId}
+          bookingId={showReviewForm.bookingId}
+          packageName={showReviewForm.packageName}
+          onClose={() => setShowReviewForm(null)}
+        />
+      )}
     </div>
   );
 }

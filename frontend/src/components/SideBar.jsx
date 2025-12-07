@@ -5,6 +5,7 @@ import { useLogout } from "../hooks/useAuth";
 
 const menuItems = [
   { label: "Profile", tab: "profile", icon: "👤" },
+  { label: "My Bookings", tab: "bookings", icon: "📦" },
   { label: "Dashboard", tab: "dashboard", icon: "📊" },
   { label: "Post", tab: "post", icon: "📝" },
   { label: "Gallery", tab: "gallery", icon: "📸" },
@@ -20,6 +21,8 @@ const SideBar = () => {
       navigate("/profile?tab=profile");
     } else if (tab === "dashboard") {
       navigate("/profile?tab=dashboard");
+    } else if (tab === "bookings") {
+      navigate("/profile?tab=bookings");
     } else if (tab === "post") {
       navigate("/profile?tab=post");
     } else if (tab === "gallery") {

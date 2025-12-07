@@ -6,6 +6,9 @@ export const getUserBookings = async () => {
 };
 
 export const getBookingById = async (id) => {
+  if (!id) {
+    throw new Error("Booking ID is required");
+  }
   const response = await axiosInstance.get(`/bookings/${id}`);
   return response.data;
 };

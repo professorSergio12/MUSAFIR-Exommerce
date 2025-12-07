@@ -26,6 +26,7 @@ const User = () => {
       </div>
       <div className="flex-1 bg-white">
         {tab === "profile" && <UserProfile />}
+        {tab === "bookings" && <Dashboard />}
         {tab === "dashboard" && <Dashboard />}
         {tab === "post" && <UserPost />}
         {tab === "gallery" && <UserPersonalGallery />}

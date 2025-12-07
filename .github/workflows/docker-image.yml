@@ -3,7 +3,6 @@ name: Deploy Musafir App to EC2
 on:
   push:
     branches: ["aws-server"]
-  workflow_dispatch:
 
 jobs:
   deploy:
@@ -25,7 +24,7 @@ jobs:
           docker compose -f docker-compose.ci.yml push
 
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@v1.1.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
@@ -47,22 +46,23 @@ jobs:
             fi
 
             cd MUSAFIR-Exommerce
+
             echo "Pruning Docker to free disk space..."
             docker system prune -af --volumes
 
-            echo "Pulling backend & worker images......."
-            docker compose -f docker-compose.yml pull backend worker-server
+            echo "Pulling backend and worker images..."
+            docker compose -f docker-compose.yml pull backend worker-server || true
 
-            echo "Building frontend with EC2 .env..."
+            echo "Building frontend with EC2 .env variables..."
             docker compose -f docker-compose.yml build --no-cache frontend
 
-            echo "Stopping containers..."
+            echo "Stopping running containers..."
             docker compose -f docker-compose.yml down
 
-            echo "Starting containers..."
+            echo "Starting containers (frontend → nginx → backend)..."
             docker compose -f docker-compose.yml up -d
 
-            echo "== Disk usage AFTER deployment ==="
+            echo "=== Disk usage AFTER deployment ==="
             df -h
 
-            echo "Deployment Complete"
+            echo "Deployment Complete!"
