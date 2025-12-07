@@ -50,14 +50,14 @@ jobs:
             echo "Pruning Docker to free disk space..."
             docker system prune -af --volumes
 
-            echo "Pulling backend and worker images..."
-            docker compose -f docker-compose.yml pull backend worker-server || true
+            echo "Pulling backend, worker and nginx images..."
+            docker compose -f docker-compose.yml pull backend worker-server nginx || true
 
             echo "Building frontend with EC2 .env variables..."
             docker compose -f docker-compose.yml build --no-cache frontend
 
             echo "Stopping running containers..."
-            docker compose -f docker-compose.yml down
+            docker compose -f docker-compose.yml down --remove-orphans
 
             echo "Starting containers (frontend → nginx → backend)..."
             docker compose -f docker-compose.yml up -d
