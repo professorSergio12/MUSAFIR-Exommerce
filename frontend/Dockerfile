@@ -26,7 +26,7 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# ---------- Final Stage ----------
+# -------- Final Stage -------- #
 # This stage ONLY outputs build files.
 # It does NOT run nginx. NGINX will be a separate container.
 FROM alpine:3.18
