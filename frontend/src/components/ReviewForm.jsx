@@ -99,12 +99,12 @@ const ReviewForm = ({ packageId, bookingId, onClose, packageName }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-gray-900">Write a Review</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 px-6 py-4 flex justify-between items-center">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Write a Review</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 text-2xl"
+            className="text-gray-400 hover:text-gray-600 dark:text-gray-300 text-2xl"
           >
             ×
           </button>
@@ -114,8 +114,8 @@ const ReviewForm = ({ packageId, bookingId, onClose, packageName }) => {
           {/* Package Name */}
           {packageName && (
             <div className="bg-blue-50 p-4 rounded-lg">
-              <p className="text-sm text-gray-600">Reviewing:</p>
-              <p className="font-semibold text-gray-900">{packageName}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Reviewing:</p>
+              <p className="font-semibold text-gray-900 dark:text-white">{packageName}</p>
             </div>
           )}
 
@@ -142,7 +142,7 @@ const ReviewForm = ({ packageId, bookingId, onClose, packageName }) => {
                 </button>
               ))}
               {formData.rating > 0 && (
-                <span className="ml-2 text-sm text-gray-600">
+                <span className="ml-2 text-sm text-gray-600 dark:text-gray-300">
                   {formData.rating} out of 5
                 </span>
               )}

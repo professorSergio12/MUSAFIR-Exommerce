@@ -58,10 +58,10 @@ const PackageDetails = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading package details...</p>
+          <p className="text-gray-600 dark:text-gray-300 dark:text-gray-300">Loading package details...</p>
         </div>
       </div>
     );
@@ -69,10 +69,10 @@ const PackageDetails = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="text-red-500 text-xl mb-4">⚠️</div>
-          <p className="text-red-600">
+          <p className="text-red-600 dark:text-red-400">
             {error?.message || "Failed to load package details"}
           </p>
           <button
@@ -88,9 +88,9 @@ const PackageDetails = () => {
 
   if (!packageData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600">Package not found</p>
+          <p className="text-gray-600 dark:text-gray-300 dark:text-gray-300">Package not found</p>
           <button
             onClick={() => navigate("/all-packages")}
             className="mt-4 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg"
@@ -186,24 +186,24 @@ const PackageDetails = () => {
   };
   if (isVerifyingPayment) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Processing payment...</p>
+          <p className="text-gray-600 dark:text-gray-300">Processing payment...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
-      <div className="bg-white shadow-sm">
+      <div className="bg-white dark:bg-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center gap-4 mb-4">
             <button
               onClick={() => navigate("/all-packages")}
-              className="text-gray-600 hover:text-gray-800"
+              className="text-gray-600 dark:text-gray-300 hover:text-gray-800"
             >
               <svg
                 className="w-6 h-6"
@@ -219,11 +219,11 @@ const PackageDetails = () => {
                 />
               </svg>
             </button>
-            <h1 className="text-4xl font-bold text-gray-900">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
               {packageData.name}
             </h1>
           </div>
-          <div className="flex items-center gap-6 text-gray-600">
+          <div className="flex items-center gap-6 text-gray-600 dark:text-gray-300">
             <span className="flex items-center gap-2">
               <svg
                 className="w-5 h-5"
@@ -300,11 +300,11 @@ const PackageDetails = () => {
             </div>
 
             {/* Description */}
-            <div className="bg-white rounded-xl p-6 shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 About This Package
               </h2>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 {packageData.description ||
                   "Experience the best of this amazing destination with our carefully curated package."}
               </p>
@@ -312,8 +312,8 @@ const PackageDetails = () => {
 
             {/* Itinerary - Places to Visit */}
             {packageData.itinerary && packageData.itinerary.length > 0 && (
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Places You'll Visit
                 </h2>
                 <div className="space-y-4">
@@ -327,13 +327,13 @@ const PackageDetails = () => {
                           {location.day}
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900">
+                          <h3 className="font-semibold text-gray-900 dark:text-white">
                             {location.name}
                           </h3>
-                          <p className="text-sm text-gray-600 mt-1">
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                             {location.city}, {location.country}
                           </p>
-                          <p className="text-gray-600 mt-2">
+                          <p className="text-gray-600 dark:text-gray-300 mt-2">
                             {location.details}
                           </p>
                           {location.locationImage && (
@@ -354,8 +354,8 @@ const PackageDetails = () => {
             {/* Available Hotels */}
             {packageData.availableHotels &&
               packageData.availableHotels.length > 0 && (
-                <div className="bg-white rounded-xl p-6 shadow-lg">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                     Choose Your Hotel
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -365,7 +365,7 @@ const PackageDetails = () => {
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
                           selectedHotel?._id === hotel._id
                             ? "border-red-500 bg-red-50"
-                            : "border-gray-200 hover:border-gray-300"
+                            : "border-gray-200 dark:border-gray-700 hover:border-gray-300"
                         }`}
                         onClick={() => {
                           setSelectedHotel(hotel);
@@ -375,7 +375,7 @@ const PackageDetails = () => {
                         }}
                       >
                         <div className="flex items-start justify-between mb-3">
-                          <h3 className="font-semibold text-gray-900">
+                          <h3 className="font-semibold text-gray-900 dark:text-white">
                             {hotel.name}
                           </h3>
                           <span
@@ -390,10 +390,10 @@ const PackageDetails = () => {
                             {hotel.tier}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600 mb-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
                           {hotel.city}, {hotel.country}
                         </p>
-                        <p className="text-sm text-gray-600 mb-3">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
                           {hotel.description}
                         </p>
                         <div className="flex items-center justify-between">
@@ -422,7 +422,7 @@ const PackageDetails = () => {
                     selectedHotel.roomTypes &&
                     selectedHotel.roomTypes.length > 0 && (
                       <div className="mt-6">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                           Choose Room Type
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -432,14 +432,14 @@ const PackageDetails = () => {
                               className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
                                 selectedRoomType?.name === roomType.name
                                   ? "border-red-500 bg-red-50"
-                                  : "border-gray-200 hover:border-gray-300"
+                                  : "border-gray-200 dark:border-gray-700 hover:border-gray-300"
                               }`}
                               onClick={() => setSelectedRoomType(roomType)}
                             >
-                              <h4 className="font-semibold text-gray-900 mb-2">
+                              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
                                 {roomType.name}
                               </h4>
-                              <p className="text-sm text-gray-600">
+                              <p className="text-sm text-gray-600 dark:text-gray-300">
                                 {roomType.surcharge === 0
                                   ? "Base price"
                                   : `+₹${roomType.surcharge.toLocaleString()}/night`}
@@ -460,8 +460,8 @@ const PackageDetails = () => {
             {/* Food Options */}
             {packageData.availableFoodOptions &&
               packageData.availableFoodOptions.length > 0 && (
-                <div className="bg-white rounded-xl p-6 shadow-lg">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                     Choose Your Meal Plan
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -471,12 +471,12 @@ const PackageDetails = () => {
                         className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
                           selectedFoodOption?._id === food._id
                             ? "border-red-500 bg-red-50"
-                            : "border-gray-200 hover:border-gray-300"
+                            : "border-gray-200 dark:border-gray-700 hover:border-gray-300"
                         }`}
                         onClick={() => setSelectedFoodOption(food)}
                       >
                         <div className="flex items-start justify-between mb-3">
-                          <h3 className="font-semibold text-gray-900">
+                          <h3 className="font-semibold text-gray-900 dark:text-white">
                             {food.name}
                           </h3>
                           <span className="text-lg font-bold text-red-600">
@@ -485,7 +485,7 @@ const PackageDetails = () => {
                               : `+₹${food.surchargePerDay?.toLocaleString()}/day`}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600 mb-3">
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
                           {food.description}
                         </p>
                         <div className="flex flex-wrap gap-2 mb-3">
@@ -519,44 +519,44 @@ const PackageDetails = () => {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl p-6 shadow-lg sticky top-8">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg sticky top-8">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                 Package Summary
               </h3>
 
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Duration:</span>
+                  <span className="text-gray-600 dark:text-gray-300">Duration:</span>
                   <span className="font-semibold">
                     {packageData.durationDays} Days
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Best Season:</span>
+                  <span className="text-gray-600 dark:text-gray-300">Best Season:</span>
                   <span className="font-semibold capitalize">
                     {packageData.bestSeason}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Country:</span>
+                  <span className="text-gray-600 dark:text-gray-300">Country:</span>
                   <span className="font-semibold">{packageData.country}</span>
                 </div>
               </div>
 
               {/* Price Breakdown */}
               <div className="border-t pt-4 mb-6">
-                <h4 className="font-semibold text-gray-900 mb-3">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
                   Price Breakdown
                 </h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Base Package:</span>
+                    <span className="text-gray-600 dark:text-gray-300">Base Package:</span>
                     <span>₹{packageData.basePrice?.toLocaleString()}</span>
                   </div>
 
                   {selectedHotel && selectedRoomType && (
                     <div className="flex justify-between">
-                      <span className="text-gray-600">
+                      <span className="text-gray-600 dark:text-gray-300">
                         Hotel ({selectedHotel.name}):
                       </span>
                       <span>
@@ -572,7 +572,7 @@ const PackageDetails = () => {
 
                   {selectedFoodOption && (
                     <div className="flex justify-between">
-                      <span className="text-gray-600">
+                      <span className="text-gray-600 dark:text-gray-300">
                         Meals ({selectedFoodOption.name}):
                       </span>
                       <span>
@@ -599,13 +599,13 @@ const PackageDetails = () => {
               {/* Selected Options */}
               {(selectedHotel || selectedFoodOption) && (
                 <div className="border-t pt-4 mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
                     Selected Options
                   </h4>
                   <div className="space-y-2 text-sm">
                     {selectedHotel && (
                       <div>
-                        <span className="text-gray-600">Hotel: </span>
+                        <span className="text-gray-600 dark:text-gray-300">Hotel: </span>
                         <span className="font-medium">
                           {selectedHotel.name}
                         </span>
@@ -619,7 +619,7 @@ const PackageDetails = () => {
                     )}
                     {selectedFoodOption && (
                       <div>
-                        <span className="text-gray-600">Meals: </span>
+                        <span className="text-gray-600 dark:text-gray-300">Meals: </span>
                         <span className="font-medium">
                           {selectedFoodOption.name}
                         </span>

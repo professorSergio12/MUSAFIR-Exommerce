@@ -38,11 +38,11 @@ const CustomerReviews = ({ packageId }) => {
 
   if (isLoading) {
     return (
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading reviews...</p>
+            <p className="text-gray-600 dark:text-gray-300">Loading reviews...</p>
           </div>
         </div>
       </section>
@@ -51,11 +51,11 @@ const CustomerReviews = ({ packageId }) => {
 
   if (!reviews || reviews.length === 0) {
     return (
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Customer Reviews</h2>
-            <p className="text-lg text-gray-600">No reviews yet. Be the first to review!</p>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Customer Reviews</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">No reviews yet. Be the first to review!</p>
           </div>
         </div>
       </section>
@@ -63,11 +63,11 @@ const CustomerReviews = ({ packageId }) => {
   }
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Customer Reviews</h2>
-          <p className="text-lg text-gray-600">What Our Travelers Say</p>
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Customer Reviews</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300">What Our Travelers Say</p>
         </div>
 
         <div className="relative overflow-hidden">
@@ -88,7 +88,7 @@ const CustomerReviews = ({ packageId }) => {
 
                     {/* Review Title */}
                     {review.title && (
-                      <h3 className="text-xl font-bold text-gray-900 mb-3">{review.title}</h3>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{review.title}</h3>
                     )}
 
                     {/* Review Text */}
@@ -104,7 +104,7 @@ const CustomerReviews = ({ packageId }) => {
                         className="w-16 h-16 rounded-full object-cover mr-4"
                       />
                       <div className="text-left">
-                        <h4 className="text-lg font-semibold text-gray-900">{review.user?.name || "Anonymous"}</h4>
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{review.user?.name || "Anonymous"}</h4>
                         {review.package?.name && (
                           <p className="text-sm text-orange-500 font-medium">{review.package.name}</p>
                         )}

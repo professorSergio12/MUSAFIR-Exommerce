@@ -108,7 +108,7 @@ const ContactUs = () => {
                 key={idx}
                 whileHover={{ y: -4, scale: 1.01 }}
                 transition={{ type: "spring", stiffness: 250, damping: 18 }}
-                className="bg-white/95 backdrop-blur border border-slate-100 rounded-2xl p-5 shadow-sm"
+                className="bg-white dark:bg-gray-800/95 backdrop-blur border border-slate-100 rounded-2xl p-5 shadow-sm"
               >
                 <div className="flex items-start gap-3 mb-3">
                   <div className="p-2.5 rounded-xl bg-sky-50">
@@ -164,7 +164,7 @@ const ContactUs = () => {
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.4, delay: i * 0.06 }}
-                className="bg-white rounded-2xl p-4 md:p-5 shadow-sm border border-slate-100"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-5 shadow-sm border border-slate-100"
               >
                 <div className="flex items-start gap-3">
                   <span className="mt-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-sky-50 text-sky-600 text-xs font-semibold">
@@ -189,7 +189,7 @@ const ContactUs = () => {
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.5 }}
-            className="bg-white rounded-3xl shadow-xl shadow-sky-100 border border-slate-100 p-6 md:p-7"
+            className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl shadow-sky-100 border border-slate-100 p-6 md:p-7"
           >
             <h3 className="text-xl font-semibold text-slate-900 mb-1">
               Send us a message
@@ -299,7 +299,7 @@ const ContactUs = () => {
               <PhoneIcon className="w-4 h-4" />
               Request a callback
             </button>
-            <button className="inline-flex items-center gap-2 rounded-full bg-white text-slate-900 px-4 py-2 text-sm font-semibold hover:bg-slate-100 transition">
+            <button className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-gray-800 text-slate-900 px-4 py-2 text-sm font-semibold hover:bg-slate-100 transition">
               <ChatBubbleLeftRightIcon className="w-4 h-4" />
               Open chat
             </button>

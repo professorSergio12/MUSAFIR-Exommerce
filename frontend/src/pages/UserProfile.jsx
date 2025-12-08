@@ -22,7 +22,7 @@ const UserProfile = () => {
 
   if (!currentUser) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center text-gray-500">
+      <div className="min-h-[60vh] flex items-center justify-center text-gray-500 dark:text-gray-400">
         Please sign in to view your profile.
       </div>
     );
@@ -56,9 +56,9 @@ const UserProfile = () => {
   };
 
   return (
-    <section className="flex-1 min-h-[calc(100vh-80px)] bg-white py-16 px-6 text-gray-900">
+    <section className="flex-1 min-h-[calc(100vh-80px)] bg-white dark:bg-gray-900 py-16 px-6 text-gray-900 dark:text-white">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-4xl font-semibold text-center mb-10 text-gray-900">
+        <h2 className="text-4xl font-semibold text-center mb-10 text-gray-900 dark:text-white">
           Profile
         </h2>
 
@@ -67,46 +67,46 @@ const UserProfile = () => {
             <img
               src={previewImage}
               alt="avatar"
-              className="w-32 h-32 rounded-full object-cover border-4 border-gray-100 shadow-lg"
+              className="w-32 h-32 rounded-full object-cover border-4 border-gray-100 dark:border-gray-700 shadow-lg"
             />
-            <label className="absolute bottom-0 right-0 bg-white rounded-full shadow p-2 cursor-pointer border border-gray-200">
+            <label className="absolute bottom-0 right-0 bg-white dark:bg-gray-800 rounded-full shadow p-2 cursor-pointer border border-gray-200 dark:border-gray-600">
               <input
                 type="file"
                 accept="image/*"
                 className="hidden"
                 onChange={handleImageChange}
               />
-              <span className="text-sky-500 text-xl">
+              <span className="text-sky-500 dark:text-sky-400 text-xl">
                 {uploading ? "…" : "✎"}
               </span>
             </label>
           </div>
           <div className="text-center">
-            <h3 className="text-xl font-semibold text-gray-900">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
               {currentUser.username}
             </h3>
-            <p className="text-gray-500">{currentUser.email}</p>
+            <p className="text-gray-500 dark:text-gray-400">{currentUser.email}</p>
           </div>
         </div>
 
         <form onSubmit={handleUpdateName} className="space-y-6">
           <div>
-            <label htmlFor="name" className="block text-sm text-gray-500 mb-2">
+            <label htmlFor="name" className="block text-sm text-gray-500 dark:text-gray-400 mb-2">
               Name
             </label>
             <input
               id="name"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full bg-white text-gray-900 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              className="w-full bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-sky-500 dark:focus:ring-sky-400"
             />
           </div>
 
           <div>
-            <label className="block text-sm text-gray-500 mb-2">
+            <label className="block text-sm text-gray-500 dark:text-gray-400 mb-2">
               Email account
             </label>
-            <div className="w-full bg-gray-50 text-gray-600 border border-gray-200 rounded-xl px-4 py-3">
+            <div className="w-full bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3">
               {currentUser.email}
             </div>
           </div>

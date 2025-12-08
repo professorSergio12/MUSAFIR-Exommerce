@@ -46,7 +46,7 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-gray-900 dark:to-gray-800">
       <div className="relative text-white py-32 md:py-40 px-4 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
@@ -64,7 +64,7 @@ const About = () => {
           </p>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-slate-50 to-transparent z-10"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-slate-50 dark:from-gray-900 to-transparent z-10"></div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 mt-12 md:mt-16 mb-12 md:mb-16">
@@ -72,22 +72,22 @@ const About = () => {
           {stats.map((stat, i) => (
             <div
               key={i}
-              className="bg-white rounded-xl shadow-lg p-6 text-center hover:scale-105 transition"
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center hover:scale-105 transition"
             >
-              <div className="text-4xl font-bold text-blue-600">
+              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400">
                 {stat.number}
               </div>
-              <div className="text-gray-600">{stat.label}</div>
+              <div className="text-gray-600 dark:text-gray-300">{stat.label}</div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="bg-blue-50 py-20 px-4">
+      <div className="bg-blue-50 dark:bg-gray-800 py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Our Values</h2>
-            <p className="text-gray-600">
+            <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Our Values</h2>
+            <p className="text-gray-600 dark:text-gray-300">
               The principles that guide our journeys
             </p>
           </div>
@@ -96,11 +96,11 @@ const About = () => {
             {values.map((v, i) => (
               <div
                 key={i}
-                className="bg-white rounded-xl p-6 shadow hover:shadow-xl transition"
+                className="bg-white dark:bg-gray-700 rounded-xl p-6 shadow hover:shadow-xl transition"
               >
-                <div className="text-blue-600 mb-4">{v.icon}</div>
-                <h3 className="text-xl font-bold mb-2">{v.title}</h3>
-                <p className="text-gray-600">{v.description}</p>
+                <div className="text-blue-600 dark:text-blue-400 mb-4">{v.icon}</div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{v.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300">{v.description}</p>
               </div>
             ))}
           </div>

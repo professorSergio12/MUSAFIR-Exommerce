@@ -11,7 +11,7 @@ function Dashboard() {
   const [expandedBookingId, setExpandedBookingId] = useState(null);
   const [fullPackageDetails, setFullPackageDetails] = useState({});
   const [loadingFullDetails, setLoadingFullDetails] = useState({});
-  const [showReviewForm, setShowReviewForm] = useState(null); // { packageId, bookingId, packageName }
+  const [showReviewForm, setShowReviewForm] = useState(null);
 
   const bookings = bookingsData?.data || [];
 
@@ -63,10 +63,10 @@ function Dashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-8">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your bookings...</p>
+          <p className="text-gray-600 dark:text-gray-300">Loading your bookings...</p>
         </div>
       </div>
     );
@@ -74,10 +74,10 @@ function Dashboard() {
 
   if (isError) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-8">
         <div className="text-center">
           <div className="text-red-500 text-xl mb-4">⚠️</div>
-          <p className="text-red-600 mb-4">
+          <p className="text-red-600 dark:text-red-400 mb-4">
             Failed to load your bookings. Please try again later.
           </p>
           <button
@@ -92,12 +92,12 @@ function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 md:p-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Bookings</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">My Bookings</h1>
+          <p className="text-gray-600 dark:text-gray-300">
             View and manage all your travel bookings
           </p>
         </div>
@@ -122,7 +122,7 @@ function Dashboard() {
               return (
                 <div
                   key={booking._id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
                 >
                   {/* Package Image */}
                   <div className="relative h-48 overflow-hidden">
@@ -154,13 +154,13 @@ function Dashboard() {
                   {/* Content */}
                   <div className="p-6">
                     {/* Package Name */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-1">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-1">
                       {packageData?.name || "Package Name"}
                     </h3>
 
                     {/* Package Details */}
                     <div className="space-y-2 mb-4">
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                         <svg
                           className="w-4 h-4"
                           fill="none"
@@ -183,7 +183,7 @@ function Dashboard() {
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                         <svg
                           className="w-4 h-4"
                           fill="none"
@@ -208,7 +208,7 @@ function Dashboard() {
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                         <svg
                           className="w-4 h-4"
                           fill="none"
@@ -227,11 +227,11 @@ function Dashboard() {
                     </div>
 
                     {/* Divider */}
-                    <div className="border-t border-gray-200 my-4"></div>
+                    <div className="border-t border-gray-200 dark:border-gray-700 my-4"></div>
 
                     {/* Booking Amount */}
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-sm text-gray-600">
+                      <span className="text-sm text-gray-600 dark:text-gray-300">
                         Total Amount:
                       </span>
                       <span className="text-xl font-bold text-red-600">
@@ -241,19 +241,19 @@ function Dashboard() {
 
                     {/* Expanded Section - Full Package Details */}
                     {isExpanded && (
-                      <div className="mt-4 pt-4 border-t border-gray-200 space-y-4">
+                      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 space-y-4">
                         {isLoadingDetails ? (
                           <div className="text-center py-4">
                             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-red-600 mx-auto mb-2"></div>
-                            <p className="text-sm text-gray-600">Loading details...</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">Loading details...</p>
                           </div>
                         ) : fullPackage ? (
                           <>
                             {/* Full Description */}
                             {fullPackage.description && (
                               <div>
-                                <h4 className="font-bold text-gray-900 mb-2">Description</h4>
-                                <p className="text-sm text-gray-600 leading-relaxed">
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Description</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                                   {fullPackage.description}
                                 </p>
                               </div>
@@ -262,11 +262,11 @@ function Dashboard() {
                             {/* Itinerary */}
                             {fullPackage.itinerary && fullPackage.itinerary.length > 0 && (
                               <div>
-                                <h4 className="font-bold text-gray-900 mb-2">Itinerary</h4>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Itinerary</h4>
                                 <div className="space-y-2">
                                   {fullPackage.itinerary.map((item, idx) => (
-                                    <div key={idx} className="text-sm text-gray-600 flex items-start gap-2">
-                                      <span className="text-red-600 font-bold">{idx + 1}.</span>
+                                    <div key={idx} className="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2">
+                                      <span className="text-red-600 dark:text-red-400 font-bold">{idx + 1}.</span>
                                       <span>{item.name || item}</span>
                                     </div>
                                   ))}
@@ -277,10 +277,10 @@ function Dashboard() {
                             {/* Hotels */}
                             {fullPackage.availableHotels && fullPackage.availableHotels.length > 0 && (
                               <div>
-                                <h4 className="font-bold text-gray-900 mb-2">Available Hotels</h4>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Available Hotels</h4>
                                 <div className="space-y-2">
                                   {fullPackage.availableHotels.map((hotel, idx) => (
-                                    <div key={idx} className="text-sm text-gray-600">
+                                    <div key={idx} className="text-sm text-gray-600 dark:text-gray-300">
                                       {hotel.name || hotel}
                                     </div>
                                   ))}
@@ -291,10 +291,10 @@ function Dashboard() {
                             {/* Food Options */}
                             {fullPackage.availableFoodOptions && fullPackage.availableFoodOptions.length > 0 && (
                               <div>
-                                <h4 className="font-bold text-gray-900 mb-2">Food Options</h4>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Food Options</h4>
                                 <div className="space-y-2">
                                   {fullPackage.availableFoodOptions.map((food, idx) => (
-                                    <div key={idx} className="text-sm text-gray-600">
+                                    <div key={idx} className="text-sm text-gray-600 dark:text-gray-300">
                                       {food.name || food}
                                     </div>
                                   ))}
@@ -325,7 +325,7 @@ function Dashboard() {
                       {packageData?.slug && (
                         <button
                           onClick={() => navigate(`/packages/${packageData.slug}`)}
-                          className="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                          className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
                         >
                           View Package Page
                         </button>
@@ -337,56 +337,71 @@ function Dashboard() {
             })}
           </div>
         ) : (
-          <div className="flex items-center justify-center min-h-[60vh]">
-            <div className="bg-white rounded-2xl shadow-xl p-12 md:p-16 text-center max-w-2xl mx-auto">
-              {/* Icon/Illustration */}
-              <div className="mb-6">
-                <div className="inline-flex items-center justify-center w-32 h-32 bg-gradient-to-br from-red-50 to-orange-50 rounded-full mb-4">
-                  <svg
-                    className="w-16 h-16 text-red-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                    />
-                  </svg>
+          <div className="flex items-center justify-center min-h-[70vh] px-4">
+            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-10 md:p-16 text-center max-w-lg mx-auto w-full border border-gray-100 dark:border-gray-700">
+              {/* Animated Icon Container */}
+              <div className="mb-8 flex justify-center">
+                <div className="relative">
+                  {/* Outer Glow Circle */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-400 via-orange-400 to-yellow-400 rounded-full blur-2xl opacity-30 animate-pulse"></div>
+                  
+                  {/* Main Icon Circle */}
+                  <div className="relative inline-flex items-center justify-center w-36 h-36 bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-red-900/20 dark:via-orange-900/20 dark:to-yellow-900/20 rounded-full border-4 border-red-100 dark:border-red-900/30 shadow-inner">
+                    <svg
+                      className="w-20 h-20 text-red-600 dark:text-red-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                      />
+                    </svg>
+                  </div>
+                  
+                  {/* Decorative Dots */}
+                  <div className="absolute -top-2 -right-2 w-4 h-4 bg-red-400 rounded-full animate-bounce"></div>
+                  <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-orange-400 rounded-full animate-bounce delay-300"></div>
                 </div>
               </div>
 
               {/* Heading */}
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
                 No Bookings Yet
               </h2>
 
               {/* Description */}
-              <p className="text-lg text-gray-600 mb-8 max-w-md mx-auto">
-                Abhi tak aapne koi package book nahi kiya hai. Hamare amazing travel packages explore karein aur apna perfect trip dhoondhein!
+              <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-10 max-w-md mx-auto leading-relaxed">
+                You haven't booked any package yet. Explore our amazing travel packages and find your perfect trip!
               </p>
 
               {/* CTA Button */}
               <button
                 onClick={() => navigate("/all-packages")}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 hover:from-red-700 hover:via-orange-700 hover:to-yellow-700 font-bold py-4 px-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 overflow-hidden"
+                style={{ color: 'white' }}
               >
+                {/* Button Shine Effect */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 group-hover:translate-x-full transition-all duration-700 z-10"></span>
+                
                 <svg
-                  className="w-5 h-5"
+                  className="w-6 h-6 relative z-30"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  style={{ color: 'white' }}
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
+                    strokeWidth={2.5}
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   />
                 </svg>
-                Explore All Packages
+                <span className="relative z-30" style={{ color: 'white' }}>Explore All Packages</span>
               </button>
             </div>
           </div>
