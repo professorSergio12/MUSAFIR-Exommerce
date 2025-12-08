@@ -85,13 +85,18 @@ const UserProfile = () => {
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
               {currentUser.username}
             </h3>
-            <p className="text-gray-500 dark:text-gray-400">{currentUser.email}</p>
+            <p className="text-gray-500 dark:text-gray-400">
+              {currentUser.email}
+            </p>
           </div>
         </div>
 
         <form onSubmit={handleUpdateName} className="space-y-6">
           <div>
-            <label htmlFor="name" className="block text-sm text-gray-500 dark:text-gray-400 mb-2">
+            <label
+              htmlFor="name"
+              className="block text-sm text-gray-500 dark:text-gray-400 mb-2"
+            >
               Name
             </label>
             <input

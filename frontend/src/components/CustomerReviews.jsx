@@ -27,7 +27,9 @@ const CustomerReviews = ({ packageId }) => {
     return Array.from({ length: 5 }, (_, i) => (
       <svg
         key={i}
-        className={`w-5 h-5 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+        className={`w-5 h-5 ${
+          i < rating ? "text-yellow-400" : "text-gray-300"
+        }`}
         fill="currentColor"
         viewBox="0 0 20 20"
       >
@@ -42,7 +44,9 @@ const CustomerReviews = ({ packageId }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-300">Loading reviews...</p>
+            <p className="text-gray-600 dark:text-gray-300">
+              Loading reviews...
+            </p>
           </div>
         </div>
       </section>
@@ -54,8 +58,12 @@ const CustomerReviews = ({ packageId }) => {
       <section className="py-20 bg-white dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Customer Reviews</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300">No reviews yet. Be the first to review!</p>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Customer Reviews
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              No reviews yet. Be the first to review!
+            </p>
           </div>
         </div>
       </section>
@@ -66,8 +74,12 @@ const CustomerReviews = ({ packageId }) => {
     <section className="py-20 bg-white dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Customer Reviews</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">What Our Travelers Say</p>
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Customer Reviews
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300">
+            What Our Travelers Say
+          </p>
         </div>
 
         <div className="relative overflow-hidden">
@@ -88,7 +100,9 @@ const CustomerReviews = ({ packageId }) => {
 
                     {/* Review Title */}
                     {review.title && (
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{review.title}</h3>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                        {review.title}
+                      </h3>
                     )}
 
                     {/* Review Text */}
@@ -99,14 +113,21 @@ const CustomerReviews = ({ packageId }) => {
                     {/* Customer Info */}
                     <div className="flex items-center justify-center">
                       <img
-                        src={review.user?.avatar || "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"}
+                        src={
+                          review.user?.avatar ||
+                          "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
+                        }
                         alt={review.user?.name || "User"}
                         className="w-16 h-16 rounded-full object-cover mr-4"
                       />
                       <div className="text-left">
-                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{review.user?.name || "Anonymous"}</h4>
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                          {review.user?.name || "Anonymous"}
+                        </h4>
                         {review.package?.name && (
-                          <p className="text-sm text-orange-500 font-medium">{review.package.name}</p>
+                          <p className="text-sm text-orange-500 font-medium">
+                            {review.package.name}
+                          </p>
                         )}
                       </div>
                     </div>
@@ -125,8 +146,8 @@ const CustomerReviews = ({ packageId }) => {
                   onClick={() => setCurrentIndex(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === currentIndex
-                      ? 'bg-orange-500 scale-125'
-                      : 'bg-gray-300 hover:bg-gray-400'
+                      ? "bg-orange-500 scale-125"
+                      : "bg-gray-300 hover:bg-gray-400"
                   }`}
                 />
               ))}

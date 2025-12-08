@@ -10,10 +10,10 @@ const ThemeProvider = ({ children }) => {
   // Apply theme to HTML element
   useEffect(() => {
     const htmlElement = document.documentElement;
-    
+
     // Always remove dark class first
     htmlElement.classList.remove("dark");
-    
+
     // Add dark class only if theme is "dark"
     if (currentTheme === "dark") {
       htmlElement.classList.add("dark");

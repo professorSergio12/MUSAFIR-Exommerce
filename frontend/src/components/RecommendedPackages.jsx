@@ -163,7 +163,10 @@ const RecommendedPackages = () => {
                       {pkg.itinerary}
                     </p>
 
-                    <button  onClick={() => navigate(`/packages/${pkg.slug}`)} className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-lg transition-colors duration-300">
+                    <button
+                      onClick={() => navigate(`/packages/${pkg.slug}`)}
+                      className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 rounded-lg transition-colors duration-300"
+                    >
                       More Info
                     </button>
                   </div>

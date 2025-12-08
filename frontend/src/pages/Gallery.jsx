@@ -3,7 +3,7 @@ import { Modal } from "flowbite-react";
 import {
   XMarkIcon,
   MagnifyingGlassPlusIcon,
-  MapPinIcon
+  MapPinIcon,
 } from "@heroicons/react/24/outline";
 
 const galleryImages = [
@@ -12,28 +12,28 @@ const galleryImages = [
     url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=1000&fit=crop",
     title: "Mountain Adventure",
     location: "Swiss Alps",
-    height: "tall"
+    height: "tall",
   },
   {
     id: 2,
     url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop",
     title: "Beach Paradise",
     location: "Maldives",
-    height: "short"
+    height: "short",
   },
   {
     id: 3,
     url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&h=800&fit=crop",
     title: "Sunset Views",
     location: "Santorini",
-    height: "medium"
+    height: "medium",
   },
   {
     id: 4,
     url: "https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=800&h=600&fit=crop",
     title: "Desert Safari",
     location: "Dubai",
-    height: "short"
+    height: "short",
   },
 ];
 
@@ -121,7 +121,12 @@ const Gallery = () => {
       </div>
 
       {/* Lightbox Modal - Flowbite */}
-      <Modal show={selectedImage !== null} size="5xl" onClose={() => setSelectedImage(null)} popup>
+      <Modal
+        show={selectedImage !== null}
+        size="5xl"
+        onClose={() => setSelectedImage(null)}
+        popup
+      >
         {selectedImage && (
           <div className="relative bg-black p-4 rounded-lg">
             {/* Close button */}

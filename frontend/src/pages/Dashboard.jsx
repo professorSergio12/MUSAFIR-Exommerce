@@ -50,14 +50,15 @@ function Dashboard() {
 
   const handleAddReview = (booking) => {
     // Handle both populated and non-populated packageId
-    const packageId = booking.packageId?._id 
-      ? booking.packageId._id.toString() 
+    const packageId = booking.packageId?._id
+      ? booking.packageId._id.toString()
       : booking.packageId?.toString() || booking.packageId;
-    
+
     setShowReviewForm({
       packageId: packageId,
       bookingId: booking._id,
-      packageName: booking.packageId?.name || booking.packageId?.name || "Package",
+      packageName:
+        booking.packageId?.name || booking.packageId?.name || "Package",
     });
   };
 
@@ -66,7 +67,9 @@ function Dashboard() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-8">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">Loading your bookings...</p>
+          <p className="text-gray-600 dark:text-gray-300">
+            Loading your bookings...
+          </p>
         </div>
       </div>
     );
@@ -96,7 +99,9 @@ function Dashboard() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">My Bookings</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            My Bookings
+          </h1>
           <p className="text-gray-600 dark:text-gray-300">
             View and manage all your travel bookings
           </p>
@@ -245,14 +250,18 @@ function Dashboard() {
                         {isLoadingDetails ? (
                           <div className="text-center py-4">
                             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-red-600 mx-auto mb-2"></div>
-                            <p className="text-sm text-gray-600 dark:text-gray-300">Loading details...</p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                              Loading details...
+                            </p>
                           </div>
                         ) : fullPackage ? (
                           <>
                             {/* Full Description */}
                             {fullPackage.description && (
                               <div>
-                                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Description</h4>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+                                  Description
+                                </h4>
                                 <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                                   {fullPackage.description}
                                 </p>
@@ -260,47 +269,71 @@ function Dashboard() {
                             )}
 
                             {/* Itinerary */}
-                            {fullPackage.itinerary && fullPackage.itinerary.length > 0 && (
-                              <div>
-                                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Itinerary</h4>
-                                <div className="space-y-2">
-                                  {fullPackage.itinerary.map((item, idx) => (
-                                    <div key={idx} className="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2">
-                                      <span className="text-red-600 dark:text-red-400 font-bold">{idx + 1}.</span>
-                                      <span>{item.name || item}</span>
-                                    </div>
-                                  ))}
+                            {fullPackage.itinerary &&
+                              fullPackage.itinerary.length > 0 && (
+                                <div>
+                                  <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+                                    Itinerary
+                                  </h4>
+                                  <div className="space-y-2">
+                                    {fullPackage.itinerary.map((item, idx) => (
+                                      <div
+                                        key={idx}
+                                        className="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2"
+                                      >
+                                        <span className="text-red-600 dark:text-red-400 font-bold">
+                                          {idx + 1}.
+                                        </span>
+                                        <span>{item.name || item}</span>
+                                      </div>
+                                    ))}
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
 
                             {/* Hotels */}
-                            {fullPackage.availableHotels && fullPackage.availableHotels.length > 0 && (
-                              <div>
-                                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Available Hotels</h4>
-                                <div className="space-y-2">
-                                  {fullPackage.availableHotels.map((hotel, idx) => (
-                                    <div key={idx} className="text-sm text-gray-600 dark:text-gray-300">
-                                      {hotel.name || hotel}
-                                    </div>
-                                  ))}
+                            {fullPackage.availableHotels &&
+                              fullPackage.availableHotels.length > 0 && (
+                                <div>
+                                  <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+                                    Available Hotels
+                                  </h4>
+                                  <div className="space-y-2">
+                                    {fullPackage.availableHotels.map(
+                                      (hotel, idx) => (
+                                        <div
+                                          key={idx}
+                                          className="text-sm text-gray-600 dark:text-gray-300"
+                                        >
+                                          {hotel.name || hotel}
+                                        </div>
+                                      )
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
 
                             {/* Food Options */}
-                            {fullPackage.availableFoodOptions && fullPackage.availableFoodOptions.length > 0 && (
-                              <div>
-                                <h4 className="font-bold text-gray-900 dark:text-white mb-2">Food Options</h4>
-                                <div className="space-y-2">
-                                  {fullPackage.availableFoodOptions.map((food, idx) => (
-                                    <div key={idx} className="text-sm text-gray-600 dark:text-gray-300">
-                                      {food.name || food}
-                                    </div>
-                                  ))}
+                            {fullPackage.availableFoodOptions &&
+                              fullPackage.availableFoodOptions.length > 0 && (
+                                <div>
+                                  <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+                                    Food Options
+                                  </h4>
+                                  <div className="space-y-2">
+                                    {fullPackage.availableFoodOptions.map(
+                                      (food, idx) => (
+                                        <div
+                                          key={idx}
+                                          className="text-sm text-gray-600 dark:text-gray-300"
+                                        >
+                                          {food.name || food}
+                                        </div>
+                                      )
+                                    )}
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
                           </>
                         ) : null}
                       </div>
@@ -324,7 +357,9 @@ function Dashboard() {
 
                       {packageData?.slug && (
                         <button
-                          onClick={() => navigate(`/packages/${packageData.slug}`)}
+                          onClick={() =>
+                            navigate(`/packages/${packageData.slug}`)
+                          }
                           className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
                         >
                           View Package Page
@@ -344,7 +379,7 @@ function Dashboard() {
                 <div className="relative">
                   {/* Outer Glow Circle */}
                   <div className="absolute inset-0 bg-gradient-to-br from-red-400 via-orange-400 to-yellow-400 rounded-full blur-2xl opacity-30 animate-pulse"></div>
-                  
+
                   {/* Main Icon Circle */}
                   <div className="relative inline-flex items-center justify-center w-36 h-36 bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-red-900/20 dark:via-orange-900/20 dark:to-yellow-900/20 rounded-full border-4 border-red-100 dark:border-red-900/30 shadow-inner">
                     <svg
@@ -361,7 +396,7 @@ function Dashboard() {
                       />
                     </svg>
                   </div>
-                  
+
                   {/* Decorative Dots */}
                   <div className="absolute -top-2 -right-2 w-4 h-4 bg-red-400 rounded-full animate-bounce"></div>
                   <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-orange-400 rounded-full animate-bounce delay-300"></div>
@@ -375,24 +410,25 @@ function Dashboard() {
 
               {/* Description */}
               <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-10 max-w-md mx-auto leading-relaxed">
-                You haven't booked any package yet. Explore our amazing travel packages and find your perfect trip!
+                You haven't booked any package yet. Explore our amazing travel
+                packages and find your perfect trip!
               </p>
 
               {/* CTA Button */}
               <button
                 onClick={() => navigate("/all-packages")}
                 className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 hover:from-red-700 hover:via-orange-700 hover:to-yellow-700 font-bold py-4 px-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 overflow-hidden"
-                style={{ color: 'white' }}
+                style={{ color: "white" }}
               >
                 {/* Button Shine Effect */}
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 group-hover:translate-x-full transition-all duration-700 z-10"></span>
-                
+
                 <svg
                   className="w-6 h-6 relative z-30"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  style={{ color: 'white' }}
+                  style={{ color: "white" }}
                 >
                   <path
                     strokeLinecap="round"
@@ -401,7 +437,9 @@ function Dashboard() {
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   />
                 </svg>
-                <span className="relative z-30" style={{ color: 'white' }}>Explore All Packages</span>
+                <span className="relative z-30" style={{ color: "white" }}>
+                  Explore All Packages
+                </span>
               </button>
             </div>
           </div>

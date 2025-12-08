@@ -111,9 +111,7 @@ const ContactUs = () => {
                 className="bg-white dark:bg-gray-800/95 backdrop-blur border border-slate-100 rounded-2xl p-5 shadow-sm"
               >
                 <div className="flex items-start gap-3 mb-3">
-                  <div className="p-2.5 rounded-xl bg-sky-50">
-                    {card.icon}
-                  </div>
+                  <div className="p-2.5 rounded-xl bg-sky-50">{card.icon}</div>
                   <h3 className="font-semibold text-slate-900 text-base md:text-lg">
                     {card.title}
                   </h3>

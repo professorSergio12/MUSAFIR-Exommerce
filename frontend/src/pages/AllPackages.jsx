@@ -5,9 +5,6 @@ import { useNavigate } from "react-router-dom";
 const AllPackages = () => {
   const { data, isLoading, isError } = useAllPackages();
   const navigate = useNavigate();
-  // Card click disabled; navigation only via More Info button
-
-  // Filter states
   const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [durationRange, setDurationRange] = useState([1, 30]);
   const [showFilters, setShowFilters] = useState(false);
@@ -75,7 +72,9 @@ const AllPackages = () => {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">Loading packages...</p>
+          <p className="text-gray-600 dark:text-gray-300">
+            Loading packages...
+          </p>
         </div>
       </div>
     );

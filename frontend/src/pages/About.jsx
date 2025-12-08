@@ -77,7 +77,9 @@ const About = () => {
               <div className="text-4xl font-bold text-blue-600 dark:text-blue-400">
                 {stat.number}
               </div>
-              <div className="text-gray-600 dark:text-gray-300">{stat.label}</div>
+              <div className="text-gray-600 dark:text-gray-300">
+                {stat.label}
+              </div>
             </div>
           ))}
         </div>
@@ -86,7 +88,9 @@ const About = () => {
       <div className="bg-blue-50 dark:bg-gray-800 py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Our Values</h2>
+            <h2 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+              Our Values
+            </h2>
             <p className="text-gray-600 dark:text-gray-300">
               The principles that guide our journeys
             </p>
@@ -98,9 +102,15 @@ const About = () => {
                 key={i}
                 className="bg-white dark:bg-gray-700 rounded-xl p-6 shadow hover:shadow-xl transition"
               >
-                <div className="text-blue-600 dark:text-blue-400 mb-4">{v.icon}</div>
-                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{v.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300">{v.description}</p>
+                <div className="text-blue-600 dark:text-blue-400 mb-4">
+                  {v.icon}
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                  {v.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {v.description}
+                </p>
               </div>
             ))}
           </div>

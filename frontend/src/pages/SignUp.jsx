@@ -225,7 +225,9 @@ const Signup = () => {
               {/* OR */}
               <div className="flex items-center my-6">
                 <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
-                <span className="px-4 text-gray-500 dark:text-gray-400 text-sm">OR</span>
+                <span className="px-4 text-gray-500 dark:text-gray-400 text-sm">
+                  OR
+                </span>
                 <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
               </div>
 

@@ -10,7 +10,8 @@ const UserPersonalGallery = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { data: galleryData, isLoading, isError } = useUserGalleryImages();
-  const { mutate: deleteImage, isPending: isDeleting } =useDeleteUserGalleryImage();
+  const { mutate: deleteImage, isPending: isDeleting } =
+    useDeleteUserGalleryImage();
 
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   let galleryImages = [];
@@ -59,7 +60,9 @@ const UserPersonalGallery = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">My Gallery</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            My Gallery
+          </h1>
           <p className="text-gray-600 dark:text-gray-300">
             {galleryImages.length > 0
               ? `You have ${galleryImages.length} photo${
@@ -73,7 +76,9 @@ const UserPersonalGallery = () => {
         {deleteConfirm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-md w-full p-6">
-              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Delete Image?</h3>
+              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+                Delete Image?
+              </h3>
               <p className="text-gray-600 dark:text-gray-300 mb-6">
                 This action cannot be undone.
               </p>
@@ -179,7 +184,7 @@ const UserPersonalGallery = () => {
                 <div className="relative">
                   {/* Outer Glow Circle */}
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-400 to-pink-400 rounded-full blur-2xl opacity-30 animate-pulse"></div>
-                  
+
                   {/* Main Icon Circle */}
                   <div className="relative inline-flex items-center justify-center w-36 h-36 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-full border-4 border-blue-100 dark:border-blue-900/30 shadow-inner">
                     <svg
@@ -196,7 +201,7 @@ const UserPersonalGallery = () => {
                       />
                     </svg>
                   </div>
-                  
+
                   {/* Decorative Dots */}
                   <div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-400 rounded-full animate-bounce"></div>
                   <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-purple-400 rounded-full animate-bounce delay-300"></div>
@@ -210,24 +215,25 @@ const UserPersonalGallery = () => {
 
               {/* Description */}
               <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-10 max-w-md mx-auto leading-relaxed">
-                You haven't uploaded any photos yet. Share your travel memories and make your gallery beautiful!
+                You haven't uploaded any photos yet. Share your travel memories
+                and make your gallery beautiful!
               </p>
 
               {/* CTA Button */}
               <button
                 onClick={() => navigate("/profile?tab=post")}
                 className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 font-bold py-4 px-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 overflow-hidden"
-                style={{ color: 'white' }}
+                style={{ color: "white" }}
               >
                 {/* Button Shine Effect */}
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 group-hover:translate-x-full transition-all duration-700 z-10"></span>
-                
+
                 <svg
                   className="w-6 h-6 relative z-30"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  style={{ color: 'white' }}
+                  style={{ color: "white" }}
                 >
                   <path
                     strokeLinecap="round"
@@ -236,7 +242,9 @@ const UserPersonalGallery = () => {
                     d="M12 4v16m8-8H4"
                   />
                 </svg>
-                <span className="relative z-30" style={{ color: 'white' }}>Upload Photo</span>
+                <span className="relative z-30" style={{ color: "white" }}>
+                  Upload Photo
+                </span>
               </button>
             </div>
           </div>
