@@ -31,7 +31,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://musafir-exommerce-uj95.vercel.app/",
-      "http://13.60.224.241/"
+      "http://13.60.224.241"
     ],
     credentials: true,
   })
