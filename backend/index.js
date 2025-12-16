@@ -30,8 +30,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://musafir-exommerce-uj95.vercel.app/",
-      "http://13.60.224.241"
+      "https://musafir-exommerce-uj95.vercel.app",
+      "http://13.49.21.179",
     ],
     credentials: true,
   })
