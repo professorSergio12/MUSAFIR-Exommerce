@@ -37,12 +37,6 @@ app.use(
   })
 );
 
-//test route
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
-
 //routers
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
@@ -52,6 +46,10 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/gallery", galleryImgUploadRoutes);
 
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
 
 // app.listen(PORT, () => {
