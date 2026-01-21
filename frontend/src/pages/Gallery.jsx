@@ -3,7 +3,7 @@ import { Modal } from "flowbite-react";
 import {
   XMarkIcon,
   MagnifyingGlassPlusIcon,
-  MapPinIcon
+  MapPinIcon,
 } from "@heroicons/react/24/outline";
 
 const galleryImages = [
@@ -12,28 +12,28 @@ const galleryImages = [
     url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=1000&fit=crop",
     title: "Mountain Adventure",
     location: "Swiss Alps",
-    height: "tall"
+    height: "tall",
   },
   {
     id: 2,
     url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop",
     title: "Beach Paradise",
     location: "Maldives",
-    height: "short"
+    height: "short",
   },
   {
     id: 3,
     url: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&h=800&fit=crop",
     title: "Sunset Views",
     location: "Santorini",
-    height: "medium"
+    height: "medium",
   },
   {
     id: 4,
     url: "https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=800&h=600&fit=crop",
     title: "Desert Safari",
     location: "Dubai",
-    height: "short"
+    height: "short",
   },
 ];
 
@@ -67,12 +67,12 @@ const Gallery = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-orange-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-12 px-4">
       <div className="max-w-7xl mx-auto mb-12 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-4">
           Our Travel Gallery
         </h1>
-        <p className="text-gray-600 text-lg">
+        <p className="text-gray-600 dark:text-gray-300 text-lg">
           Explore breathtaking destinations around the world
         </p>
       </div>
@@ -83,7 +83,7 @@ const Gallery = () => {
           {galleryImages.map((image) => (
             <div
               key={image.id}
-              className={`group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer bg-white ${getHeightClass(
+              className={`group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer bg-white dark:bg-gray-800 ${getHeightClass(
                 image.height
               )}`}
               onClick={() => setSelectedImage(image)}
@@ -121,7 +121,12 @@ const Gallery = () => {
       </div>
 
       {/* Lightbox Modal - Flowbite */}
-      <Modal show={selectedImage !== null} size="5xl" onClose={() => setSelectedImage(null)} popup>
+      <Modal
+        show={selectedImage !== null}
+        size="5xl"
+        onClose={() => setSelectedImage(null)}
+        popup
+      >
         {selectedImage && (
           <div className="relative bg-black p-4 rounded-lg">
             {/* Close button */}

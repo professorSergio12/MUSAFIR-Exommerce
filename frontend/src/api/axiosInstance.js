@@ -1,9 +1,10 @@
-import axios from 'axios'
+import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:4000/api',
-    // baseURL: 'https://musafir-exommerce.vercel.app/api',
-    withCredentials: true,
-})
+  // baseURL: import.meta.env.VITE_API_URL_AWS,
+  baseURL: import.meta.env.VITE_APP_API_URL_LOCAL,
+  // baseURL: import.meta.env.VITE_APP_API_URL_VERCEL,
+  withCredentials: true,
+});
 
 export default axiosInstance;

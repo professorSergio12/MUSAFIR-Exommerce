@@ -1,19 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import { useUserBookings } from "../hooks/useBookings";
 import { useNavigate } from "react-router-dom";
+import { getPackageBySlug } from "../api/packagesApi";
+import ReviewForm from "../components/ReviewForm";
+import { useQuery } from "@tanstack/react-query";
 
 function Dashboard() {
   const { data: bookingsData, isLoading, isError } = useUserBookings();
   const navigate = useNavigate();
+  const [expandedBookingId, setExpandedBookingId] = useState(null);
+  const [fullPackageDetails, setFullPackageDetails] = useState({});
+  const [loadingFullDetails, setLoadingFullDetails] = useState({});
+  const [showReviewForm, setShowReviewForm] = useState(null);
 
   const bookings = bookingsData?.data || [];
 
+  const handleViewMore = async (booking) => {
+    const slug = booking.packageId.slug;
+    const bookingId = booking._id;
+
+    // If already expanded, close it
+    if (expandedBookingId === bookingId) {
+      setExpandedBookingId(null);
+      return;
+    }
+
+    // If already loaded, just expand
+    if (fullPackageDetails[bookingId]) {
+      setExpandedBookingId(bookingId);
+      return;
+    }
+
+    // Fetch full package details
+    setLoadingFullDetails((prev) => ({ ...prev, [bookingId]: true }));
+    try {
+      const fullPackage = await getPackageBySlug(slug);
+      setFullPackageDetails((prev) => ({
+        ...prev,
+        [bookingId]: fullPackage,
+      }));
+      setExpandedBookingId(bookingId);
+    } catch (error) {
+      console.error("Error fetching full package:", error);
+      alert("Failed to load package details. Please try again.");
+    } finally {
+      setLoadingFullDetails((prev) => ({ ...prev, [bookingId]: false }));
+    }
+  };
+
+  const handleAddReview = (booking) => {
+    // Handle both populated and non-populated packageId
+    const packageId = booking.packageId?._id
+      ? booking.packageId._id.toString()
+      : booking.packageId?.toString() || booking.packageId;
+
+    setShowReviewForm({
+      packageId: packageId,
+      bookingId: booking._id,
+      packageName:
+        booking.packageId?.name || booking.packageId?.name || "Package",
+    });
+  };
+
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-8">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your bookings...</p>
+          <p className="text-gray-600 dark:text-gray-300">
+            Loading your bookings...
+          </p>
         </div>
       </div>
     );
@@ -21,10 +77,10 @@ function Dashboard() {
 
   if (isError) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-8">
         <div className="text-center">
           <div className="text-red-500 text-xl mb-4">⚠️</div>
-          <p className="text-red-600 mb-4">
+          <p className="text-red-600 dark:text-red-400 mb-4">
             Failed to load your bookings. Please try again later.
           </p>
           <button
@@ -39,12 +95,14 @@ function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 md:p-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Bookings</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            My Bookings
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">
             View and manage all your travel bookings
           </p>
         </div>
@@ -62,10 +120,14 @@ function Dashboard() {
                 day: "numeric",
               });
 
+              const isExpanded = expandedBookingId === booking._id;
+              const fullPackage = fullPackageDetails[booking._id];
+              const isLoadingDetails = loadingFullDetails[booking._id];
+
               return (
                 <div
                   key={booking._id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                  className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
                 >
                   {/* Package Image */}
                   <div className="relative h-48 overflow-hidden">
@@ -97,13 +159,13 @@ function Dashboard() {
                   {/* Content */}
                   <div className="p-6">
                     {/* Package Name */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-1">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-1">
                       {packageData?.name || "Package Name"}
                     </h3>
 
                     {/* Package Details */}
                     <div className="space-y-2 mb-4">
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                         <svg
                           className="w-4 h-4"
                           fill="none"
@@ -126,7 +188,7 @@ function Dashboard() {
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                         <svg
                           className="w-4 h-4"
                           fill="none"
@@ -151,7 +213,7 @@ function Dashboard() {
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                         <svg
                           className="w-4 h-4"
                           fill="none"
@@ -170,11 +232,11 @@ function Dashboard() {
                     </div>
 
                     {/* Divider */}
-                    <div className="border-t border-gray-200 my-4"></div>
+                    <div className="border-t border-gray-200 dark:border-gray-700 my-4"></div>
 
                     {/* Booking Amount */}
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-sm text-gray-600">
+                      <span className="text-sm text-gray-600 dark:text-gray-300">
                         Total Amount:
                       </span>
                       <span className="text-xl font-bold text-red-600">
@@ -182,41 +244,217 @@ function Dashboard() {
                       </span>
                     </div>
 
-                    {/* View Package Button */}
-                    {packageData?.slug && (
-                      <button
-                        onClick={() =>
-                          navigate(`/packages/${packageData.slug}`)
-                        }
-                        className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
-                      >
-                        View Package Details
-                      </button>
+                    {/* Expanded Section - Full Package Details */}
+                    {isExpanded && (
+                      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 space-y-4">
+                        {isLoadingDetails ? (
+                          <div className="text-center py-4">
+                            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-red-600 mx-auto mb-2"></div>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                              Loading details...
+                            </p>
+                          </div>
+                        ) : fullPackage ? (
+                          <>
+                            {/* Full Description */}
+                            {fullPackage.description && (
+                              <div>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+                                  Description
+                                </h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                                  {fullPackage.description}
+                                </p>
+                              </div>
+                            )}
+
+                            {/* Itinerary */}
+                            {fullPackage.itinerary &&
+                              fullPackage.itinerary.length > 0 && (
+                                <div>
+                                  <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+                                    Itinerary
+                                  </h4>
+                                  <div className="space-y-2">
+                                    {fullPackage.itinerary.map((item, idx) => (
+                                      <div
+                                        key={idx}
+                                        className="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2"
+                                      >
+                                        <span className="text-red-600 dark:text-red-400 font-bold">
+                                          {idx + 1}.
+                                        </span>
+                                        <span>{item.name || item}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              )}
+
+                            {/* Hotels */}
+                            {fullPackage.availableHotels &&
+                              fullPackage.availableHotels.length > 0 && (
+                                <div>
+                                  <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+                                    Available Hotels
+                                  </h4>
+                                  <div className="space-y-2">
+                                    {fullPackage.availableHotels.map(
+                                      (hotel, idx) => (
+                                        <div
+                                          key={idx}
+                                          className="text-sm text-gray-600 dark:text-gray-300"
+                                        >
+                                          {hotel.name || hotel}
+                                        </div>
+                                      )
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+
+                            {/* Food Options */}
+                            {fullPackage.availableFoodOptions &&
+                              fullPackage.availableFoodOptions.length > 0 && (
+                                <div>
+                                  <h4 className="font-bold text-gray-900 dark:text-white mb-2">
+                                    Food Options
+                                  </h4>
+                                  <div className="space-y-2">
+                                    {fullPackage.availableFoodOptions.map(
+                                      (food, idx) => (
+                                        <div
+                                          key={idx}
+                                          className="text-sm text-gray-600 dark:text-gray-300"
+                                        >
+                                          {food.name || food}
+                                        </div>
+                                      )
+                                    )}
+                                  </div>
+                                </div>
+                              )}
+                          </>
+                        ) : null}
+                      </div>
                     )}
+
+                    {/* Action Buttons */}
+                    <div className="space-y-2 mt-4">
+                      <button
+                        onClick={() => handleViewMore(booking)}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
+                      >
+                        {isExpanded ? "View Less" : "View More"}
+                      </button>
+
+                      <button
+                        onClick={() => handleAddReview(booking)}
+                        className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
+                      >
+                        Add Review
+                      </button>
+
+                      {packageData?.slug && (
+                        <button
+                          onClick={() =>
+                            navigate(`/packages/${packageData.slug}`)
+                          }
+                          className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
+                        >
+                          View Package Page
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-lg p-12 text-center">
-            <div className="text-6xl mb-4">📦</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">
-              No Bookings Yet
-            </h3>
-            <p className="text-gray-600 mb-6">
-              You haven't made any bookings yet. Start exploring our amazing
-              packages!
-            </p>
-            <button
-              onClick={() => navigate("/all-packages")}
-              className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-300"
-            >
-              Explore Packages
-            </button>
+          <div className="flex items-center justify-center min-h-[70vh] px-4">
+            <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-10 md:p-16 text-center max-w-lg mx-auto w-full border border-gray-100 dark:border-gray-700">
+              {/* Animated Icon Container */}
+              <div className="mb-8 flex justify-center">
+                <div className="relative">
+                  {/* Outer Glow Circle */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-red-400 via-orange-400 to-yellow-400 rounded-full blur-2xl opacity-30 animate-pulse"></div>
+
+                  {/* Main Icon Circle */}
+                  <div className="relative inline-flex items-center justify-center w-36 h-36 bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-red-900/20 dark:via-orange-900/20 dark:to-yellow-900/20 rounded-full border-4 border-red-100 dark:border-red-900/30 shadow-inner">
+                    <svg
+                      className="w-20 h-20 text-red-600 dark:text-red-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                      />
+                    </svg>
+                  </div>
+
+                  {/* Decorative Dots */}
+                  <div className="absolute -top-2 -right-2 w-4 h-4 bg-red-400 rounded-full animate-bounce"></div>
+                  <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-orange-400 rounded-full animate-bounce delay-300"></div>
+                </div>
+              </div>
+
+              {/* Heading */}
+              <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">
+                No Bookings Yet
+              </h2>
+
+              {/* Description */}
+              <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-10 max-w-md mx-auto leading-relaxed">
+                You haven't booked any package yet. Explore our amazing travel
+                packages and find your perfect trip!
+              </p>
+
+              {/* CTA Button */}
+              <button
+                onClick={() => navigate("/all-packages")}
+                className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 hover:from-red-700 hover:via-orange-700 hover:to-yellow-700 font-bold py-4 px-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 overflow-hidden cursor-pointer"
+                style={{ color: "white" }}
+              >
+                {/* Button Shine Effect */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 group-hover:translate-x-full transition-all duration-700 z-10"></span>
+
+                <svg
+                  className="w-6 h-6 relative z-30"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  style={{ color: "white" }}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+                <span className="relative z-30" style={{ color: "white" }}>
+                  Explore All Packages
+                </span>
+              </button>
+            </div>
           </div>
         )}
       </div>
+
+      {/* Review Form Modal */}
+      {showReviewForm && (
+        <ReviewForm
+          packageId={showReviewForm.packageId}
+          bookingId={showReviewForm.bookingId}
+          packageName={showReviewForm.packageName}
+          onClose={() => setShowReviewForm(null)}
+        />
+      )}
     </div>
   );
 }

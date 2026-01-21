@@ -93,26 +93,26 @@ const UserPost = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 md:p-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
             Upload Tour Photo
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Share your amazing travel moments with the community
           </p>
         </div>
 
         {/* Upload Form */}
-        <div className="bg-white rounded-xl shadow-lg p-6 md:p-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Image Upload Section */}
             <div>
               <label
                 htmlFor="image-input"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-white-700 mb-2"
               >
                 Select Image <span className="text-red-500">*</span>
               </label>
@@ -148,7 +148,7 @@ const UserPost = () => {
                 ) : (
                   <label
                     htmlFor="image-input"
-                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors"
+                    className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                   >
                     <span className="sr-only">Upload image file</span>
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -166,11 +166,11 @@ const UserPost = () => {
                           d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                         />
                       </svg>
-                      <p className="mb-2 text-sm text-gray-500">
+                      <p className="mb-2 text-sm text-gray-300">
                         <span className="font-semibold">Click to upload</span>{" "}
                         or drag and drop
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-gray-300">
                         PNG, JPG, GIF up to 5MB
                       </p>
                     </div>
@@ -190,7 +190,7 @@ const UserPost = () => {
             <div>
               <label
                 htmlFor="caption"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-white-700 mb-2"
               >
                 Caption
               </label>
@@ -208,7 +208,7 @@ const UserPost = () => {
             <div>
               <label
                 htmlFor="location"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-white-700 mb-2"
               >
                 Location
               </label>
@@ -226,10 +226,10 @@ const UserPost = () => {
             <div>
               <label
                 htmlFor="tags"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-white-700 mb-2"
               >
                 Tags{" "}
-                <span className="text-gray-500 text-xs">(comma-separated)</span>
+                <span className="text-gray-200 text-xs">(comma-separated)</span>
               </label>
               <input
                 type="text"
@@ -239,7 +239,7 @@ const UserPost = () => {
                 placeholder="e.g., adventure, mountains, sunset"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
               />
-              <p className="mt-1 text-xs text-gray-500">
+              <p className="mt-1 text-xs text-white-500">
                 Separate multiple tags with commas
               </p>
             </div>
@@ -291,7 +291,7 @@ const UserPost = () => {
               <button
                 type="submit"
                 disabled={isPending || !imageData.file}
-                className="flex-1 bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2"
+                className="flex-1 bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer"
               >
                 {isPending ? (
                   <>

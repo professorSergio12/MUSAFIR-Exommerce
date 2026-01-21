@@ -75,10 +75,10 @@ const Signup = () => {
         </div>
 
         {/* Right Side */}
-        <div className="w-full lg:w-1/2 bg-white flex items-center justify-center p-6 md:p-8 lg:p-12 relative min-h-[calc(100vh-200px)] rounded-b-2xl lg:rounded-r-2xl lg:rounded-bl-none">
+        <div className="w-full lg:w-1/2 bg-white dark:bg-gray-800 flex items-center justify-center p-6 md:p-8 lg:p-12 relative min-h-[calc(100vh-200px)] rounded-b-2xl lg:rounded-r-2xl lg:rounded-bl-none">
           <div className="absolute top-4 right-4 md:top-8 md:right-8 hidden lg:block">
             <svg
-              className="w-8 h-8 md:w-12 md:h-12 text-blue-500"
+              className="w-8 h-8 md:w-12 md:h-12 text-blue-500 dark:text-blue-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -93,10 +93,10 @@ const Signup = () => {
           </div>
 
           <div className="w-full max-w-md">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600 mb-2">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
               Welcome
             </h2>
-            <p className="text-gray-500 mb-6 md:mb-8 text-sm md:text-base">
+            <p className="text-gray-500 dark:text-gray-400 mb-6 md:mb-8 text-sm md:text-base">
               Create Your Account
             </p>
 
@@ -105,7 +105,7 @@ const Signup = () => {
               <div>
                 <label
                   htmlFor="username"
-                  className="block text-gray-700 text-sm font-medium mb-2"
+                  className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
                 >
                   Username
                 </label>
@@ -130,7 +130,7 @@ const Signup = () => {
                     value={formData.username}
                     onChange={handleChange}
                     placeholder="Enter your username"
-                    className="w-full pl-10 pr-4 py-3 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 transition"
+                    className="w-full pl-10 pr-4 py-3 border-2 border-blue-500 dark:border-blue-400 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   />
                 </div>
               </div>
@@ -139,7 +139,7 @@ const Signup = () => {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-gray-700 text-sm font-medium mb-2"
+                  className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
                 >
                   Email id
                 </label>
@@ -164,7 +164,7 @@ const Signup = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="your.email@example.com"
-                    className="w-full pl-10 pr-4 py-3 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 transition"
+                    className="w-full pl-10 pr-4 py-3 border-2 border-blue-500 dark:border-blue-400 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   />
                 </div>
               </div>
@@ -173,7 +173,7 @@ const Signup = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-gray-700 text-sm font-medium mb-2"
+                  className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2"
                 >
                   Password
                 </label>
@@ -198,7 +198,7 @@ const Signup = () => {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Enter your password"
-                    className="w-full pl-10 pr-4 py-3 border-2 border-blue-500 rounded-lg focus:ring-2 focus:ring-blue-500 transition"
+                    className="w-full pl-10 pr-4 py-3 border-2 border-blue-500 dark:border-blue-400 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   />
                 </div>
               </div>
@@ -217,26 +217,28 @@ const Signup = () => {
               </button>
 
               {error && (
-                <p className="text-red-500 text-center text-sm">
+                <p className="text-red-500 dark:text-red-400 text-center text-sm">
                   {error.response.data.message || "Something went wrong!"}
                 </p>
               )}
 
               {/* OR */}
               <div className="flex items-center my-6">
-                <div className="flex-1 border-t border-gray-300"></div>
-                <span className="px-4 text-gray-500 text-sm">OR</span>
-                <div className="flex-1 border-t border-gray-300"></div>
+                <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
+                <span className="px-4 text-gray-500 dark:text-gray-400 text-sm">
+                  OR
+                </span>
+                <div className="flex-1 border-t border-gray-300 dark:border-gray-600"></div>
               </div>
 
               {/* Google Login Button */}
               <OAuth />
 
-              <p className="text-center text-gray-600 text-sm mt-6">
+              <p className="text-center text-gray-600 dark:text-gray-300 text-sm mt-6">
                 Already have an account?{" "}
                 <Link
                   to="/signin"
-                  className="text-blue-600 font-semibold hover:underline"
+                  className="text-blue-600 dark:text-blue-400 font-semibold hover:underline"
                 >
                   Sign In
                 </Link>

@@ -28,7 +28,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white/98 backdrop-blur-md shadow-2xl sticky top-0 z-50 border-b border-gray-200">
+    <nav className="bg-white/98 dark:bg-gray-900/98 backdrop-blur-md shadow-2xl sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -36,9 +36,9 @@ const Navbar = () => {
             className="flex-shrink-0 cursor-pointer"
             onClick={() => navigate("/")}
           >
-            <h1 className="text-3xl font-bold text-gray-900 tracking-wide">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-wide">
               <span className="text-orange-500">M</span>
-              <span className="text-gray-900">USAFIR</span>
+              <span className="text-gray-900 dark:text-white">USAFIR</span>
             </h1>
           </div>
 
@@ -48,25 +48,23 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-gray-900 hover:text-orange-500 px-4 py-2 text-lg font-semibold transition-colors duration-300 relative group"
+                className="text-gray-900 dark:text-white hover:text-orange-500 px-4 py-2 text-lg font-semibold transition-colors duration-300 relative group"
               >
                 {item.name}
                 <span className="absolute bottom-0 left-0 w-0 h-1 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
             ))}
-            <Button
+            {/* <button
               onClick={() => dispatch(toggleTheme())}
-              color="gray"
-              pill
-              size="md"
-              className="sm:flex hidden items-center justify-center !w-12 !h-10"
+              className="flex items-center justify-center w-12 h-10 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
+              aria-label="Toggle theme"
             >
-              {theme === "light" ? (
+              {theme === "dark" ? (
                 <FaSun className="text-xl text-yellow-500" />
               ) : (
                 <FaMoon className="text-xl text-blue-500" />
               )}
-            </Button>
+            </button> */}
 
             {!currentUser && (
               <Link
@@ -110,10 +108,21 @@ const Navbar = () => {
           </div>
 
           {/* Mobile toggle button */}
-          <div className="lg:hidden">
+          <div className="lg:hidden flex items-center gap-4">
+            <button
+              onClick={() => dispatch(toggleTheme())}
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? (
+                <FaSun className="text-lg text-yellow-500" />
+              ) : (
+                <FaMoon className="text-lg text-blue-500" />
+              )}
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-900 hover:text-orange-500 p-2 focus:outline-none"
+              className="text-gray-900 dark:text-white hover:text-orange-500 p-2 focus:outline-none"
             >
               {isOpen ? (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor">
@@ -146,13 +155,13 @@ const Navbar = () => {
               : "max-h-0 opacity-0 overflow-hidden"
           }`}
         >
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-white/98 backdrop-blur-md border-t border-gray-200">
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border-t border-gray-200 dark:border-gray-700">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 onClick={() => setIsOpen(false)}
-                className="text-gray-900 hover:text-orange-500 hover:bg-orange-500/10 block px-4 py-3 rounded-md text-lg font-semibold"
+                className="text-gray-900 dark:text-white hover:text-orange-500 hover:bg-orange-500/10 block px-4 py-3 rounded-md text-lg font-semibold"
               >
                 {item.name}
               </Link>
@@ -177,7 +186,7 @@ const Navbar = () => {
                     navigate("/profile?tab=profile");
                     setIsOpen(false);
                   }}
-                  className="flex items-center space-x-3 px-4 py-3 text-lg text-gray-900"
+                  className="flex items-center space-x-3 px-4 py-3 text-lg text-gray-900 dark:text-white"
                 >
                   {currentUser.profilePicture ? (
                     <img

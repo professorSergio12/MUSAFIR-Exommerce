@@ -5,9 +5,6 @@ import { useNavigate } from "react-router-dom";
 const AllPackages = () => {
   const { data, isLoading, isError } = useAllPackages();
   const navigate = useNavigate();
-  // Card click disabled; navigation only via More Info button
-
-  // Filter states
   const [priceRange, setPriceRange] = useState([0, 1000000]);
   const [durationRange, setDurationRange] = useState([1, 30]);
   const [showFilters, setShowFilters] = useState(false);
@@ -72,10 +69,12 @@ const AllPackages = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading packages...</p>
+          <p className="text-gray-600 dark:text-gray-300">
+            Loading packages...
+          </p>
         </div>
       </div>
     );
@@ -83,10 +82,10 @@ const AllPackages = () => {
 
   if (isError) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="text-red-500 text-xl mb-4">⚠️</div>
-          <p className="text-red-600">
+          <p className="text-red-600 dark:text-red-400">
             Failed to load packages. Please try again later.
           </p>
         </div>
@@ -95,16 +94,16 @@ const AllPackages = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-900">
       {/* Header */}
-      <div className="bg-white shadow-sm">
+      <div className="bg-white dark:bg-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
                 All Travel Packages
               </h1>
-              <p className="text-xl text-gray-600">
+              <p className="text-xl text-gray-600 dark:text-gray-300">
                 Discover amazing destinations with our curated travel packages
               </p>
             </div>
@@ -139,14 +138,14 @@ const AllPackages = () => {
               showFilters ? "block" : "hidden"
             } lg:block w-80 flex-shrink-0`}
           >
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-8">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 sticky top-8">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                   Sort & Filter
                 </h2>
                 <button
                   onClick={() => setShowFilters(false)}
-                  className="lg:hidden text-gray-400 hover:text-gray-600"
+                  className="lg:hidden text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   <svg
                     className="w-6 h-6"
@@ -166,11 +165,11 @@ const AllPackages = () => {
 
               {/* Price Filter */}
               <div className="mb-8">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   Price Range
                 </h3>
                 <div className="space-y-4">
-                  <div className="flex justify-between text-sm text-gray-600">
+                  <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
                     <span>₹{priceRange[0].toLocaleString()}</span>
                     <span>₹{priceRange[1].toLocaleString()}</span>
                   </div>
@@ -207,11 +206,11 @@ const AllPackages = () => {
 
               {/* Duration Filter */}
               <div className="mb-8">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   Duration (Days)
                 </h3>
                 <div className="space-y-4">
-                  <div className="flex justify-between text-sm text-gray-600">
+                  <div className="flex justify-between text-sm text-gray-600 dark:text-gray-300">
                     <span>Min. {durationRange[0]} days</span>
                     <span>Max. {durationRange[1]} days</span>
                   </div>
@@ -247,10 +246,10 @@ const AllPackages = () => {
               </div>
 
               {/* Results Count */}
-              <div className="pt-4 border-t border-gray-200">
-                <p className="text-sm text-gray-600">
+              <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                <p className="text-sm text-gray-600 dark:text-gray-300">
                   Showing{" "}
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-semibold text-gray-900 dark:text-white">
                     {packages.length}
                   </span>{" "}
                   of {allPackages.length} packages
@@ -277,7 +276,7 @@ const AllPackages = () => {
                 {packages.map((pkg) => (
                   <div
                     key={pkg.id}
-                    className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
                   >
                     {/* Image with Tag */}
                     <div className="relative h-48 overflow-hidden">
@@ -293,7 +292,7 @@ const AllPackages = () => {
 
                     {/* Content */}
                     <div className="p-4">
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
                         {pkg.title}
                       </h3>
 
@@ -306,7 +305,7 @@ const AllPackages = () => {
                         </span>
                       </div>
 
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
                         {pkg.description}
                       </p>
 
@@ -322,7 +321,7 @@ const AllPackages = () => {
                         <p className="text-xs text-gray-500">
                           All inclusive tour price starts
                         </p>
-                        <p className="text-lg font-bold text-gray-900">
+                        <p className="text-lg font-bold text-gray-900 dark:text-white">
                           ₹
                           {typeof pkg.price === "number"
                             ? pkg.price.toLocaleString()
@@ -347,7 +346,7 @@ const AllPackages = () => {
             ) : (
               <div className="text-center py-20">
                 <div className="text-gray-400 text-6xl mb-4">✈️</div>
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                <h3 className="text-xl font-semibold text-gray-600 dark:text-gray-300 mb-2">
                   No packages available
                 </h3>
                 <p className="text-gray-500">

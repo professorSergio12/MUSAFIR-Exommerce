@@ -1,69 +1,35 @@
 import React, { useState, useEffect } from "react";
+import { getPackageReviews } from "../api/reviewsApi";
+import { useQuery } from "@tanstack/react-query";
 
-const reviews = [
-  {
-    id: 1,
-    name: "Priya Sharma",
-    location: "Mumbai",
-    rating: 5,
-    review: "Amazing experience! The Kashmir trip was perfectly planned. Our guide was knowledgeable and the hotels were excellent.",
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
-    trip: "Kashmir Paradise"
-  },
-  {
-    id: 2,
-    name: "Rajesh Kumar",
-    location: "Delhi",
-    rating: 5,
-    review: "Best travel agency! The Rajasthan tour exceeded our expectations. Highly recommended for family trips.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
-    trip: "Rajasthan Royalty"
-  },
-  {
-    id: 3,
-    name: "Sneha Patel",
-    location: "Ahmedabad",
-    rating: 5,
-    review: "24x7 support was incredible! They helped us with last-minute changes. The Goa package was perfect.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
-    trip: "Goa Beach Bliss"
-  },
-  {
-    id: 4,
-    name: "Amit Singh",
-    location: "Bangalore",
-    rating: 5,
-    review: "Professional service and great value for money. The local guides were amazing and very helpful.",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
-    trip: "Mount Kun Expedition"
-  },
-  {
-    id: 5,
-    name: "Kavya Reddy",
-    location: "Hyderabad",
-    rating: 5,
-    review: "Excellent customer service! They made our honeymoon trip memorable. Will definitely book again.",
-    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face",
-    trip: "Markha Valley Trek"
-  }
-];
-
-const CustomerReviews = () => {
+const CustomerReviews = ({ packageId }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % reviews.length);
-    }, 4000);
+  const { data: reviewsData, isLoading } = useQuery({
+    queryKey: ["package-reviews", packageId],
+    queryFn: () => getPackageReviews(packageId),
+    enabled: Boolean(packageId),
+  });
 
-    return () => clearInterval(interval);
-  }, []);
+  const reviews = reviewsData?.data?.reviews || [];
+
+  useEffect(() => {
+    if (reviews.length > 0) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % reviews.length);
+      }, 4000);
+
+      return () => clearInterval(interval);
+    }
+  }, [reviews.length]);
 
   const renderStars = (rating) => {
     return Array.from({ length: 5 }, (_, i) => (
       <svg
         key={i}
-        className={`w-5 h-5 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+        className={`w-5 h-5 ${
+          i < rating ? "text-yellow-400" : "text-gray-300"
+        }`}
         fill="currentColor"
         viewBox="0 0 20 20"
       >
@@ -72,12 +38,48 @@ const CustomerReviews = () => {
     ));
   };
 
+  if (isLoading) {
+    return (
+      <section className="py-20 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-300">
+              Loading reviews...
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!reviews || reviews.length === 0) {
+    return (
+      <section className="py-20 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Customer Reviews
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              No reviews yet. Be the first to review!
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Customer Reviews</h2>
-          <p className="text-lg text-gray-600">What Our Travelers Say</p>
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Customer Reviews
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300">
+            What Our Travelers Say
+          </p>
         </div>
 
         <div className="relative overflow-hidden">
@@ -88,13 +90,20 @@ const CustomerReviews = () => {
             }}
           >
             {reviews.map((review) => (
-              <div key={review.id} className="w-full flex-shrink-0 px-4">
+              <div key={review._id} className="w-full flex-shrink-0 px-4">
                 <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl mx-auto">
                   <div className="text-center">
                     {/* Stars */}
                     <div className="flex justify-center mb-4">
                       {renderStars(review.rating)}
                     </div>
+
+                    {/* Review Title */}
+                    {review.title && (
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                        {review.title}
+                      </h3>
+                    )}
 
                     {/* Review Text */}
                     <blockquote className="text-xl text-gray-700 italic mb-6 leading-relaxed">
@@ -104,14 +113,22 @@ const CustomerReviews = () => {
                     {/* Customer Info */}
                     <div className="flex items-center justify-center">
                       <img
-                        src={review.avatar}
-                        alt={review.name}
+                        src={
+                          review.user?.avatar ||
+                          "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
+                        }
+                        alt={review.user?.name || "User"}
                         className="w-16 h-16 rounded-full object-cover mr-4"
                       />
                       <div className="text-left">
-                        <h4 className="text-lg font-semibold text-gray-900">{review.name}</h4>
-                        <p className="text-gray-600">{review.location}</p>
-                        <p className="text-sm text-orange-500 font-medium">{review.trip}</p>
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                          {review.user?.name || "Anonymous"}
+                        </h4>
+                        {review.package?.name && (
+                          <p className="text-sm text-orange-500 font-medium">
+                            {review.package.name}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -121,19 +138,21 @@ const CustomerReviews = () => {
           </div>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {reviews.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? 'bg-orange-500 scale-125'
-                    : 'bg-gray-300 hover:bg-gray-400'
-                }`}
-              />
-            ))}
-          </div>
+          {reviews.length > 1 && (
+            <div className="flex justify-center mt-8 space-x-2">
+              {reviews.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentIndex
+                      ? "bg-orange-500 scale-125"
+                      : "bg-gray-300 hover:bg-gray-400"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

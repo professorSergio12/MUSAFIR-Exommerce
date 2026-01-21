@@ -75,7 +75,9 @@ export default function ForgotPassword() {
               <h1 className="text-3xl font-bold text-black mb-2 tracking-wide">
                 TRAVEL BLOGGER
               </h1>
-              <p className="text-black font-bold text-base">Reset your password</p>
+              <p className="text-black font-bold text-base">
+                Reset your password
+              </p>
             </div>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
@@ -96,7 +98,10 @@ export default function ForgotPassword() {
 
             <div className="space-y-4">
               <div>
-                <label htmlFor="email-input" className="block text-black font-bold text-base mb-2">
+                <label
+                  htmlFor="email-input"
+                  className="block text-black font-bold text-base mb-2"
+                >
                   Email Address
                 </label>
                 {fetchingEmail ? (
@@ -133,7 +138,7 @@ export default function ForgotPassword() {
                     <span>Sending OTP...</span>
                   </>
                 ) : (
-                    <>
+                  <>
                     <i className="fa-solid fa-paper-plane"></i>
                     <span>Send OTP</span>
                     <Link to="/verify-otp" className="text-blue-500"></Link>

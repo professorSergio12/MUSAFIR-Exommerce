@@ -20,12 +20,13 @@ const User = () => {
   }, [location.search]);
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-white text-gray-900">
-      <div className="w-full md:w-64 lg:w-72 bg-white border-r border-gray-100 shadow-sm">
+    <div className="min-h-screen flex flex-col md:flex-row bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+      <div className="w-full md:w-64 lg:w-72 bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700 shadow-sm">
         <SideBar />
       </div>
-      <div className="flex-1 bg-white">
+      <div className="flex-1 bg-white dark:bg-gray-900">
         {tab === "profile" && <UserProfile />}
+        {tab === "bookings" && <Dashboard />}
         {tab === "dashboard" && <Dashboard />}
         {tab === "post" && <UserPost />}
         {tab === "gallery" && <UserPersonalGallery />}

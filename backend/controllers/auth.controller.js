@@ -108,7 +108,7 @@ export const googleAuth = async (req, res, next) => {
       );
       const { password, ...rest } = user._doc;
 
-      await sendLoginMail(email, name);
+      await enqueueSignupEmail(email, name, welcomeEmailHtml(name));
 
       return res
         .status(200)
@@ -118,7 +118,7 @@ export const googleAuth = async (req, res, next) => {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
-      const hashedPassword = bcrypt.hash(generatedPassword, 10);
+      const hashedPassword = await bcrypt.hash(generatedPassword, 10);
 
       const newUser = new User({
         username:
