@@ -19,8 +19,8 @@ const app = express();
 
 // Connect to MongoDB and Redis
 connectDB();
-// connectRedis();
-// connectQueue();
+connectRedis();
+connectQueue();
 
 const PORT = process.env.PORT || 4000;
 
