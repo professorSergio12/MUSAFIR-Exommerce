@@ -36,10 +36,12 @@ app.use(
     credentials: true,
   })
 );
+
 //test route
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
+
 
 //routers
 app.use("/api/auth", authRoutes);
@@ -49,6 +51,8 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/gallery", galleryImgUploadRoutes);
+
+
 
 // app.listen(PORT, () => {
 //   console.log(`Server is running on port ${PORT}`);
