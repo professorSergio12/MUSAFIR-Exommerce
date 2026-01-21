@@ -52,9 +52,9 @@ app.get("/", (req, res) => {
 });
 
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
