@@ -119,7 +119,7 @@ const UserProfile = () => {
             <button
               type="submit"
               disabled={nameUpdating}
-              className="bg-sky-500 hover:bg-sky-600 px-10 py-3 rounded-full font-semibold text-white shadow-lg disabled:opacity-60"
+              className="bg-sky-500 hover:bg-sky-600 px-10 py-3 rounded-full font-semibold text-white shadow-lg disabled:opacity-60 cursor-pointer"
             >
               {nameUpdating ? "Saving..." : "Save Change"}
             </button>

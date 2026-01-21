@@ -134,10 +134,10 @@ const ContactUs = () => {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
           {/* FAQ style cards */}
           <div className="space-y-5">
-            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
+            <h2 className="text-2xl md:text-3xl font-bold text-white-600 mb-2">
               Frequently Asked Questions
             </h2>
-            <p className="text-slate-600 mb-4">
+            <p className="text-white-600 mb-4">
               Quick answers to the most common questions about bookings,
               cancellations and payments.
             </p>
@@ -169,10 +169,10 @@ const ContactUs = () => {
                     Q
                   </span>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1 text-sm md:text-base">
+                    <h3 className="font-semibold text-white-900 mb-1 text-sm md:text-base">
                       {item.q}
                     </h3>
-                    <p className="text-xs md:text-sm text-slate-600 leading-relaxed">
+                    <p className="text-xs md:text-sm text-white-600 leading-relaxed">
                       {item.a}
                     </p>
                   </div>
@@ -189,10 +189,10 @@ const ContactUs = () => {
             transition={{ duration: 0.5 }}
             className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl shadow-sky-100 border border-slate-100 p-6 md:p-7"
           >
-            <h3 className="text-xl font-semibold text-slate-900 mb-1">
+            <h3 className="text-xl font-semibold text-white-600 mb-1">
               Send us a message
             </h3>
-            <p className="text-sm text-slate-600 mb-5">
+            <p className="text-sm text-white-600 mb-5">
               Share your travel plans and we’ll respond within a few working
               hours.
             </p>
@@ -200,7 +200,7 @@ const ContactUs = () => {
             <form className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-slate-700 mb-1">
+                  <label className="block text-xs font-medium text-white-600 mb-1">
                     Full name
                   </label>
                   <input
@@ -210,7 +210,7 @@ const ContactUs = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-700 mb-1">
+                  <label className="block text-xs font-medium text-white-600 mb-1">
                     Email address
                   </label>
                   <div className="relative">
@@ -226,7 +226,7 @@ const ContactUs = () => {
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-slate-700 mb-1">
+                  <label className="block text-xs font-medium text-white-600 mb-1">
                     Phone number
                   </label>
                   <input
@@ -236,7 +236,7 @@ const ContactUs = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-700 mb-1">
+                  <label className="block text-xs font-medium text-white-600 mb-1">
                     Trip type
                   </label>
                   <select className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/70 focus:border-sky-500/70 bg-slate-50/60">
@@ -249,7 +249,7 @@ const ContactUs = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-700 mb-1">
+                <label className="block text-xs font-medium text-white-600 mb-1">
                   Message
                 </label>
                 <textarea
@@ -297,7 +297,7 @@ const ContactUs = () => {
               <PhoneIcon className="w-4 h-4" />
               Request a callback
             </button>
-            <button className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-gray-800 text-slate-900 px-4 py-2 text-sm font-semibold hover:bg-slate-100 transition">
+            <button className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-gray-800 text-black-700 px-4 py-2 text-sm font-semibold hover:bg-slate-100 transition">
               <ChatBubbleLeftRightIcon className="w-4 h-4" />
               Open chat
             </button>

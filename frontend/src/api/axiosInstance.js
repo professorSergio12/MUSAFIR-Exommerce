@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL_AWS,
-    // baseURL: process.env.REACT_APP_API_URL_LOCAL,
-    // baseURL: process.env.REACT_APP_API_URL_VERCEL,
-    withCredentials: true,
-})
+  // baseURL: import.meta.env.VITE_API_URL_AWS,
+  baseURL: import.meta.env.VITE_APP_API_URL_LOCAL,
+  // baseURL: import.meta.env.VITE_APP_API_URL_VERCEL,
+  withCredentials: true,
+});
 
 export default axiosInstance;

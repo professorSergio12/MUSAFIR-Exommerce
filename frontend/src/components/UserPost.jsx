@@ -112,7 +112,7 @@ const UserPost = () => {
             <div>
               <label
                 htmlFor="image-input"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-white-700 mb-2"
               >
                 Select Image <span className="text-red-500">*</span>
               </label>
@@ -166,11 +166,11 @@ const UserPost = () => {
                           d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                         />
                       </svg>
-                      <p className="mb-2 text-sm text-gray-500">
+                      <p className="mb-2 text-sm text-gray-300">
                         <span className="font-semibold">Click to upload</span>{" "}
                         or drag and drop
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-gray-300">
                         PNG, JPG, GIF up to 5MB
                       </p>
                     </div>
@@ -190,7 +190,7 @@ const UserPost = () => {
             <div>
               <label
                 htmlFor="caption"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-white-700 mb-2"
               >
                 Caption
               </label>
@@ -208,7 +208,7 @@ const UserPost = () => {
             <div>
               <label
                 htmlFor="location"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-white-700 mb-2"
               >
                 Location
               </label>
@@ -226,10 +226,10 @@ const UserPost = () => {
             <div>
               <label
                 htmlFor="tags"
-                className="block text-sm font-medium text-gray-700 mb-2"
+                className="block text-sm font-medium text-white-700 mb-2"
               >
                 Tags{" "}
-                <span className="text-gray-500 text-xs">(comma-separated)</span>
+                <span className="text-gray-200 text-xs">(comma-separated)</span>
               </label>
               <input
                 type="text"
@@ -239,7 +239,7 @@ const UserPost = () => {
                 placeholder="e.g., adventure, mountains, sunset"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all"
               />
-              <p className="mt-1 text-xs text-gray-500">
+              <p className="mt-1 text-xs text-white-500">
                 Separate multiple tags with commas
               </p>
             </div>
@@ -291,7 +291,7 @@ const UserPost = () => {
               <button
                 type="submit"
                 disabled={isPending || !imageData.file}
-                className="flex-1 bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2"
+                className="flex-1 bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer"
               >
                 {isPending ? (
                   <>

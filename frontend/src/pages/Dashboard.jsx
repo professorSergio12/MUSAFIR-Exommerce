@@ -343,14 +343,14 @@ function Dashboard() {
                     <div className="space-y-2 mt-4">
                       <button
                         onClick={() => handleViewMore(booking)}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
                       >
                         {isExpanded ? "View Less" : "View More"}
                       </button>
 
                       <button
                         onClick={() => handleAddReview(booking)}
-                        className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                        className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
                       >
                         Add Review
                       </button>
@@ -360,7 +360,7 @@ function Dashboard() {
                           onClick={() =>
                             navigate(`/packages/${packageData.slug}`)
                           }
-                          className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-300"
+                          className="w-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-semibold py-2 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
                         >
                           View Package Page
                         </button>
@@ -417,7 +417,7 @@ function Dashboard() {
               {/* CTA Button */}
               <button
                 onClick={() => navigate("/all-packages")}
-                className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 hover:from-red-700 hover:via-orange-700 hover:to-yellow-700 font-bold py-4 px-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 overflow-hidden"
+                className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 hover:from-red-700 hover:via-orange-700 hover:to-yellow-700 font-bold py-4 px-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 overflow-hidden cursor-pointer"
                 style={{ color: "white" }}
               >
                 {/* Button Shine Effect */}

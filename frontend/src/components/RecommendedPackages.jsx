@@ -78,13 +78,13 @@ const RecommendedPackages = () => {
   }
 
   return (
-    <section className="py-16 bg-orange-50 relative">
+    <section className="py-16 bg-gray-900 relative">
       <div className="max-w-8xl mx-auto px-2 sm:px-4 lg:px-6">
         {/* Section Header with Navigation */}
         <div className="flex justify-between items-center mb-8">
           <div>
             <h2 className="text-4xl font-bold mb-2">Recommended Packages</h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-white-900">
               Explore our hand-picked packages for your next adventure!
             </p>
           </div>

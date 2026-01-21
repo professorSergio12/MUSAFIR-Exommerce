@@ -54,7 +54,7 @@ const Navbar = () => {
                 <span className="absolute bottom-0 left-0 w-0 h-1 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
             ))}
-            <button
+            {/* <button
               onClick={() => dispatch(toggleTheme())}
               className="flex items-center justify-center w-12 h-10 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300"
               aria-label="Toggle theme"
@@ -64,7 +64,7 @@ const Navbar = () => {
               ) : (
                 <FaMoon className="text-xl text-blue-500" />
               )}
-            </button>
+            </button> */}
 
             {!currentUser && (
               <Link
