@@ -10,7 +10,7 @@ const menuItems = [
   { label: "Gallery", tab: "gallery", icon: "📸" },
 ];
 
-const SideBar = () => {
+const SideBar = ({ onToggle }) => {
   const navigate = useNavigate();
   const { mutate: logout } = useLogout();
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -29,16 +29,28 @@ const SideBar = () => {
 
   return (
     <aside className="min-h-[calc(100vh-80px)] flex flex-col bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-      <div className="px-4 sm:px-6 py-4 sm:py-6 md:py-8 border-b border-gray-100 dark:border-gray-700">
-        <p className="text-xs sm:text-sm uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
-          Welcome
-        </p>
-        <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white truncate">
-          {currentUser?.username || "Guest user"}
-        </h3>
-        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-          {currentUser?.email || "guest@example.com"}
-        </p>
+      <div className="px-4 sm:px-6 py-4 sm:py-6 md:py-8 border-b border-gray-100 dark:border-gray-700 flex items-start justify-between gap-3">
+        <div>
+          <p className="text-xs sm:text-sm uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
+            Welcome
+          </p>
+          <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white truncate">
+            {currentUser?.username || "Guest user"}
+          </h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+            {currentUser?.email || "guest@example.com"}
+          </p>
+        </div>
+
+        {onToggle && (
+          <button
+            type="button"
+            onClick={onToggle}
+            className="inline-flex items-center justify-center rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+          >
+            ✕
+          </button>
+        )}
       </div>
 
       <nav className="flex-1 px-2 sm:px-4 py-4 sm:py-6 space-y-2 overflow-y-auto">
