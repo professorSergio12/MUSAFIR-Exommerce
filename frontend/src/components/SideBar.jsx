@@ -29,11 +29,11 @@ const SideBar = () => {
 
   return (
     <aside className="min-h-[calc(100vh-80px)] flex flex-col bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
-      <div className="px-6 py-8 border-b border-gray-100 dark:border-gray-700">
-        <p className="text-sm uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
+      <div className="px-4 sm:px-6 py-4 sm:py-6 md:py-8 border-b border-gray-100 dark:border-gray-700">
+        <p className="text-xs sm:text-sm uppercase tracking-[0.2em] text-gray-400 dark:text-gray-500">
           Welcome
         </p>
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-white truncate">
           {currentUser?.username || "Guest user"}
         </h3>
         <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
@@ -41,15 +41,15 @@ const SideBar = () => {
         </p>
       </div>
 
-      <nav className="flex-1 px-4 py-6 space-y-2">
+      <nav className="flex-1 px-2 sm:px-4 py-4 sm:py-6 space-y-2 overflow-y-auto">
         {menuItems.map((item) => (
           <button
             key={item.label}
             type="button"
             onClick={() => handleNavigate(item.tab)}
-            className="w-full flex items-center gap-3 px-4 py-3 cursor-pointer rounded-xl text-left border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition shadow-sm text-gray-900 dark:text-white"
+            className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 cursor-pointer rounded-lg sm:rounded-xl text-left border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition shadow-sm text-gray-900 dark:text-white text-sm sm:text-base"
           >
-            <span className="text-lg">{item.icon}</span>
+            <span className="text-base sm:text-lg">{item.icon}</span>
             <span className="font-medium">{item.label}</span>
           </button>
         ))}
@@ -58,9 +58,9 @@ const SideBar = () => {
       <button
         type="button"
         onClick={() => logout()}
-        className="flex items-center gap-3 px-6 py-4 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition border-t border-gray-100 dark:border-gray-700"
+        className="flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 sm:py-4 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition border-t border-gray-100 dark:border-gray-700 text-sm sm:text-base cursor-pointer"
       >
-        <span className="text-lg">↩︎</span>
+        <span className="text-base sm:text-lg">↩︎</span>
         <span className="font-semibold">Log Out</span>
       </button>
     </aside>

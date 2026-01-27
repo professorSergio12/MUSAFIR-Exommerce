@@ -106,7 +106,7 @@ const ReviewForm = ({ packageId, bookingId, onClose, packageName }) => {
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:text-gray-300 text-2xl"
+            className="text-gray-400 cursor-pointer hover:text-gray-600 dark:text-gray-300 text-2xl"
           >
             ×
           </button>
@@ -138,7 +138,7 @@ const ReviewForm = ({ packageId, bookingId, onClose, packageName }) => {
                   onClick={() => handleRatingClick(star)}
                   onMouseEnter={() => setHoveredRating(star)}
                   onMouseLeave={() => setHoveredRating(0)}
-                  className="focus:outline-none"
+                  className="focus:outline-none cursor-pointer"
                 >
                   {hoveredRating >= star || formData.rating >= star ? (
                     <StarIcon className="w-8 h-8 text-yellow-400" />
@@ -217,14 +217,14 @@ const ReviewForm = ({ packageId, bookingId, onClose, packageName }) => {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
+              className="flex-1 px-4 py-2 border cursor-pointer border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isPending}
-              className="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-4 py-2 bg-red-600 cursor-pointer text-white rounded-lg hover:bg-red-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isPending ? "Submitting..." : "Submit Review"}
             </button>

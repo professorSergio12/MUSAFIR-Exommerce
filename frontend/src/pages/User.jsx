@@ -21,10 +21,10 @@ const User = () => {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-      <div className="w-full md:w-64 lg:w-72 bg-white dark:bg-gray-800 border-r border-gray-100 dark:border-gray-700 shadow-sm">
+      <div className="w-full md:w-64 lg:w-72 bg-white dark:bg-gray-800 border-b md:border-b-0 md:border-r border-gray-100 dark:border-gray-700 shadow-sm flex-shrink-0">
         <SideBar />
       </div>
-      <div className="flex-1 bg-white dark:bg-gray-900">
+      <div className="flex-1 bg-white dark:bg-gray-900 w-full overflow-x-hidden min-w-0">
         {tab === "profile" && <UserProfile />}
         {tab === "bookings" && <Dashboard />}
         {tab === "dashboard" && <Dashboard />}

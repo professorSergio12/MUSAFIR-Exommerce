@@ -76,21 +76,21 @@ const ContactUs = () => {
           />
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 py-20 md:py-24 flex flex-col gap-10">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 py-12 sm:py-16 md:py-20 lg:py-24 flex flex-col gap-6 md:gap-10">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6 }}
             className="max-w-2xl text-white"
           >
-            <p className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-sky-200/90 mb-3">
-              <GlobeAltIcon className="w-5 h-5" />
-              We’re here 24/7
+            <p className="inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[0.2em] text-sky-200/90 mb-2 md:mb-3">
+              <GlobeAltIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+              We're here 24/7
             </p>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-3 md:mb-4">
               Contact Musafir Support
             </h1>
-            <p className="text-sky-100/90 text-base md:text-lg">
+            <p className="text-sky-100/90 text-sm sm:text-base md:text-lg">
               Whether you are planning your first trip or managing an existing
               booking, our travel experts are just a message away.
             </p>
@@ -101,7 +101,7 @@ const ContactUs = () => {
             initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="grid md:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
           >
             {supportCards.map((card, idx) => (
               <motion.div
@@ -130,14 +130,14 @@ const ContactUs = () => {
       </section>
 
       {/* FAQ + CONTACT FORM */}
-      <section className="max-w-6xl mx-auto px-4 py-14 md:py-18">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+      <section className="max-w-6xl mx-auto px-4 py-8 sm:py-12 md:py-14 lg:py-18">
+        <div className="grid lg:grid-cols-2 gap-6 md:gap-10 lg:gap-14 items-start">
           {/* FAQ style cards */}
-          <div className="space-y-5">
-            <h2 className="text-2xl md:text-3xl font-bold text-white-600 mb-2">
+          <div className="space-y-4 md:space-y-5">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white-600 mb-2">
               Frequently Asked Questions
             </h2>
-            <p className="text-white-600 mb-4">
+            <p className="text-sm sm:text-base text-white-600 mb-4">
               Quick answers to the most common questions about bookings,
               cancellations and payments.
             </p>
@@ -277,13 +277,13 @@ const ContactUs = () => {
       </section>
 
       {/* HOW CAN WE HELP STRIP */}
-      <section className="bg-slate-900 text-slate-100 py-10 md:py-12 mt-4">
+      <section className="bg-slate-900 text-slate-100 py-8 md:py-10 lg:py-12 mt-4">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <div>
-            <h3 className="text-lg md:text-xl font-semibold">
+            <h3 className="text-base sm:text-lg md:text-xl font-semibold">
               Still need help?
             </h3>
-            <p className="text-sm text-slate-300">
+            <p className="text-xs sm:text-sm text-slate-300">
               Email us at{" "}
               <span className="font-medium text-white">
                 support@musafir.app
@@ -292,12 +292,12 @@ const ContactUs = () => {
               <span className="font-medium text-white">+91 8000 123 123</span>.
             </p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
             <button className="inline-flex items-center gap-2 rounded-full border border-slate-600 px-4 py-2 text-sm hover:bg-slate-800 transition">
               <PhoneIcon className="w-4 h-4" />
               Request a callback
             </button>
-            <button className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-gray-800 text-black-700 px-4 py-2 text-sm font-semibold hover:bg-slate-100 transition">
+            <button className="inline-flex  cursor-pointer items-center gap-2 rounded-full bg-white dark:bg-gray-800 text-black-700 px-4 py-2 text-sm font-semibold hover:bg-slate-100 transition">
               <ChatBubbleLeftRightIcon className="w-4 h-4" />
               Open chat
             </button>

@@ -175,7 +175,7 @@ const VerifyOtp = () => {
                   <button
                     onClick={handleVerifyOTP}
                     disabled={isVerifying || otp.length !== 6}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 transform hover:scale-[1.02] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 transform hover:scale-[1.02] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isVerifying ? (
                       <>
@@ -199,7 +199,7 @@ const VerifyOtp = () => {
 
                   <button
                     onClick={handleBackToForgotPassword}
-                    className="w-full bg-transparent hover:bg-gray-50 text-gray-700 font-semibold py-3 px-4 rounded-lg transition duration-200 border border-gray-300 flex items-center justify-center gap-2"
+                    className="w-full bg-transparent cursor-pointer hover:bg-gray-50 text-gray-700 font-semibold py-3 px-4 rounded-lg transition duration-200 border border-gray-300 flex items-center justify-center gap-2"
                   >
                     <i className="fa-solid fa-arrow-left"></i>
                     <span>Back to Forgot Password</span>
@@ -284,7 +284,7 @@ const VerifyOtp = () => {
                       !confirmPassword ||
                       password !== confirmPassword
                     }
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 transform hover:scale-[1.02] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 transform hover:scale-[1.02] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {isResetting ? (
                       <>
@@ -308,7 +308,7 @@ const VerifyOtp = () => {
 
                   <button
                     onClick={() => setIsOtpVerified(false)}
-                    className="w-full bg-transparent hover:bg-gray-50 text-gray-700 font-semibold py-3 px-4 rounded-lg transition duration-200 border border-gray-300 flex items-center justify-center gap-2"
+                    className="w-full bg-transparent cursor-pointer hover:bg-gray-50 text-gray-700 font-semibold py-3 px-4 rounded-lg transition duration-200 border border-gray-300 flex items-center justify-center gap-2"
                   >
                     <i className="fa-solid fa-arrow-left"></i>
                     <span>Back to OTP Verification</span>

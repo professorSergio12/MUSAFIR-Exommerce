@@ -127,7 +127,7 @@ const UserPost = () => {
                     <button
                       type="button"
                       onClick={removeImage}
-                      className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-2 transition-colors"
+                      className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-2 transition-colors cursor-pointer"
                       aria-label="Remove image"
                     >
                       <svg

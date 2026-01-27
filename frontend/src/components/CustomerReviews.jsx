@@ -71,13 +71,13 @@ const CustomerReviews = ({ packageId }) => {
   }
 
   return (
-    <section className="py-20 bg-white dark:bg-gray-800">
+    <section className="py-12 md:py-20 bg-white dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="text-center mb-8 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 md:mb-4">
             Customer Reviews
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-300">
             What Our Travelers Say
           </p>
         </div>
@@ -90,23 +90,23 @@ const CustomerReviews = ({ packageId }) => {
             }}
           >
             {reviews.map((review) => (
-              <div key={review._id} className="w-full flex-shrink-0 px-4">
-                <div className="bg-gray-50 rounded-2xl p-8 max-w-4xl mx-auto">
+              <div key={review._id} className="w-full flex-shrink-0 px-2 sm:px-4">
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-2xl p-4 sm:p-6 md:p-8 max-w-4xl mx-auto">
                   <div className="text-center">
                     {/* Stars */}
-                    <div className="flex justify-center mb-4">
+                    <div className="flex justify-center mb-3 md:mb-4">
                       {renderStars(review.rating)}
                     </div>
 
                     {/* Review Title */}
                     {review.title && (
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                      <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 md:mb-3">
                         {review.title}
                       </h3>
                     )}
 
                     {/* Review Text */}
-                    <blockquote className="text-xl text-gray-700 italic mb-6 leading-relaxed">
+                    <blockquote className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 italic mb-4 md:mb-6 leading-relaxed">
                       "{review.review}"
                     </blockquote>
 
@@ -144,7 +144,7 @@ const CustomerReviews = ({ packageId }) => {
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
                     index === currentIndex
                       ? "bg-orange-500 scale-125"
                       : "bg-gray-300 hover:bg-gray-400"

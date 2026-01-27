@@ -99,7 +99,7 @@ const Services = () => {
                       {srv.description}
                     </p>
                   </div>
-                  <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-300">
+                  <button className="bg-orange-500 cursor-pointer hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-300">
                     More Info
                   </button>
                 </div>

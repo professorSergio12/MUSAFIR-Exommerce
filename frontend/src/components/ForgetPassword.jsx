@@ -59,7 +59,7 @@ export default function ForgotPassword() {
             <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-white/30">
               <i className="fa-solid fa-envelope text-white text-3xl"></i>
             </div>
-            <h2 className="text-white text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-white text-3xl cursor-pointer md:text-4xl font-bold mb-4">
               FORGOT YOUR PASSWORD?
             </h2>
             <p className="text-blue-100 text-lg max-w-md mx-auto">
@@ -130,7 +130,7 @@ export default function ForgotPassword() {
               <button
                 onClick={handleSubmit}
                 disabled={isLoading || fetchingEmail}
-                className="w-full bg-white hover:bg-blue-50 text-blue-900 font-bold py-3 px-4 rounded-lg transition duration-200 transform hover:scale-[1.02] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-white cursor-pointer hover:bg-blue-50 text-blue-900 font-bold py-3 px-4 rounded-lg transition duration-200 transform hover:scale-[1.02] shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isLoading ? (
                   <>
@@ -148,7 +148,7 @@ export default function ForgotPassword() {
 
               <button
                 onClick={handleBackToLogin}
-                className="w-full bg-transparent hover:bg-white/10 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 border border-white/30 flex items-center justify-center gap-2"
+                className="w-full bg-transparent cursor-pointer hover:bg-white/10 text-white font-semibold py-3 px-4 rounded-lg transition duration-200 border border-white/30 flex items-center justify-center gap-2"
               >
                 <i className="fa-solid fa-arrow-left"></i>
                 <span>Back to Login</span>

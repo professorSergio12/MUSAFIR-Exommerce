@@ -19,18 +19,18 @@ const Footer = () => {
         </svg>
       </div>
 
-      <div className="px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {/* Shop Packages */}
           <div>
-            <h4 className="text-lg font-bold text-gray-900 mb-4">
+            <h4 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">
               Shop Packages
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-1.5 sm:space-y-2">
               <li>
                 <Link
                   to="/packages"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Adventure Packages
                 </Link>
@@ -38,7 +38,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/packages"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Mountain Expeditions
                 </Link>
@@ -46,7 +46,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/packages"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Cultural Tours
                 </Link>
@@ -54,7 +54,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/packages"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Beach Getaways
                 </Link>
@@ -62,23 +62,23 @@ const Footer = () => {
               <li>
                 <Link
                   to="/packages"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Shop All
                 </Link>
               </li>
             </ul>
-            <p className="text-xs text-gray-500 mt-4">©2025 musafir.com</p>
+            <p className="text-xs text-gray-500 mt-3 sm:mt-4">©2025 musafir.com</p>
           </div>
 
           {/* Learn */}
           <div>
-            <h4 className="text-lg font-bold text-gray-900 mb-4">Learn</h4>
-            <ul className="space-y-2">
+            <h4 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Learn</h4>
+            <ul className="space-y-1.5 sm:space-y-2">
               <li>
                 <Link
                   to="/about"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Our Story
                 </Link>
@@ -86,7 +86,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/guides"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Travel Guides
                 </Link>
@@ -94,7 +94,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/safety"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Safety Tips
                 </Link>
@@ -102,7 +102,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/insurance"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Travel Insurance
                 </Link>
@@ -110,7 +110,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/faq"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   FAQ's
                 </Link>
@@ -120,14 +120,14 @@ const Footer = () => {
 
           {/* More from Musafir */}
           <div>
-            <h4 className="text-lg font-bold text-gray-900 mb-4">
+            <h4 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">
               More from Musafir
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-1.5 sm:space-y-2">
               <li>
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Sign In
                 </Link>
@@ -135,7 +135,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/partner"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Partner with Us
                 </Link>
@@ -143,7 +143,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/affiliate"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Affiliate Program
                 </Link>
@@ -151,7 +151,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/contact"
-                  className="text-gray-700 hover:text-green-600 transition-colors duration-300"
+                  className="text-sm sm:text-base text-gray-700 hover:text-green-600 transition-colors duration-300"
                 >
                   Contact Us
                 </Link>
@@ -161,16 +161,16 @@ const Footer = () => {
 
           {/* Follow us */}
           <div>
-            <h4 className="text-lg font-bold text-gray-900 mb-4">Follow us</h4>
-            <div className="flex space-x-3">
+            <h4 className="text-base sm:text-lg font-bold text-gray-900 mb-3 sm:mb-4">Follow us</h4>
+            <div className="flex space-x-2 sm:space-x-3">
               <a
                 href="https://pinterest.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-green-800 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors duration-300"
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-green-800 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors duration-300"
               >
                 <svg
-                  className="w-5 h-5 text-white"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -181,10 +181,10 @@ const Footer = () => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-green-800 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors duration-300"
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-green-800 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors duration-300"
               >
                 <svg
-                  className="w-5 h-5 text-white"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -195,10 +195,10 @@ const Footer = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-green-800 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors duration-300"
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-green-800 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors duration-300"
               >
                 <svg
-                  className="w-5 h-5 text-white"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -209,10 +209,10 @@ const Footer = () => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-green-800 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors duration-300"
+                className="w-8 h-8 sm:w-10 sm:h-10 bg-green-800 rounded-full flex items-center justify-center hover:bg-green-700 transition-colors duration-300"
               >
                 <svg
-                  className="w-5 h-5 text-white"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -224,8 +224,8 @@ const Footer = () => {
         </div>
 
         {/* Bottom Policy Links */}
-        <div className="border-t border-green-200 mt-8 pt-4">
-          <div className="flex flex-wrap justify-center space-x-4 text-sm">
+        <div className="border-t border-green-200 mt-6 sm:mt-8 pt-3 sm:pt-4">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
             <Link
               to="/terms"
               className="text-gray-600 hover:text-green-600 transition-colors duration-300"

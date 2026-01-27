@@ -199,14 +199,14 @@ const PackageDetails = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Header */}
       <div className="bg-white dark:bg-gray-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center gap-4 mb-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+          <div className="flex items-center gap-2 sm:gap-4 mb-3 md:mb-4">
             <button
               onClick={() => navigate("/all-packages")}
-              className="text-gray-600 dark:text-gray-300 hover:text-gray-800"
+              className="text-gray-600 dark:text-gray-300 hover:text-gray-800 p-1 flex-shrink-0"
             >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 sm:w-6 sm:h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -219,14 +219,14 @@ const PackageDetails = () => {
                 />
               </svg>
             </button>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 dark:text-white break-words">
               {packageData.name}
             </h1>
           </div>
-          <div className="flex items-center gap-6 text-gray-600 dark:text-gray-300">
-            <span className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 md:gap-4 lg:gap-6 text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-300">
+            <span className="flex items-center gap-1 sm:gap-2">
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -238,12 +238,11 @@ const PackageDetails = () => {
                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              {packageData.durationDays} Days / {packageData.durationDays - 1}{" "}
-              Nights
+              <span className="whitespace-nowrap">{packageData.durationDays} Days / {packageData.durationDays - 1} Nights</span>
             </span>
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-1 sm:gap-2">
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -261,11 +260,11 @@ const PackageDetails = () => {
                   d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                 />
               </svg>
-              {packageData.country}
+              <span className="truncate max-w-[150px] sm:max-w-none">{packageData.country}</span>
             </span>
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-1 sm:gap-2">
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -277,18 +276,18 @@ const PackageDetails = () => {
                   d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
                 />
               </svg>
-              ₹{packageData.basePrice?.toLocaleString()}
+              <span className="whitespace-nowrap">₹{packageData.basePrice?.toLocaleString()}</span>
             </span>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6 md:space-y-8">
             {/* Package Image */}
-            <div className="relative h-[420px] w-full rounded-xl overflow-hidden">
+            <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[350px] xl:h-[420px] w-full rounded-xl overflow-hidden">
               <img
                 src={
                   packageData.images ||
@@ -300,11 +299,11 @@ const PackageDetails = () => {
             </div>
 
             {/* Description */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
                 About This Package
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                 {packageData.description ||
                   "Experience the best of this amazing destination with our carefully curated package."}
               </p>
@@ -312,35 +311,35 @@ const PackageDetails = () => {
 
             {/* Itinerary - Places to Visit */}
             {packageData.itinerary && packageData.itinerary.length > 0 && (
-              <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
                   Places You'll Visit
                 </h2>
                 <div className="space-y-4">
                   {packageData.itinerary.map((location, index) => (
                     <div
                       key={location._id || index}
-                      className="border-l-4 border-red-500 pl-4"
+                      className="border-l-4 border-red-500 pl-3 sm:pl-4"
                     >
-                      <div className="flex items-start gap-4">
-                        <div className="bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                      <div className="flex items-start gap-2 sm:gap-4">
+                        <div className="bg-red-600 text-white rounded-full w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs sm:text-sm font-bold flex-shrink-0">
                           {location.day}
                         </div>
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900 dark:text-white">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
                             {location.name}
                           </h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mt-1">
                             {location.city}, {location.country}
                           </p>
-                          <p className="text-gray-600 dark:text-gray-300 mt-2">
+                          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2">
                             {location.details}
                           </p>
                           {location.locationImage && (
                             <img
                               src={location.locationImage}
                               alt={location.name}
-                              className="mt-4 w-full h-80 object-cover rounded-lg shadow-lg"
+                              className="mt-4 w-full h-48 sm:h-64 md:h-80 object-cover rounded-lg shadow-lg"
                             />
                           )}
                         </div>
@@ -354,11 +353,11 @@ const PackageDetails = () => {
             {/* Available Hotels */}
             {packageData.availableHotels &&
               packageData.availableHotels.length > 0 && (
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
                     Choose Your Hotel
                   </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     {packageData.availableHotels.map((hotel, index) => (
                       <div
                         key={hotel._id || index}
@@ -410,7 +409,7 @@ const PackageDetails = () => {
                           <img
                             src={hotel.images[0]}
                             alt={hotel.name}
-                            className="mt-4 w-full h-56 object-cover rounded-lg shadow-lg"
+                            className="mt-4 w-full h-40 sm:h-48 md:h-56 object-cover rounded-lg shadow-lg"
                           />
                         )}
                       </div>
@@ -421,11 +420,11 @@ const PackageDetails = () => {
                   {selectedHotel &&
                     selectedHotel.roomTypes &&
                     selectedHotel.roomTypes.length > 0 && (
-                      <div className="mt-6">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                      <div className="mt-4 sm:mt-6">
+                        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                           Choose Room Type
                         </h3>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                           {selectedHotel.roomTypes.map((roomType, index) => (
                             <div
                               key={index}
@@ -460,11 +459,11 @@ const PackageDetails = () => {
             {/* Food Options */}
             {packageData.availableFoodOptions &&
               packageData.availableFoodOptions.length > 0 && (
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
                     Choose Your Meal Plan
                   </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     {packageData.availableFoodOptions.map((food, index) => (
                       <div
                         key={food._id || index}
@@ -519,36 +518,36 @@ const PackageDetails = () => {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg sticky top-8">
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 shadow-lg lg:sticky lg:top-8">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">
                 Package Summary
               </h3>
 
-              <div className="space-y-4 mb-6">
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Duration:</span>
-                  <span className="font-semibold">
+              <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Duration:</span>
+                  <span className="text-sm sm:text-base font-semibold">
                     {packageData.durationDays} Days
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Best Season:</span>
-                  <span className="font-semibold capitalize">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Best Season:</span>
+                  <span className="text-sm sm:text-base font-semibold capitalize">
                     {packageData.bestSeason}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-300">Country:</span>
-                  <span className="font-semibold">{packageData.country}</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm sm:text-base text-gray-600 dark:text-gray-300">Country:</span>
+                  <span className="text-sm sm:text-base font-semibold truncate ml-2">{packageData.country}</span>
                 </div>
               </div>
 
               {/* Price Breakdown */}
-              <div className="border-t pt-4 mb-6">
-                <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
+              <div className="border-t pt-3 sm:pt-4 mb-4 sm:mb-6">
+                <h4 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">
                   Price Breakdown
                 </h4>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-2 text-xs sm:text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-300">Base Package:</span>
                     <span>₹{packageData.basePrice?.toLocaleString()}</span>
@@ -586,7 +585,7 @@ const PackageDetails = () => {
                   )}
 
                   <div className="border-t pt-2 mt-3">
-                    <div className="flex justify-between font-bold text-lg">
+                    <div className="flex justify-between font-bold text-base sm:text-lg">
                       <span>Total Price:</span>
                       <span className="text-red-600">
                         ₹{calculatedPrice.toLocaleString()}
@@ -598,11 +597,11 @@ const PackageDetails = () => {
 
               {/* Selected Options */}
               {(selectedHotel || selectedFoodOption) && (
-                <div className="border-t pt-4 mb-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
+                <div className="border-t pt-3 sm:pt-4 mb-4 sm:mb-6">
+                  <h4 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">
                     Selected Options
                   </h4>
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-2 text-xs sm:text-sm">
                     {selectedHotel && (
                       <div>
                         <span className="text-gray-600 dark:text-gray-300">Hotel: </span>
@@ -629,11 +628,11 @@ const PackageDetails = () => {
                 </div>
               )}
 
-              <div className="border-t pt-4">
+              <div className="border-t pt-3 sm:pt-4">
                 {user == null ? (
                   <button
                     onClick={() => navigate("/signin", { state: { from: location.pathname } })}
-                    className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors duration-300"
+                    className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2.5 sm:py-3 px-4 rounded-lg transition-colors duration-300 text-sm sm:text-base"
                   >
                     Sign In to Book
                   </button>
@@ -641,7 +640,7 @@ const PackageDetails = () => {
                   <button
                     onClick={handleBookNow}
                     disabled={isCreatingOrder}
-                    className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-300"
+                    className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-2.5 sm:py-3 px-4 rounded-lg transition-colors duration-300 text-sm sm:text-base"
                   >
                     {isCreatingOrder
                       ? "Processing..."
@@ -650,7 +649,7 @@ const PackageDetails = () => {
                 )}
                 <button
                   onClick={() => navigate("/all-packages")}
-                  className="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-lg transition-colors duration-300"
+                  className="w-full mt-2 sm:mt-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2.5 sm:py-3 px-4 rounded-lg transition-colors duration-300 text-sm sm:text-base"
                 >
                   View All Packages
                 </button>
